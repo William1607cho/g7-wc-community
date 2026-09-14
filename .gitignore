@@ -1,0 +1,26 @@
+# Dependencies / build output — reproduce with `npm ci && npm run build`
+/node_modules/
+/dist/
+/vendor/
+/coverage/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local / scratch
+*.bak
+*.bak-*
+*.local
+*.log
+.env
+.env.*
+
+# Dev-Project notes — kept next to the repo, not in it
+/PROJECT.md
+/_backups/
