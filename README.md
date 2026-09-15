@@ -11,10 +11,16 @@
 >   customizations are tracked through this repository's commit history, not the version field.
 > - **Build output is not committed** (`node_modules/`, `dist/`). Run `npm ci && npm run build`
 >   before installing it as a template.
+> - **Home notice ticker requires [g7-home-widgets](https://github.com/William1607cho/g7-home-widgets) `0.2.0` or later.**
+>   The `NoticeTicker` component (`partials/home/_notice_ticker.json`) reads
+>   `/api/plugins/g7-home-widgets/notice-posts?board=notice&limit=5`; change the `board` parameter in
+>   `layouts/home.json` if your notice board uses a different slug. With no posts (or an API error) the
+>   ticker is not rendered.
 >
 > 이 저장소는 sirsoft 가 배포한 `wc-community` 템플릿을 한 사이트에서 설치·수정해 온 **비공식 커스터마이징 사본**입니다.
 > 원 저작권·MIT 라이선스 고지는 그대로 유지하며, 아래 문서는 원본 패키지(sirsoft-basic 기반)에 포함된 내용입니다.
 > 버전 표기는 원본 `1.0.0-beta.1` 을 유지하고 커스터마이징 이력은 커밋 기록으로 관리합니다.
+> **홈 공지 티커는 g7-home-widgets 0.2.0 이상이 필요합니다** (`notice-posts` API, 기본 게시판 슬러그 `notice`).
 
 ---
 

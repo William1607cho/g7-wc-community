@@ -62,6 +62,23 @@
             "fallback": {
                 "data": []
             }
+        },
+        {
+            "id": "home_notice_posts",
+            "label_key": "$t:home.notice_ticker.aria_label",
+            "type": "api",
+            "endpoint": "/api/plugins/g7-home-widgets/notice-posts",
+            "method": "GET",
+            "params": {
+                "board": "notice",
+                "limit": 5
+            },
+            "auto_fetch": true,
+            "auth_mode": "optional",
+            "loading_strategy": "progressive",
+            "fallback": {
+                "data": []
+            }
         }
     ],
     "slots": {
@@ -105,7 +122,8 @@
                                 ]
                             }
                         ]
-                    }
+                    },
+                    { "partial": "partials/home/_notice_ticker.json" }
                 ]
             }
         ]

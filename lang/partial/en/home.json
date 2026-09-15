@@ -21,6 +21,10 @@
     "boards": "Boards"
   },
   "recent_posts": "Recent Posts",
+  "notice_ticker": {
+    "label": "Notice",
+    "aria_label": "Notices"
+  },
   "no_posts": "No posts yet.",
   "popular_boards": "Popular Boards",
   "no_boards": "No popular boards yet.",

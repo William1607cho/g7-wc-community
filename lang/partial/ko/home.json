@@ -21,6 +21,10 @@
     "boards": "게시판"
   },
   "recent_posts": "최근 게시글",
+  "notice_ticker": {
+    "label": "공지",
+    "aria_label": "공지사항"
+  },
   "no_posts": "아직 게시글이 없습니다.",
   "popular_boards": "인기 게시판",
   "no_boards": "아직 인기 게시판이 없습니다.",

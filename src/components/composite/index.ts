@@ -25,6 +25,10 @@ export { HtmlEditor } from './HtmlEditor';
 // 콘텐츠 유틸리티
 export { ExpandableContent } from './ExpandableContent';
 
+// 홈 위젯
+export { NoticeTicker } from './NoticeTicker';
+export type { NoticeTickerProps, NoticeTickerItem } from './NoticeTicker';
+
 // 공통 컴포넌트
 export { default as FileUploader } from './FileUploader';
 export { ConfirmDialog } from './ConfirmDialog';
@@ -80,6 +84,9 @@ export const compositeComponents = {
 
   // 콘텐츠 유틸리티
   ExpandableContent: () => import('./ExpandableContent'),
+
+  // 홈 위젯
+  NoticeTicker: () => import('./NoticeTicker'),
 
   // 공통
   FileUploader: () => import('./FileUploader'),

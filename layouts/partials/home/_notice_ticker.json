@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "is_partial": true,
+    "description": "홈 하단 공지 티커 — g7-home-widgets 애드온 API(/api/plugins/g7-home-widgets/notice-posts?board=notice, 0.2.0 이상) 데이터를 NoticeTicker 컴포넌트에 전달. 롤링·호버 정지·reduced-motion·1건 고정·0건 숨김은 컴포넌트가 담당하고, 이 파셜은 데이터와 다국어 문구만 넘긴다"
+  },
+  "comment": "0건·API 오류(fallback [])면 래퍼째 렌더링하지 않아 여백도 남지 않는다",
+  "type": "basic",
+  "name": "Div",
+  "if": "{{(home_notice_posts.data ?? []).length > 0}}",
+  "props": { "className": "mt-6" },
+  "children": [
+    {
+      "type": "composite",
+      "name": "NoticeTicker",
+      "props": {
+        "items": "{{home_notice_posts.data ?? []}}",
+        "label": "$t:home.notice_ticker.label",
+        "ariaLabel": "$t:home.notice_ticker.aria_label"
+      }
+    }
+  ]
+}

@@ -1538,6 +1538,40 @@
             "description": "사용자 정의 클래스"
           }
         }
+      },
+      {
+        "name": "NoticeTicker",
+        "type": "composite",
+        "description": "홈 공지 티커 (한 줄 세로 롤링, 호버 정지, prefers-reduced-motion 시 첫 건 고정, 0건이면 렌더링 안 함) — g7-home-widgets 0.2.0 notice-posts 데이터",
+        "path": "src/components/composite/NoticeTicker.tsx",
+        "props": {
+          "items": {
+            "type": "array",
+            "required": false,
+            "description": "공지 목록 ({ id, board_slug, title, created_at, created_at_formatted }[])"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "좌측 라벨 텍스트"
+          },
+          "ariaLabel": {
+            "type": "string",
+            "required": false,
+            "description": "영역 접근성 라벨 (미지정 시 label)"
+          },
+          "intervalMs": {
+            "type": "number",
+            "required": false,
+            "default": 4000,
+            "description": "롤링 간격 (ms)"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "사용자 정의 클래스"
+          }
+        }
       }
     ],
     "layout": [
