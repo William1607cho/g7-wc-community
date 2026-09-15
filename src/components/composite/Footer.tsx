@@ -143,13 +143,14 @@ const Footer: React.FC<FooterProps> = ({
       title: t('footer.info'),
       links: [
         { label: t('footer.about'), href: '/page/about' },
-        { label: t('footer.faq'), href: '/page/faq' },
-        { label: t('footer.contact'), href: '/page/contact' },
+        { label: t('footer.faq'), href: '/board/qna' },
+        { label: t('footer.contact'), href: '/board/contact' },
       ],
     },
     {
       title: t('footer.policy'),
       links: [
+        { label: t('footer.notice'), href: '/board/notice' },
         { label: t('footer.terms'), href: '/page/terms' },
         { label: t('footer.privacy'), href: '/page/privacy' },
       ],

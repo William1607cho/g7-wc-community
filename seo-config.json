@@ -106,17 +106,17 @@
                             "children": [
                                 { "tag": "h4", "content": "$t:footer.info" },
                                 { "tag": "a", "attrs": { "href": "/page/about" }, "content": "$t:footer.about" },
-                                { "tag": "a", "attrs": { "href": "/page/faq" }, "content": "$t:footer.faq" },
-                                { "tag": "a", "attrs": { "href": "/page/contact" }, "content": "$t:footer.contact" }
+                                { "tag": "a", "attrs": { "href": "/board/qna" }, "content": "$t:footer.faq" },
+                                { "tag": "a", "attrs": { "href": "/board/contact" }, "content": "$t:footer.contact" }
                             ]
                         },
                         {
                             "tag": "div",
                             "children": [
                                 { "tag": "h4", "content": "$t:footer.policy" },
+                                { "tag": "a", "attrs": { "href": "/board/notice" }, "content": "$t:footer.notice" },
                                 { "tag": "a", "attrs": { "href": "/page/terms" }, "content": "$t:footer.terms" },
-                                { "tag": "a", "attrs": { "href": "/page/privacy" }, "content": "$t:footer.privacy" },
-                                { "tag": "a", "attrs": { "href": "/page/refund" }, "content": "$t:footer.refund" }
+                                { "tag": "a", "attrs": { "href": "/page/privacy" }, "content": "$t:footer.privacy" }
                             ]
                         }
                     ]

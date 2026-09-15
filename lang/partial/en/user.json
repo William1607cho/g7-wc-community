@@ -33,10 +33,11 @@
   },
   "footer": {
     "info": "Info",
-    "about": "About Us",
+    "about": "About Me",
     "faq": "FAQ",
-    "contact": "Contact Us",
+    "contact": "Report / Contact",
     "policy": "Policy",
+    "notice": "Notice",
     "terms": "Terms of Service",
     "privacy": "Privacy Policy",
     "refund": "Refund Policy"

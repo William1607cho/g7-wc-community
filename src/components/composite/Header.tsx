@@ -338,6 +338,38 @@ const Header: React.FC<HeaderProps> = ({
     }
   };
 
+  // 링크+하위가 둘 다 있는 1단 — 마우스·키보드(Enter)는 바로 이동(펼침은 hover/포커스가 담당).
+  // 터치·펜은 hover 가 없으므로 닫혀 있으면 첫 탭에 펼치기만 하고, 이미 열린 항목을 다시 탭하면 이동한다.
+  const handleLinkedParentClick = (item: TopMenuItem) => {
+    const pointerType = lastMenuPointerTypeRef.current;
+    lastMenuPointerTypeRef.current = '';
+    if ((pointerType === 'touch' || pointerType === 'pen') && openMenuId !== item.id) {
+      openMenuDropdown(item);
+      return;
+    }
+    openMenuLink(item);
+  };
+
+  // 링크+하위 1단의 키보드 포커스 — 포커스만으로 펼친다.
+  // 마우스·터치로 누를 때 생기는 포커스는 제외해야 첫 탭 펼침 → 클릭 판정이 "이미 열림 → 이동"으로 뒤바뀌지 않는다.
+  const handleLinkedParentFocus = (item: TopMenuItem, e: React.FocusEvent<HTMLElement>) => {
+    let keyboardFocus = !lastMenuPointerTypeRef.current;
+    try {
+      keyboardFocus = e.currentTarget.matches(':focus-visible');
+    } catch {
+      // :focus-visible 미지원 브라우저 — 직전 pointerdown 기록 유무로 판정
+    }
+    if (keyboardFocus) openMenuDropdown(item);
+  };
+
+  // 포커스가 이 트리거와 드롭다운 밖(다음 메뉴 항목 포함)으로 나가면 닫는다 (relatedTarget 이 없으면 판단하지 않음)
+  const handleMenuTriggerBlur = (e: React.FocusEvent<HTMLElement>) => {
+    const next = e.relatedTarget as Node | null;
+    if (!next) return;
+    if (e.currentTarget.parentElement?.contains(next) || menuDropdownRef.current?.contains(next)) return;
+    setOpenMenuId(null);
+  };
+
   const openMenu = topMenuItems.find((item) => item.id === openMenuId) ?? null;
   const openMenuChildren = Array.isArray(openMenu?.children) ? openMenu.children : [];
 
@@ -601,7 +633,7 @@ const Header: React.FC<HeaderProps> = ({
               {t('nav.popular')}
             </Button>
 
-            {/* 상단 메뉴 (g7-easy-topmenu) — 링크 있는 1단은 이름 클릭=이동·▼=펼침, 링크 없는 1단은 이름 클릭=펼침 */}
+            {/* 상단 메뉴 (g7-easy-topmenu) — 링크+하위 1단은 hover·키보드 포커스·첫 터치 탭=펼침, 클릭·Enter=이동 / 링크 없는 1단은 이름 클릭=펼침 */}
             {topMenuItems.map((item) => {
               const children = Array.isArray(item.children) ? item.children : [];
               const hasChildren = children.length > 0;
@@ -628,34 +660,26 @@ const Header: React.FC<HeaderProps> = ({
                 >
                   {item.url ? (
                     <Button
-                      onClick={() => openMenuLink(item)}
+                      onClick={() => (hasChildren ? handleLinkedParentClick(item) : openMenuLink(item))}
+                      onFocus={hasChildren ? (e: React.FocusEvent<HTMLElement>) => handleLinkedParentFocus(item, e) : undefined}
+                      onBlur={hasChildren ? handleMenuTriggerBlur : undefined}
                       className={`inline-flex items-center gap-1.5 ${getNavButtonClass(isActive)}`}
+                      aria-haspopup={hasChildren ? 'menu' : undefined}
+                      aria-expanded={hasChildren ? isOpen : undefined}
                     >
-                      {item.icon && <Icon name={item.icon} className="w-4 text-center mr-1.5" />}
+                      {item.icon && <Icon name={item.icon} className="w-4 text-center" />}
                       {item.name}
                       {item.is_external && <Span className="ml-1 text-xs opacity-60">↗</Span>}
                     </Button>
                   ) : (
                     <Button
                       onClick={() => hasChildren && toggleMenuDropdown(item)}
-                      className={`flex items-center gap-1 ${getNavButtonClass(isActive)}`}
+                      className={`flex items-center gap-1.5 ${getNavButtonClass(isActive)}`}
                       aria-haspopup={hasChildren ? 'menu' : undefined}
                       aria-expanded={hasChildren ? isOpen : undefined}
                     >
-                      {item.icon && <Icon name={item.icon} className="w-4 text-center mr-2" />}
+                      {item.icon && <Icon name={item.icon} className="w-4 text-center" />}
                       {item.name}
-                      {hasChildren && <Icon name="chevron-down" className="w-3 h-3" />}
-                    </Button>
-                  )}
-                  {item.url && hasChildren && (
-                    <Button
-                      onClick={() => toggleMenuDropdown(item)}
-                      className="px-1 py-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer"
-                      aria-haspopup="menu"
-                      aria-expanded={isOpen}
-                      aria-label={item.name}
-                    >
-                      <Icon name="chevron-down" className="w-3 h-3" />
                     </Button>
                   )}
                 </Div>
@@ -686,8 +710,8 @@ const Header: React.FC<HeaderProps> = ({
                           : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                       }`}
                     >
-                      <Span className="inline-flex items-center gap-2">
-                        {child.icon && <Icon name={child.icon} className="w-4 text-center opacity-80 mr-1.5" />}
+                      <Span className="inline-flex items-center gap-1.5">
+                        {child.icon && <Icon name={child.icon} className="w-4 text-center opacity-80" />}
                         {child.name}
                       </Span>
                       {child.is_external && <Span className="text-xs opacity-60">↗</Span>}

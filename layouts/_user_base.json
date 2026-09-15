@@ -618,7 +618,7 @@
                     "responsive": {
                         "portable": {
                             "props": {
-                                "className": "{{_global.mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}} fixed inset-y-0 right-0 z-50 w-80 max-w-full transition-transform duration-300 bg-white dark:bg-gray-800 shadow-xl overflow-y-auto"
+                                "className": "{{_global.mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}} fixed inset-y-0 right-0 z-50 w-80 max-w-full transition-transform duration-300 bg-white dark:bg-gray-800 shadow-xl overflow-y-auto scrollbar-hide"
                             }
                         }
                     },
@@ -852,7 +852,7 @@
                             "name": "Div",
                             "if": "{{_global.currentUser?.uuid}}",
                             "props": {
-                                "className": "px-4 pb-4 border-b border-gray-200 dark:border-gray-700"
+                                "className": "px-4 pt-4 pb-4 border-b border-gray-200 dark:border-gray-700"
                             },
                             "children": [
                                 {
@@ -1055,7 +1055,7 @@
                             "name": "Div",
                             "if": "{{!_global.currentUser?.uuid}}",
                             "props": {
-                                "className": "px-4 pb-4 border-b border-gray-200 dark:border-gray-700"
+                                "className": "px-4 pt-4 pb-4 border-b border-gray-200 dark:border-gray-700"
                             },
                             "children": [
                                 {
@@ -1638,7 +1638,7 @@
                                                                 {
                                                                     "handler": "navigate",
                                                                     "params": {
-                                                                        "path": "/page/faq"
+                                                                        "path": "/board/qna"
                                                                     }
                                                                 }
                                                             ]
@@ -1667,7 +1667,7 @@
                                                                 {
                                                                     "handler": "navigate",
                                                                     "params": {
-                                                                        "path": "/page/contact"
+                                                                        "path": "/board/contact"
                                                                     }
                                                                 }
                                                             ]
@@ -1688,6 +1688,35 @@
                                                         "className": "text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2"
                                                     },
                                                     "text": "$t:user.footer.policy"
+                                                },
+                                                {
+                                                    "type": "basic",
+                                                    "name": "Button",
+                                                    "props": {
+                                                        "className": "block w-full py-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left cursor-pointer"
+                                                    },
+                                                    "actions": [
+                                                        {
+                                                            "type": "click",
+                                                            "handler": "sequence",
+                                                            "actions": [
+                                                                {
+                                                                    "handler": "setState",
+                                                                    "params": {
+                                                                        "target": "global",
+                                                                        "mobileMenuOpen": false
+                                                                    }
+                                                                },
+                                                                {
+                                                                    "handler": "navigate",
+                                                                    "params": {
+                                                                        "path": "/board/notice"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "text": "$t:user.footer.notice"
                                                 },
                                                 {
                                                     "type": "basic",
