@@ -1,8 +1,15 @@
-# Dependencies / build output — reproduce with `npm ci && npm run build`
+# Dependencies — reproduce with `npm ci`
 /node_modules/
-/dist/
 /vendor/
 /coverage/
+
+# 빌드 산출물(`dist/`)은 추적한다.
+# 템플릿 업데이트는 활성 디렉토리를 통째로 갈아끼우므로, 릴리스 zip 에 없는 파일은 사이트에서
+# 사라진다. 동봉 폰트(서브셋 Font Awesome · Pretendard)는 빌드로 재현되지 않기 때문에
+# `dist/` 를 빼면 그 zip 으로 업데이트한 사이트에서 아이콘과 글꼴이 없어진다.
+# 커밋된 산출물이 정말 이 소스에서 나온 것인지는 `scripts/dist-repro-check.mjs` 로 확인한다.
+# 소스맵은 배포 빌드가 만들지 않으며(`G7_BUILD_SOURCEMAP=0`), 실수로 생겨도 커밋되지 않게 막는다.
+*.map
 
 # OS / editor
 .DS_Store

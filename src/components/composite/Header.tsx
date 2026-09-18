@@ -584,7 +584,7 @@ const Header: React.FC<HeaderProps> = ({
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                     >
-                      <Icon name="log-out" className="inline w-4 h-4 mr-2" />
+                      <Icon name="right-from-bracket" className="inline w-4 h-4 mr-2" />
                       {t('auth.logout')}
                     </Button>
                   </Div>

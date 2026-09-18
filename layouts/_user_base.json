@@ -1032,7 +1032,7 @@
                                                             "type": "basic",
                                                             "name": "Icon",
                                                             "props": {
-                                                                "name": "log-out",
+                                                                "name": "right-from-bracket",
                                                                 "size": "sm"
                                                             }
                                                         },

@@ -1,0 +1,18 @@
+# 릴리스 아카이브(`git archive`)에서 뺄 것
+#
+# 템플릿 zip 은 사이트에 그대로 풀리는 배포본이다. 개발용 파일이 거기 섞이면 운영 서버에
+# 실행되지 않는 코드가 남고, Playwright 명세처럼 사이트 구성(경로·계정)을 담은 파일까지
+# 따라 들어간다. 저장소에는 그대로 두고 아카이브에서만 뺀다.
+
+# 생성기·대조기 — 릴리스에는 산출물만 들어가면 된다
+/scripts export-ignore
+
+# 테스트
+/__tests__ export-ignore
+/tests export-ignore
+__tests__ export-ignore
+src/test-setup.ts export-ignore
+vitest.config.ts export-ignore
+
+# 이 파일 자신
+/.gitattributes export-ignore
