@@ -4,10 +4,10 @@
 형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를 따르며,
 [Semantic Versioning](https://semver.org/lang/ko/)을 준수합니다.
 
-> 아래 「Unreleased (customized copy)」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
+> 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
-## Unreleased (customized copy)
+## fork-20260918 — 2026-09-18
 
 ### Changed
 
