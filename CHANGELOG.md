@@ -4,6 +4,42 @@
 형식은 [Keep a Changelog](https://keepachangelog.com/ko/1.1.0/)를 따르며,
 [Semantic Versioning](https://semver.org/lang/ko/)을 준수합니다.
 
+> 아래 「Unreleased (customized copy)」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
+> 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
+
+## Unreleased (customized copy)
+
+### Changed
+
+- The bundled Font Awesome is now a subset: the Solid face only, carrying just the icons listed in
+  `scripts/fa-icons.json` (141 names, 129 glyphs). `dist/vendor/font-awesome/6.4.0/css/all.inlined.css`
+  goes from 479,299 to 35,673 bytes (311 KB to 16 KB gzipped). It is render-blocking CSS, so this is
+  time to first paint on every page. The font stays inlined as a `data:` URI — with asset URLs served
+  as `?file=` queries a relative `url()` in the CSS does not resolve, and every icon disappears.
+  - Intended differences: `.fa-regular` / `.far` now render with the Solid face, and the Brands face
+    and the Font Awesome 5 / v4 compatibility families are gone. Nothing in the template drew a brand
+    glyph through them — the footer social links use the Solid style class, so they were already blank.
+  - Modifier and utility rules (`fa-spin`, `fa-fw`, `fa-2x`, `fa-ul`, `fa-rotate-90`, …) are unchanged.
+  - The layout editor's icon picker (`editor-spec/controls.json`) is generated from the same list, so
+    it no longer offers icons that would render as an empty box: 1,390 entries down to 141.
+- Build output (`dist/`) is now committed. A template update replaces the whole active directory and
+  the bundled fonts are not reproducible from the build, so a release archive without them silently
+  strips the icons and the body font from the site it updates. `scripts/dist-repro-check.mjs` rebuilds
+  the source in a temporary path and compares hashes so the committed output stays accountable.
+- Development files (`scripts/`, test directories, `vitest.config.ts`, `src/test-setup.ts`) are
+  excluded from the release archive through `.gitattributes`.
+
+### Fixed
+
+- Two icons that had never rendered now do. `alert-circle` (profile edit warning, avatar upload error)
+  and `log-out` (user menu) are Lucide names with no Font Awesome equivalent, so both places drew an
+  empty box; they are now `circle-exclamation` and `right-from-bracket`.
+
+### Removed
+
+- The hardcoded `/shop/products` link in the crawler-facing header navigation (`seo-config.json`).
+  This copy ships without the e-commerce module, so the link led nowhere.
+
 ## [1.1.4] - 2026-09-09
 
 ### Added

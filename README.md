@@ -9,8 +9,16 @@
 > - **License**: MIT — the original copyright notice in [LICENSE](./LICENSE) is kept unchanged.
 > - **Version**: `template.json` / `package.json` keep the original `1.0.0-beta.1`; local
 >   customizations are tracked through this repository's commit history, not the version field.
-> - **Build output is not committed** (`node_modules/`, `dist/`). Run `npm ci && npm run build`
->   before installing it as a template.
+> - **Build output (`dist/`) is committed**, `node_modules/` is not. A template update replaces the
+>   whole active directory, and the bundled fonts cannot be reproduced by the build alone, so the
+>   release archive has to carry them. `scripts/dist-repro-check.mjs` verifies that the committed
+>   `dist/` still comes out of this source.
+> - **Font Awesome is subsetted**: only the Solid face and only the icons listed in
+>   `scripts/fa-icons.json` (141 names / 129 glyphs) ship, which takes `all.inlined.css` from 479 KB
+>   down to 35 KB. `.fa-regular` / `.far` therefore render with the Solid face, and the Brands face is
+>   dropped — nothing in the template draws a brand icon through it (the footer social links are
+>   rendered with the Solid style class, so they were already blank). See
+>   「동봉 자산과 아이콘 서브셋」 below before adding an icon.
 > - **Home notice ticker requires [g7-home-widgets](https://github.com/William1607cho/g7-home-widgets) `0.2.0` or later.**
 >   The `NoticeTicker` component (`partials/home/_notice_ticker.json`) reads
 >   `/api/plugins/g7-home-widgets/notice-posts?board=notice&limit=5`; change the `board` parameter in
@@ -226,6 +234,100 @@ php artisan template:update sirsoft-basic --force
 | 검색엔진 노출 화면에 일부 글자가 빠짐 | 새 부품이 쓰는 항목이 검색엔진용 렌더 설정에 없음 | `seo-config.json` 의 텍스트 항목 목록을 확인합니다 |
 | 화면 일부의 여백·색이 어긋남 | 새로 쓴 스타일 클래스가 빌드된 CSS 에 없음 | 기존 화면에서 쓰이던 클래스인지 확인하고, 필요하면 템플릿을 다시 빌드합니다 |
 <!-- @intent END -->
+
+## 동봉 자산과 아이콘 서브셋 (커스터마이징 사본 전용)
+
+> 이 절은 원본 패키지에 없는, 이 사본에서만 쓰는 절차입니다.
+
+### 왜 `dist/` 를 커밋하는가
+
+템플릿 업데이트는 활성 디렉토리를 **통째로 갈아끼운다**(보존되는 것은 `custom/` 뿐이다).
+그래서 릴리스 zip 에 없는 파일은 업데이트한 사이트에서 그대로 사라진다. 동봉 폰트
+(서브셋 Font Awesome · Pretendard)는 `npm run build` 로 재현되지 않으므로 — Pretendard 는
+생성 스크립트도 패키지도 없이 코어 번들에서 가져온 파일이다 — `dist/` 를 커밋하지 않으면
+그 zip 으로 업데이트한 사이트에서 아이콘과 글꼴이 없어진다. 실제로 그렇게 만든 패키지로
+설치한 사이트에서 폰트 2종이 빠진 적이 있다.
+
+대신 "커밋된 산출물이 정말 이 소스에서 나온 것인가"를 확인할 방법이 필요하므로
+`scripts/dist-repro-check.mjs` 가 임시 경로에 다시 빌드해 해시로 대조한다. 빌드가 만들지 않는
+`dist/vendor/` 는 `scripts/vendor-manifest.json` 에 적힌 sha256 과 대조한다.
+
+### 아이콘 서브셋
+
+동봉 Font Awesome 은 `scripts/fa-icons.json` 에 적힌 이름만 담은 **Solid 전용 서브셋**이다
+(141종 / 고유 글리프 129개). 이 목록이 단일 원본이고, 서브셋 폰트와 레이아웃 편집기의 아이콘
+선택기 목록이 모두 여기서 만들어진다.
+
+- `all.inlined.css` 479,299 B → 35,673 B (gzip 311 KB → 16 KB). 렌더 차단 CSS 라 첫 화면 표시에
+  바로 영향을 준다.
+- 폰트는 계속 `data:` URI 로 인라인한다. 자산 URL 이 `?file=` 쿼리가 되는 구성에서는 CSS 안의
+  상대 `url()` 이 풀리지 않아 아이콘이 통째로 사라지기 때문이다.
+- **의도된 차이**: `.fa-regular` / `.far` 는 Regular 페이스가 없어 Solid 모양으로 보인다.
+  Brands 페이스와 구버전 호환 패밀리(`Font Awesome 5 …` · `FontAwesome`)는 제거됐다.
+- 수식어·유틸리티 규칙(`fa-spin` · `fa-fw` · `fa-2x` · `fa-ul` · `fa-rotate-90` 등)은 전부 남아 있다.
+
+### 스크립트
+
+도구 버전은 `scripts/vendor-manifest.json` 에 고정돼 있다. 호스트에 아무것도 설치하지 않도록
+아래처럼 일회용 컨테이너에서 돌린다(저장소 폴더에서 실행).
+
+```bash
+# 1) 의존성
+docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD":/w -w /w \
+  node:22-bookworm-slim npm ci
+
+# 2) Font Awesome 서브셋 생성 (fa-icons.json → dist/vendor/font-awesome/6.4.0/css/all.inlined.css)
+docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD":/w -w /w python:3.12-slim sh -c '
+  pip install --quiet --target /tmp/py fonttools==4.59.0 brotli==1.1.0 &&
+  PYTHONPATH=/tmp/py python3 scripts/fa-subset.py \
+    node_modules/@fortawesome/fontawesome-free/css/all.min.css \
+    node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2 \
+    scripts/fa-icons.json \
+    dist/vendor/font-awesome/6.4.0/css/all.inlined.css'
+
+# 3) 편집기 아이콘 선택기 목록 재생성 + 대조
+docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD":/w -w /w \
+  node:22-bookworm-slim sh -c 'node scripts/fa-controls-sync.mjs && node scripts/fa-icons-check.mjs'
+
+# 4) 빌드 (배포용은 소스맵을 만들지 않는다)
+docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e G7_BUILD_SOURCEMAP=0 -v "$PWD":/w -w /w \
+  node:22-bookworm-slim sh -c 'npm run vendor:browser-image-compression && npm run build'
+
+# 5) 커밋된 dist 가 이 소스에서 재현되는지 확인 (오래 걸린다 — npm ci 를 한 번 더 한다)
+docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -v "$PWD":/w -w /w \
+  node:22-bookworm-slim node scripts/dist-repro-check.mjs
+```
+
+| 스크립트 | 하는 일 |
+|---|---|
+| `scripts/fa-icons.json` | 서브셋에 넣을 아이콘 목록 (이름 → 코드포인트·출처). **단일 원본** |
+| `scripts/fa-subset.py` | 목록대로 Solid woff2 를 서브셋해 `all.inlined.css` 를 만든다 (`npm run vendor:font-awesome`) |
+| `scripts/fa-controls-sync.mjs` | `editor-spec/controls.json` 의 아이콘 선택기 목록을 목록에서 다시 만든다 (`--check` 는 대조만) |
+| `scripts/fa-icons-check.mjs` | 저장소가 쓰는 아이콘이 목록 안에 있는지, 선택기 목록이 목록과 같은지 대조 |
+| `scripts/dist-repro-check.mjs` | 커밋된 `dist/` 를 재빌드 결과·`vendor-manifest.json` 과 해시 대조 |
+| `scripts/vendor-copy.mjs` | `browser-image-compression` 동봉본 복사 |
+| `scripts/vendor-manifest.json` | 입력 원본(버전·해시)과 도구·이미지 버전, `dist/vendor/` 파일 해시 |
+
+`scripts/` 와 테스트 폴더는 `.gitattributes` 의 `export-ignore` 로 릴리스 아카이브에서 빠진다.
+
+### 아이콘 추가 절차
+
+목록에 없는 아이콘을 쓰면 화면에서 **빈 칸**이 된다 — 콘솔 오류도 404 도 나지 않으므로 화면만
+봐서는 원인을 알 수 없다. 그래서 순서를 지킨다.
+
+1. `scripts/fa-icons.json` 의 `icons` 에 `"이름": { "codepoint": "f0xx", "sources": "…" }` 를 추가한다
+   (이름 오름차순). 코드포인트는 `node_modules/@fortawesome/fontawesome-free/css/all.min.css` 의
+   `.fa-<이름>:before{content:"\f0xx"}` 에서 그대로 가져온다. 값이 틀리면 생성기가 중단한다.
+2. 위 2) 3) 4) 를 다시 돌린다 (서브셋 → 선택기 → 빌드).
+3. `node scripts/fa-icons-check.mjs` 가 통과하는지 확인한다.
+4. `dist/` 변경분과 함께 커밋한다.
+
+Brands 아이콘(github · x 등)은 이 서브셋에 없다. 쓰려면 Brands 페이스를 되살려야 하므로
+`scripts/fa-subset.py` 를 고치는 별도 작업이다.
+
+사이트 DB 에만 있는 아이콘도 있다는 점에 주의한다 — 상단 메뉴 아이콘은 `g7-easy-topmenu`
+플러그인의 항목에 저장되고, 그 선택지 64종은 목록에 미리 넣어 두었다. 저장소만 봐서는
+확인할 수 없으므로 `fa-icons-check.mjs` 는 "쓰는데 목록에 없는" 경우만 실패로 본다.
 
 ## 변경 이력
 

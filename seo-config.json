@@ -62,8 +62,7 @@
                     "tag": "nav",
                     "children": [
                         { "tag": "a", "attrs": { "href": "/" }, "content": "$t:nav.home" },
-                        { "tag": "a", "attrs": { "href": "/boards/popular" }, "content": "$t:nav.popular" },
-                        { "tag": "a", "attrs": { "href": "/shop/products" }, "content": "$t:nav.shop" }
+                        { "tag": "a", "attrs": { "href": "/boards/popular" }, "content": "$t:nav.popular" }
                     ]
                 },
                 {
