@@ -6,7 +6,7 @@
     "meta": {
         "seo": {
             "enabled": true,
-            "data_sources": ["home_boards"],
+            "data_sources": ["recent_posts_unified", "home_popular_posts"],
             "priority": 1.0,
             "changefreq": "daily",
             "og": {
@@ -20,19 +20,6 @@
         }
     },
     "data_sources": [
-        {
-            "id": "home_boards",
-            "label_key": "$t:editor.data_source.home_boards",
-            "type": "api",
-            "endpoint": "/api/modules/sirsoft-board/boards?limit=5",
-            "method": "GET",
-            "auto_fetch": true,
-            "auth_mode": "optional",
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": []
-            }
-        },
         {
             "id": "recent_posts_unified",
             "label_key": "$t:home.recent_posts",

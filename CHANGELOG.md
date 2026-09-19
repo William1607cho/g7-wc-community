@@ -7,6 +7,22 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## Unreleased
+
+### Fixed
+
+- Search engine crawlers now see the home page's recent posts and popular posts widgets. The home
+  layout listed only `home_boards` for server-side rendering, a data source left over from the
+  board summary cards the widgets replaced, so the crawler view always showed both widgets empty.
+- `fetchpriority` on images in post bodies now survives HTML sanitizing. `g7-image-delivery` marks
+  the first body image `fetchpriority="high"`; DOMPurify dropped the attribute, so visitors'
+  browsers never received the hint.
+
+### Removed
+
+- The unused `home_boards` data source on the home layout. Nothing on the page read it, but the
+  browser still requested `/api/modules/sirsoft-board/boards?limit=5` on every home visit.
+
 ## fork-20260918 — 2026-09-18
 
 ### Changed
