@@ -136,7 +136,7 @@ export const HtmlContent: React.FC<HtmlContentProps> = ({
       'formaction', 'xlink:href', 'action',
     ],
     ALLOW_DATA_ATTR: true,
-    ADD_ATTR: ['target'],
+    ADD_ATTR: ['target', 'fetchpriority'],
   };
 
   // sanitize된 HTML을 메모이제이션
