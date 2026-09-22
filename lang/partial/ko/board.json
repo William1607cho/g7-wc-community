@@ -222,6 +222,12 @@
   "parent_post": "원글",
   "show_less": "접기",
   "show_more": "더보기",
+  "wiki": {
+    "recent_title": "최근 수정",
+    "random_title": "랜덤 문서",
+    "reroll": "다시 뽑기",
+    "search_placeholder": "문서 제목으로 검색..."
+  },
   "posts": {
     "detail": {
       "replies_title": "답변 ({{count}})",

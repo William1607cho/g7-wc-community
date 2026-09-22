@@ -3,6 +3,10 @@
     "layout_name": "board/index",
     "permissions": [],
     "extends": "_user_base",
+    "_comment_initLocal": "위키 무작위 목록의 '다시 뽑기' 잠금 초기값. 부모(_user_base)의 initLocal 과 얕게 합쳐지므로 다른 화면에는 영향이 없고, 위키가 아닌 게시판에서는 이 값을 읽는 노드 자체가 뜨지 않는다.",
+    "initLocal": {
+        "wikiRerollLock": false
+    },
     "meta": {
         "seo": {
             "enabled": true,

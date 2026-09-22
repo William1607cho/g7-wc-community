@@ -136,10 +136,10 @@
           },
           "children": [
             {
-              "comment": "공지사항 카드 (관리자 전용)",
+              "comment": "공지사항 카드 (관리자 전용). 위키 게시판에서는 숨긴다 — 위키는 공지를 쓰지 않고, 공지로 지정한 문서는 목록에서 빠진다. 바깥 묶음(비밀글 칸과 공용)은 건드리지 않는다.",
               "type": "basic",
               "name": "Label",
-              "if": "{{form_meta?.data?.board?.user_abilities?.can_manage && !_local.form?.parent_id}}",
+              "if": "{{form_meta?.data?.board?.user_abilities?.can_manage && !_local.form?.parent_id && !form_meta?.data?.board?.wiki}}",
               "props": {
                 "className": "block bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
               },

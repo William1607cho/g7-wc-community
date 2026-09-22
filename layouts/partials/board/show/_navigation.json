@@ -17,9 +17,43 @@
   },
   "children": [
     {
-      "comment": "목록으로 버튼 — 상세 URL 에 실린 목록 상태(category/search/page/del/filters)를 그대로 목록으로 복귀 (45-1). shrink-0: 게시판명이 길어도 눌리지 않는다.",
+      "comment": "위키 대문으로 가는 목록 버튼 — 위키 게시판이고 대문이 지정돼 있을 때만. 위키의 '목록' 은 게시글 목록이 아니라 대문 문서다. mergeQuery 를 쓰지 않는다: 상세 URL 의 목록 상태를 대문 문서 주소로 끌고 갈 이유가 없다. 주소는 상대 경로다(절대 주소는 같은 사이트라도 새 탭으로 열린다).",
       "type": "basic",
       "name": "Button",
+      "if": "{{post?.data?.board?.wiki?.front_post_id}}",
+      "props": {
+        "className": "shrink-0 flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
+      },
+      "actions": [
+        {
+          "type": "click",
+          "handler": "navigate",
+          "params": {
+            "path": "/board/{{route.slug}}/{{post.data.board.wiki.front_post_id}}"
+          }
+        }
+      ],
+      "children": [
+        {
+          "type": "basic",
+          "name": "Icon",
+          "props": {
+            "name": "list",
+            "size": "sm"
+          }
+        },
+        {
+          "type": "basic",
+          "name": "Span",
+          "text": "$t:board.back_to_list"
+        }
+      ]
+    },
+    {
+      "comment": "목록으로 버튼 — 상세 URL 에 실린 목록 상태(category/search/page/del/filters)를 그대로 목록으로 복귀 (45-1). shrink-0: 게시판명이 길어도 눌리지 않는다. 위키 대문이 지정된 게시판에서는 위 버튼이 대신 뜬다(값이 없으면 지금까지와 같다).",
+      "type": "basic",
+      "name": "Button",
+      "if": "{{!post?.data?.board?.wiki?.front_post_id}}",
       "props": {
         "className": "shrink-0 flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
       },
@@ -66,9 +100,10 @@
       "text": "{{post?.data?.board?.name ?? ''}}"
     },
     {
-      "comment": "이전글/다음글 그룹. shrink-0: 게시판명이 길어도 눌리지 않는다.",
+      "comment": "이전글/다음글 그룹. shrink-0: 게시판명이 길어도 눌리지 않는다. 위키 게시판에서는 숨긴다 — 이전글/다음글은 코어 정렬(작성 순) 기준이라 문서 사이를 오가는 뜻이 없다. 조건은 버튼 두 개가 아니라 이 묶음 한 곳에만 건다.",
       "type": "basic",
       "name": "Div",
+      "if": "{{!post?.data?.board?.wiki}}",
       "props": {
         "className": "shrink-0 flex items-center gap-2"
       },

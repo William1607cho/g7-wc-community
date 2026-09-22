@@ -81,6 +81,41 @@
       ]
     },
     {
+      "comment": "위키 대문 검색창 — 보고 있는 글이 그 게시판의 대문일 때만 뜬다. 제출하면 위키 목록의 제목 검색으로 간다. mergeQuery 를 쓰지 않는다: 상세 화면의 쿼리(del_cmt 등)를 목록으로 끌고 갈 이유가 없다. 주소에 sort_by 를 싣지 않으므로 서버의 검색 우선 규칙대로 검색 결과가 나온다.",
+      "type": "basic",
+      "name": "Div",
+      "if": "{{post?.data?.board?.wiki?.front_post_id && post?.data?.id === post?.data?.board?.wiki?.front_post_id}}",
+      "props": {
+        "className": "max-w-xl mx-auto mb-6"
+      },
+      "children": [
+        {
+          "type": "composite",
+          "name": "SearchBar",
+          "props": {
+            "name": "search",
+            "placeholder": "$t:board.wiki.search_placeholder",
+            "value": "",
+            "showButton": false,
+            "className": "w-full"
+          },
+          "actions": [
+            {
+              "type": "submit",
+              "handler": "navigate",
+              "params": {
+                "path": "/board/{{route.slug}}",
+                "query": {
+                  "search": "{{$event.target.search.value}}",
+                  "page": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "comment": "게시글 본문 카드",
       "type": "basic",
       "name": "Div",
@@ -207,9 +242,10 @@
               },
               "children": [
                 {
-                  "comment": "작성자 정보",
+                  "comment": "작성자 정보. 위키 게시판에서는 숨긴다 — 문서는 여럿이 고치는 것이라 '누가 썼는가' 가 화면에서 뜻을 갖지 않는다. 조건은 아바타와 이름을 함께 감싸는 이 묶음 한 곳에만 건다.",
                   "type": "basic",
                   "name": "Div",
+                  "if": "{{!post?.data?.board?.wiki}}",
                   "props": {
                     "className": "flex items-center gap-3"
                   },
