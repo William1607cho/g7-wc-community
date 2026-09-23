@@ -94,7 +94,7 @@
           ]
         },
         {
-          "comment": "새 문서 쓰기 — 목록 화면 글쓰기 버튼(partials/board/index/_write_button.json)과 같은 주소·문구·모양이다. 표시 조건은 그 버튼이 쓰는 권한 값을 그대로 쓴다: 목록은 posts, 상세는 post 데이터소스에 같은 abilities 가 실리고 서버가 보는 권한(sirsoft-board.{slug}.posts.write)도 같다. 목록에서는 권한이 없으면 눌리지 않는 버튼으로 남지만, 여기서는 아예 뜨지 않는다. 아이콘 이름만 pencil-alt 다 — 목록 버튼이 쓰는 pencil 은 이 템플릿의 FA 서브셋에 없어 화면에 빈 칸으로 나온다(같은 연필 글리프의 서브셋 안 이름이 pencil-alt 다).",
+          "comment": "새 문서 쓰기 — 목록 화면 글쓰기 버튼(partials/board/index/_write_button.json)과 같은 주소·문구·모양이다. 표시 조건은 그 버튼이 쓰는 권한 값을 그대로 쓴다: 목록은 posts, 상세는 post 데이터소스에 같은 abilities 가 실리고 서버가 보는 권한(sirsoft-board.{slug}.posts.write)도 같다. 목록에서는 권한이 없으면 눌리지 않는 버튼으로 남지만, 여기서는 아예 뜨지 않는다. 아이콘 이름만 pencil-alt 다 — 목록 버튼이 쓰는 pencil 은 브라우저에서는 Icon 컴포넌트의 iconNameMap(src/components/basic/IconTypes.ts)이 fa-pencil-alt 로 바꿔 주므로 제대로 그려지지만, 봇용 SSR 은 seo-config.json 의 name_to_class(fas fa-{name})만 쓰고 그 매핑을 거치지 않아 서브셋에 없는 fas fa-pencil 이 나가 빈 칸이 된다. 여기서는 매핑에 기대지 않고 서브셋 안 이름을 직접 쓴다.",
           "type": "basic",
           "name": "Button",
           "if": "{{post?.data?.abilities?.can_write === true}}",
