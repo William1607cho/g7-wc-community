@@ -92,6 +92,22 @@
     text-decoration: none;
   }
 
+  /* 위키 문서 링크 (g7-light-wiki)
+     플러그인이 본문에 넣는 링크는 색 클래스를 갖고 있지 않아 위 `a` 규칙(테마 primary,
+     테라코타)을 그대로 받는다. 그러면 없는 문서를 가리키는 빨간 링크와 색이 비슷해 둘을
+     구별할 수 없다. 있는 문서 링크만 파랑으로 돌린다.
+     없는 문서 링크는 `g7lw-link-new` 를 함께 달고 오므로 `:not()` 으로 뺀다. 그 링크의
+     색은 플러그인이 주는 `text-red-600`/`dark:text-red-400` 이고, 유틸리티 레이어가 이
+     base 레이어보다 뒤라 그대로 이긴다. hover·visited 는 두지 않는다 — 기존 `a` 규칙의
+     hover 색을 그대로 쓴다. */
+  a.g7lw-link:not(.g7lw-link-new) {
+    color: #2563eb;
+  }
+
+  .dark a.g7lw-link:not(.g7lw-link-new) {
+    color: #60a5fa;
+  }
+
   /* 포커스 스타일 */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary-500;

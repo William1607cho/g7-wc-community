@@ -7,6 +7,17 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## [Unreleased]
+
+### Fixed
+
+- Wiki document links (`g7-light-wiki`) are blue again instead of the theme's terracotta. The
+  plugin emits existing-document links with no colour class, so they inherited the global `a`
+  rule and ended up close enough to the red "missing document" links that the two could not be
+  told apart. Links to missing documents keep their red; they carry `g7lw-link-new`, which the
+  new rule excludes, and their utility classes sit in a later cascade layer either way. No
+  hover or visited state is added.
+
 ## fork-20260919 — 2026-09-19
 
 ### Fixed
