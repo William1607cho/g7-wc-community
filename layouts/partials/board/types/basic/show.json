@@ -285,9 +285,10 @@
                       "text": "{{post?.data?.created_at_formatted ?? ''}}"
                     },
                     {
+                      "comment": "조회수. 위키 게시판에서는 숨긴다 — 문서는 여럿이 고쳐 가는 것이라 읽힌 횟수가 화면에서 뜻을 갖지 않는다. 조건은 작성자 숨김과 같은 값(board.wiki)으로 건다.",
                       "type": "basic",
                       "name": "Span",
-                      "if": "{{post?.data?.board?.show_view_count !== false && post?.data?.view_count !== undefined}}",
+                      "if": "{{post?.data?.board?.show_view_count !== false && post?.data?.view_count !== undefined && !post?.data?.board?.wiki}}",
                       "props": {
                         "className": "flex items-center gap-1"
                       },

@@ -9,6 +9,16 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Wiki boards (`g7-light-wiki`) no longer show a view count on a document page, nor an author or a
+  view count column in the board list and its title search results — on the wide table and the
+  narrow card alike. A wiki document is written and corrected by several people, so neither "who
+  wrote it" nor "how often it was read" carries meaning on screen; the detail page already hid the
+  author, and this brings the rest in line. The condition is the same `board.wiki` value the
+  existing wiki branches use, so it holds for every list mode, and it is evaluated for crawler
+  pages too. Boards that are not wikis are untouched, column definitions included.
+
 ### Fixed
 
 - Wiki document links (`g7-light-wiki`) are blue again instead of the theme's terracotta. The

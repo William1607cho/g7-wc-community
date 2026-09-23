@@ -201,11 +201,11 @@
           },
           "children": [
             {
-              "comment": "테이블 헤더 (데스크톱)",
+              "comment": "테이블 헤더 (데스크톱). 위키 게시판은 작성자·조회 칸을 빼므로 열 정의도 3칸짜리로 바꾼다 — 열 정의만 바꾸고 칸을 남기면 칸이 밀린다. 3칸 값 grid-cols-[60px_minmax(300px,1fr)_160px] 은 빌드된 CSS 에 이미 있는 것을 쓴다(새 arbitrary 값을 쓰면 템플릿을 다시 빌드해야 한다 — README '화면 일부의 여백·색이 어긋남' 항목).",
               "type": "basic",
               "name": "Div",
               "props": {
-                "className": "hidden lg:grid {{posts?.data?.board?.settings?.show_view_count !== false ? 'grid-cols-[60px_minmax(300px,1fr)_160px_100px_70px]' : 'grid-cols-[60px_minmax(300px,1fr)_160px_100px]'}} gap-4 px-4 py-3 bg-gray-100 dark:bg-gray-700 border-b-2 border-gray-200 dark:border-gray-600 font-medium text-sm text-gray-700 dark:text-gray-300"
+                "className": "hidden lg:grid {{posts?.data?.board?.wiki ? 'grid-cols-[60px_minmax(300px,1fr)_160px]' : posts?.data?.board?.settings?.show_view_count !== false ? 'grid-cols-[60px_minmax(300px,1fr)_160px_100px_70px]' : 'grid-cols-[60px_minmax(300px,1fr)_160px_100px]'}} gap-4 px-4 py-3 bg-gray-100 dark:bg-gray-700 border-b-2 border-gray-200 dark:border-gray-600 font-medium text-sm text-gray-700 dark:text-gray-300"
               },
               "children": [
                 {
@@ -220,8 +220,10 @@
                   "text": "$t:board.title"
                 },
                 {
+                  "comment": "작성자 머리글. 위키 게시판에서는 숨긴다(상세 화면과 같은 조건).",
                   "type": "basic",
                   "name": "Span",
+                  "if": "{{!posts?.data?.board?.wiki}}",
                   "text": "$t:board.author"
                 },
                 {
@@ -231,9 +233,10 @@
                   "text": "$t:board.created_at"
                 },
                 {
+                  "comment": "조회 머리글. 게시판 설정이 꺼져 있거나 위키 게시판이면 숨긴다.",
                   "type": "basic",
                   "name": "Span",
-                  "if": "{{posts?.data?.board?.settings?.show_view_count !== false}}",
+                  "if": "{{posts?.data?.board?.settings?.show_view_count !== false && !posts?.data?.board?.wiki}}",
                   "props": { "className": "text-center" },
                   "text": "$t:board.views"
                 }
@@ -264,11 +267,11 @@
                   ],
                   "children": [
                     {
-                      "comment": "데스크톱: 테이블 행",
+                      "comment": "데스크톱: 테이블 행. 열 정의는 머리글과 같은 식을 쓴다(둘이 어긋나면 칸이 밀린다).",
                       "type": "basic",
                       "name": "Div",
                       "props": {
-                        "className": "hidden lg:grid {{posts?.data?.board?.settings?.show_view_count !== false ? 'grid-cols-[60px_minmax(300px,1fr)_160px_100px_70px]' : 'grid-cols-[60px_minmax(300px,1fr)_160px_100px]'}} gap-4 px-4 py-3 items-center"
+                        "className": "hidden lg:grid {{posts?.data?.board?.wiki ? 'grid-cols-[60px_minmax(300px,1fr)_160px]' : posts?.data?.board?.settings?.show_view_count !== false ? 'grid-cols-[60px_minmax(300px,1fr)_160px_100px_70px]' : 'grid-cols-[60px_minmax(300px,1fr)_160px_100px]'}} gap-4 px-4 py-3 items-center"
                       },
                       "children": [
                         {
@@ -383,9 +386,10 @@
                           ]
                         },
                         {
-                          "comment": "작성자",
+                          "comment": "작성자. 위키 게시판에서는 숨긴다 — 상세 화면과 같은 조건(board.wiki)이다. 열이 하나 줄므로 위 그리드 열 정의도 위키용으로 함께 바뀐다.",
                           "type": "basic",
                           "name": "Div",
+                          "if": "{{!posts?.data?.board?.wiki}}",
                           "props": { "className": "flex items-center gap-2" },
                           "children": [
                             {
@@ -417,10 +421,10 @@
                           "text": "{{post?.created_at_formatted ?? ''}}"
                         },
                         {
-                          "comment": "조회수",
+                          "comment": "조회수. 게시판 설정이 꺼져 있거나 위키 게시판이면 숨긴다.",
                           "type": "basic",
                           "name": "Span",
-                          "if": "{{posts?.data?.board?.settings?.show_view_count !== false}}",
+                          "if": "{{posts?.data?.board?.settings?.show_view_count !== false && !posts?.data?.board?.wiki}}",
                           "props": { "className": "text-sm text-center {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}" },
                           "text": "{{post?.view_count}}"
                         }
@@ -557,8 +561,10 @@
                           "props": { "className": "flex items-center justify-between text-xs {{(post?.status === 'blinded' || post?.deleted_at) ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}}" },
                           "children": [
                             {
+                              "comment": "작성자. 위키 게시판에서는 숨긴다(넓은 화면 표와 같은 조건).",
                               "type": "basic",
                               "name": "Div",
+                              "if": "{{!posts?.data?.board?.wiki}}",
                               "props": { "className": "flex items-center gap-2" },
                               "children": [
                                 {
@@ -594,9 +600,10 @@
                                   "text": "{{post?.created_at_formatted ?? ''}}"
                                 },
                                 {
+                                  "comment": "조회수. 게시판 설정이 꺼져 있거나 위키 게시판이면 숨긴다.",
                                   "type": "basic",
                                   "name": "Span",
-                                  "if": "{{posts?.data?.board?.settings?.show_view_count !== false}}",
+                                  "if": "{{posts?.data?.board?.settings?.show_view_count !== false && !posts?.data?.board?.wiki}}",
                                   "text": "$t:board.views_count|count={{post?.view_count}}"
                                 }
                               ]
