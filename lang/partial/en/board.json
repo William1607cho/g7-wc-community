@@ -226,7 +226,8 @@
     "recent_title": "Recently Edited",
     "random_title": "Random Documents",
     "reroll": "Draw Again",
-    "search_placeholder": "Search documents by title..."
+    "search_placeholder": "Search documents by title...",
+    "back_to_front": "Go to Front Page"
   },
   "posts": {
     "detail": {

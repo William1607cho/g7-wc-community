@@ -183,88 +183,8 @@
           "text": "$t:board.wiki.random_title"
         },
         {
-          "comment": "다시 뽑기 — 같은 주소로 목록만 다시 불러온다(navigate 가 아니라 refetchDataSource). 3초 잠금은 서버 쿨다운과 맞춘 것이고, 잠금이 풀리지 않아도 목록이 사라지지는 않는다(서버가 쿨다운 안에는 직전 결과를 오류 없이 돌려준다).",
-          "type": "basic",
-          "name": "Button",
-          "if": "{{posts?.data?.board?.wiki?.list_mode === 'random'}}",
-          "props": {
-            "type": "button",
-            "disabled": "{{_local.wikiRerollLock === true || posts?.loading === true}}",
-            "className": "shrink-0 inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
-          },
-          "actions": [
-            {
-              "type": "click",
-              "handler": "sequence",
-              "params": {
-                "actions": [
-                  {
-                    "comment": "리터럴만 쓴다. 틱 액션의 컨텍스트는 등록 시점 스냅샷이라 현재 값을 읽어 계산하는 식은 갱신되지 않는다(코어 카운트다운 선례가 그래서 멈춘다).",
-                    "handler": "setState",
-                    "params": {
-                      "target": "local",
-                      "wikiRerollLock": true
-                    }
-                  },
-                  {
-                    "handler": "refetchDataSource",
-                    "params": {
-                      "dataSourceId": "posts"
-                    }
-                  },
-                  {
-                    "comment": "3초 뒤 한 번 울려서 잠금을 풀고 스스로 멈춘다. 두 액션 모두 리터럴이다.",
-                    "handler": "startInterval",
-                    "params": {
-                      "id": "g7lw_reroll",
-                      "intervalMs": 3000,
-                      "actions": [
-                        {
-                          "handler": "setState",
-                          "params": {
-                            "target": "local",
-                            "wikiRerollLock": false
-                          }
-                        },
-                        {
-                          "handler": "stopInterval",
-                          "params": {
-                            "id": "g7lw_reroll"
-                          }
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            }
-          ],
-          "lifecycle": {
-            "onUnmount": [
-              {
-                "comment": "화면을 떠날 때 타이머를 반드시 끈다 — 코어는 남은 interval 을 걷어 가지 않는다.",
-                "handler": "stopInterval",
-                "params": {
-                  "id": "g7lw_reroll"
-                }
-              }
-            ]
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Icon",
-              "props": {
-                "name": "rotate-right",
-                "size": "sm"
-              }
-            },
-            {
-              "type": "basic",
-              "name": "Span",
-              "text": "$t:board.wiki.reroll"
-            }
-          ]
+          "comment": "다시 뽑기(목록 위). 아래쪽 버튼과 같은 파일이라 잠금 상태와 타이머 id 가 하나뿐이다.",
+          "partial": "_wiki_reroll_button.json"
         }
       ]
     },
@@ -698,9 +618,10 @@
       "partial": "../../index/_empty_states.json"
     },
     {
-      "comment": "페이지네이션",
+      "comment": "페이지네이션. 위키 무작위 목록에서는 뜨지 않는다 — 무작위는 한 쪽이 전부라 쪽 넘김에 뜻이 없고, 넘기면 다시 뽑기와 다를 바 없다. 조건은 '무작위가 아닐 때'라 위키가 아닌 게시판에서는 값이 없어 지금까지와 같이 그대로 뜬다.",
       "type": "composite",
       "name": "Pagination",
+      "if": "{{posts?.data?.board?.wiki?.list_mode !== 'random'}}",
       "props": {
         "currentPage": "{{posts?.data?.pagination?.current_page ?? 1}}",
         "totalPages": "{{posts?.data?.pagination?.last_page ?? null}}",
@@ -722,6 +643,20 @@
               "filters[0][operator]": "{{query['filters[0][operator]']}}"
             }
           }
+        }
+      ]
+    },
+    {
+      "comment": "다시 뽑기(목록 아래) — 페이지네이션이 빠진 자리를 대신한다. 목록 위 버튼과 같은 파일이라 한쪽을 누르면 양쪽이 함께 잠긴다. 감싸개에도 같은 조건을 거는 것은, 조건이 버튼 안에만 있으면 무작위가 아닐 때 빈 여백만 남기 때문이다.",
+      "type": "basic",
+      "name": "Div",
+      "if": "{{posts?.data?.board?.wiki?.list_mode === 'random'}}",
+      "props": {
+        "className": "flex justify-center mt-6"
+      },
+      "children": [
+        {
+          "partial": "_wiki_reroll_button.json"
         }
       ]
     },

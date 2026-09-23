@@ -226,7 +226,8 @@
     "recent_title": "최근 수정",
     "random_title": "랜덤 문서",
     "reroll": "다시 뽑기",
-    "search_placeholder": "문서 제목으로 검색..."
+    "search_placeholder": "문서 제목으로 검색...",
+    "back_to_front": "대문으로 이동"
   },
   "posts": {
     "detail": {
