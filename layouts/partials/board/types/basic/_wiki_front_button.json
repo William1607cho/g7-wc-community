@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "is_partial": true,
+    "description": "위키 목록의 '대문으로 이동' 버튼. 목록 위(검색창 왼쪽)·아래(글쓰기 왼쪽) 두 곳에서 같은 파일을 부른다."
+  },
+  "comment": "대문으로 이동 — 상세 화면(partials/board/show/_navigation.json)의 같은 버튼과 문구·아이콘·클래스가 같다. 값도 같은 board.wiki.front_post_id 를 읽는다(목록 응답은 posts, 상세는 post 데이터소스). 대문이 지정되지 않았으면 값이 null 이라 뜨지 않고, 위키가 아닌 게시판은 board.wiki 가 없어 뜨지 않는다. mergeQuery 를 쓰지 않는다: 목록의 검색·쪽 상태를 대문 문서 주소로 끌고 갈 이유가 없다. 주소는 상대 경로다(절대 주소는 같은 사이트라도 새 탭으로 열린다).",
+  "type": "basic",
+  "name": "Button",
+  "if": "{{posts?.data?.board?.wiki?.front_post_id}}",
+  "props": {
+    "className": "shrink-0 flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
+  },
+  "actions": [
+    {
+      "type": "click",
+      "handler": "navigate",
+      "params": {
+        "path": "/board/{{route.slug}}/{{posts.data.board.wiki.front_post_id}}"
+      }
+    }
+  ],
+  "children": [
+    {
+      "type": "basic",
+      "name": "Icon",
+      "props": {
+        "name": "list",
+        "size": "sm"
+      }
+    },
+    {
+      "type": "basic",
+      "name": "Span",
+      "text": "$t:board.wiki.back_to_front"
+    }
+  ]
+}

@@ -119,19 +119,23 @@
           ]
         },
         {
-          "comment": "검색 바 (오른쪽 정렬)",
+          "comment": "검색 바 (오른쪽 정렬). 위키 대문이 지정된 게시판에서는 검색창 왼쪽에 '대문으로 이동' 버튼이 붙으므로 이 감싸개만 가로 줄(flex)이 된다. 클래스를 조건으로 가르는 것은, 노드를 새로 감싸면 위키가 아닌 게시판의 HTML 까지 바뀌기 때문이다 — 위키가 아니면 클래스가 지금과 같다. 안내 문구도 위키 게시판에서만 대문 검색창과 같은 키(board.wiki.search_placeholder)를 쓴다(위키 목록 검색은 제목 검색이다).",
           "type": "basic",
           "name": "Div",
           "props": {
-            "className": "w-full sm:w-auto sm:ml-auto"
+            "className": "{{posts?.data?.board?.wiki?.front_post_id ? 'w-full sm:w-auto sm:ml-auto flex items-center gap-2' : 'w-full sm:w-auto sm:ml-auto'}}"
           },
           "children": [
+            {
+              "comment": "대문으로 이동(목록 위). 아래쪽 버튼과 같은 파일이다.",
+              "partial": "_wiki_front_button.json"
+            },
             {
               "type": "composite",
               "name": "SearchBar",
               "props": {
                 "name": "search",
-                "placeholder": "$t:board.search_placeholder",
+                "placeholder": "{{posts?.data?.board?.wiki ? '$t:board.wiki.search_placeholder' : '$t:board.search_placeholder'}}",
                 "value": "{{query.search || ''}}",
                 "showButton": false,
                 "className": "w-full sm:w-64"
@@ -668,13 +672,17 @@
       ]
     },
     {
-      "comment": "하단 글쓰기 버튼",
+      "comment": "하단 글쓰기 버튼. 위키 대문이 지정된 게시판에서는 그 왼쪽에 '대문으로 이동' 버튼이 붙어 버튼 사이 간격(gap-2)만 더한다 — 위키가 아니면 클래스가 지금과 같다.",
       "type": "basic",
       "name": "Div",
       "props": {
-        "className": "flex justify-end mt-4"
+        "className": "{{posts?.data?.board?.wiki?.front_post_id ? 'flex justify-end gap-2 mt-4' : 'flex justify-end mt-4'}}"
       },
       "children": [
+        {
+          "comment": "대문으로 이동(목록 아래). 위쪽 버튼과 같은 파일이다.",
+          "partial": "_wiki_front_button.json"
+        },
         {
           "partial": "../../index/_write_button.json"
         }
