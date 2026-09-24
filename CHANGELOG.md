@@ -7,7 +7,7 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
-## Unreleased
+## fork-20260924 — 2026-09-24
 
 ### Added
 
@@ -15,7 +15,8 @@
   "Go to Front Page" button in two places: left of the search box and left of the bottom write
   button. Both call one partial (`types/basic/_wiki_front_button.json`) and match the document
   page's button — label, icon, classes and a relative address built from
-  `board.wiki.front_post_id`, which the plugin now sends with list responses as well. The buttons
+  `board.wiki.front_post_id`, which the plugin sends with list responses from `g7-light-wiki`
+  v0.1.1 on (with an older plugin the buttons simply do not appear). The buttons
   appear only when the board is a wiki and has a front page. Only the classes of the two wrappers
   depend on that condition, so boards that are not wikis render exactly as before.
 
