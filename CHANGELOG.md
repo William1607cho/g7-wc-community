@@ -7,7 +7,44 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## Unreleased
+
+### Added
+
+- The wiki board list (`g7-light-wiki`), in every list mode and in title search results, has a
+  "Go to Front Page" button in two places: left of the search box and left of the bottom write
+  button. Both call one partial (`types/basic/_wiki_front_button.json`) and match the document
+  page's button — label, icon, classes and a relative address built from
+  `board.wiki.front_post_id`, which the plugin now sends with list responses as well. The buttons
+  appear only when the board is a wiki and has a front page. Only the classes of the two wrappers
+  depend on that condition, so boards that are not wikis render exactly as before.
+
+### Changed
+
+- On wiki boards the list search box hint is the front page search box's
+  (`board.wiki.search_placeholder`), since a wiki list search matches titles. Other boards keep
+  their hint.
+
 ## fork-20260923 — 2026-09-23
+
+### Added
+
+- Wiki boards (`g7-light-wiki`) get their own screens, switched on by the `board.wiki` value the
+  plugin adds to board responses; with no value every new condition is false and the screen is
+  unchanged. The front page document shows a centred search box that leads to the list's title
+  search. The list shows a "Recently Edited" or "Random Documents" heading following the list
+  mode the server actually applied (so the heading disappears while searching), and the random
+  list gets a "Draw Again" button that reloads only the list and locks for three seconds.
+  A document page hides the author and the previous/next links, and its list button leads to
+  the front page by a relative address. The write form hides the notice checkbox on wikis.
+  New translation keys in Korean and English.
+- Follow-up to the above: the random list hides its pagination, and a second "Draw Again" button
+  takes its place below the list — both buttons come from one partial
+  (`types/basic/_wiki_reroll_button.json`), so pressing either locks both. The document page's
+  list button is labelled "Go to Front Page" (the address is unchanged), and a "new document"
+  button sits beside it with the list write button's address and label, shown by the same
+  `abilities.can_write` value; its icon is `pencil-alt`, because `pencil` is not in this
+  template's Font Awesome subset for crawler pages.
 
 ### Changed
 
