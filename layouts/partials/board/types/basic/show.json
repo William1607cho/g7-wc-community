@@ -674,7 +674,7 @@
                     "className": "inline-flex items-center justify-center w-12 h-10 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 cursor-pointer"
                   },
                   "children": [
-                    { "type": "basic", "name": "Icon", "props": { "name": "user", "aria-hidden": "true" } }
+                    { "type": "basic", "name": "Icon", "props": { "name": "right-to-bracket", "aria-hidden": "true" } }
                   ],
                   "actions": [
                     {

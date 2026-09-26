@@ -584,7 +584,8 @@ const Header: React.FC<HeaderProps> = ({
             ) : (
               <Div className="flex items-center gap-1.5">
                 {/* 로그인·회원가입 — 아이콘만(2026-09-26). 툴팁·aria-label 은 원래 글자.
-                    서브셋에 right-to-bracket·user-plus 가 없어 로그인=user, 회원가입=pen-to-square 를 쓴다(결정 사항). */}
+                    아이콘은 로그인=right-to-bracket, 회원가입=user-plus(2차, 서브셋에 추가). 회원가입 버튼은
+                    사이트 주황 강조색(primary-600/700 — 댓글 등록 버튼과 같은 토큰)으로 채운다. */}
                 <Button
                   type="button"
                   onClick={() => navigate('/login')}
@@ -592,16 +593,16 @@ const Header: React.FC<HeaderProps> = ({
                   aria-label={t('auth.login')}
                   className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
                 >
-                  <Icon name="user" aria-hidden="true" />
+                  <Icon name="right-to-bracket" aria-hidden="true" />
                 </Button>
                 <Button
                   type="button"
                   onClick={() => navigate('/register')}
                   title={t('auth.register_link')}
                   aria-label={t('auth.register_link')}
-                  className="ml-1 w-10 h-10 text-white bg-emerald-500 rounded-lg hover:bg-emerald-600 cursor-pointer"
+                  className="ml-1 w-10 h-10 text-white bg-primary-600 rounded-lg hover:bg-primary-700 cursor-pointer"
                 >
-                  <Icon name="pen-to-square" aria-hidden="true" />
+                  <Icon name="user-plus" aria-hidden="true" />
                 </Button>
               </Div>
             )}

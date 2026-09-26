@@ -528,14 +528,14 @@
                                     ]
                                 },
                                 {
-                                    "comment": "사용자 아이콘 (로그인 시) / 로그인 버튼",
+                                    "comment": "사용자 아이콘 (로그인 시) / 로그인 버튼. 판정은 currentUser?.uuid — 비회원도 currentUser 가 빈 객체({})라 객체 자체로 보면 참이 되어, 비회원에게 '마이페이지' 제목과 /mypage 이동이 나갔다(2026-09-26 2차 실측). 로그인 아이콘은 PC 헤더와 같은 right-to-bracket.",
                                     "id": "mobile_user_btn",
                                     "type": "basic",
                                     "name": "Button",
                                     "props": {
                                         "type": "button",
-                                        "title": "{{_global.currentUser ? '$t:common.mypage' : '$t:auth.login'}}",
-                                        "aria-label": "{{_global.currentUser ? '$t:common.mypage' : '$t:auth.login'}}",
+                                        "title": "{{_global.currentUser?.uuid ? '$t:common.mypage' : '$t:auth.login'}}",
+                                        "aria-label": "{{_global.currentUser?.uuid ? '$t:common.mypage' : '$t:auth.login'}}",
                                         "className": "p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
                                     },
                                     "actions": [
@@ -543,7 +543,7 @@
                                             "type": "click",
                                             "handler": "navigate",
                                             "params": {
-                                                "path": "{{_global.currentUser ? '/mypage' : '/login'}}"
+                                                "path": "{{_global.currentUser?.uuid ? '/mypage' : '/login'}}"
                                             }
                                         }
                                     ],
@@ -552,8 +552,9 @@
                                             "type": "basic",
                                             "name": "Icon",
                                             "props": {
-                                                "name": "user",
-                                                "size": "md"
+                                                "name": "{{_global.currentUser?.uuid ? 'user' : 'right-to-bracket'}}",
+                                                "size": "md",
+                                                "aria-hidden": "true"
                                             }
                                         }
                                     ]
@@ -944,7 +945,7 @@
                                                 "className": "flex-1 py-2.5 inline-flex items-center justify-center bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg cursor-pointer"
                                             },
                                             "children": [
-                                                { "type": "basic", "name": "Icon", "props": { "name": "user", "aria-hidden": "true" } }
+                                                { "type": "basic", "name": "Icon", "props": { "name": "right-to-bracket", "aria-hidden": "true" } }
                                             ],
                                             "actions": [
                                                 {
@@ -975,10 +976,10 @@
                                                 "type": "button",
                                                 "title": "$t:auth.register_link",
                                                 "aria-label": "$t:auth.register_link",
-                                                "className": "flex-1 py-2.5 inline-flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg cursor-pointer"
+                                                "className": "flex-1 py-2.5 inline-flex items-center justify-center bg-primary-600 text-white hover:bg-primary-700 rounded-lg cursor-pointer"
                                             },
                                             "children": [
-                                                { "type": "basic", "name": "Icon", "props": { "name": "pen-to-square", "aria-hidden": "true" } }
+                                                { "type": "basic", "name": "Icon", "props": { "name": "user-plus", "aria-hidden": "true" } }
                                             ],
                                             "actions": [
                                                 {
@@ -1994,7 +1995,7 @@
                     "default": []
                 },
                 {
-                    "comment": "=== 플로팅 버튼 (2026-09-26) === 홈(route.path '/')을 뺀 모든 페이지, PC·모바일 공통으로 화면 우하단에 세로로 둔다. 위에서부터 맨 위로 → 홈 → 댓글 → 목록. 해당 없는 버튼은 if 로 숨긴다. 반투명(bg-white/70 + backdrop-blur). 코어·다른 확장에 맨 위로 버튼이 없음을 확인하고 넣었다(2026-09-26 검색).",
+                    "comment": "=== 플로팅 버튼 (2026-09-26) === 홈(route.path '/')을 뺀 모든 페이지, PC·모바일 공통으로 화면 우하단에 세로로 둔다. 위에서부터 맨 위로 → 홈 → 댓글 → 목록. 해당 없는 버튼은 if 로 숨긴다. 반투명(bg-white/70 + backdrop-blur). 2차(2026-09-26): 버튼 자체를 평소 opacity-50, 마우스 올림·키보드 초점·누름(hover/focus-visible/active)에 opacity-80, 150ms 전환. 코어·다른 확장에 맨 위로 버튼이 없음을 확인하고 넣었다(2026-09-26 검색).",
                     "id": "floating_buttons",
                     "type": "basic",
                     "name": "Div",
@@ -2015,7 +2016,7 @@
                                 "title": "$t:common.scroll_to_top",
                                 "aria-label": "$t:common.scroll_to_top",
                                 "data-testid": "floating-top",
-                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md opacity-50 hover:opacity-80 focus-visible:opacity-80 active:opacity-80 hover:bg-white dark:hover:bg-gray-700 transition duration-150 cursor-pointer"
                             },
                             "actions": [
                                 {
@@ -2037,7 +2038,7 @@
                                 "title": "$t:nav.home",
                                 "aria-label": "$t:nav.home",
                                 "data-testid": "floating-home",
-                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md opacity-50 hover:opacity-80 focus-visible:opacity-80 active:opacity-80 hover:bg-white dark:hover:bg-gray-700 transition duration-150 cursor-pointer"
                             },
                             "actions": [
                                 { "type": "click", "handler": "navigate", "params": { "path": "/" } }
@@ -2056,7 +2057,7 @@
                                 "title": "$t:board.comments",
                                 "aria-label": "$t:board.comments",
                                 "data-testid": "floating-comments",
-                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md opacity-50 hover:opacity-80 focus-visible:opacity-80 active:opacity-80 hover:bg-white dark:hover:bg-gray-700 transition duration-150 cursor-pointer"
                             },
                             "actions": [
                                 {
@@ -2079,7 +2080,7 @@
                                 "title": "$t:board.back_to_list",
                                 "aria-label": "$t:board.back_to_list",
                                 "data-testid": "floating-list",
-                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md opacity-50 hover:opacity-80 focus-visible:opacity-80 active:opacity-80 hover:bg-white dark:hover:bg-gray-700 transition duration-150 cursor-pointer"
                             },
                             "actions": [
                                 {

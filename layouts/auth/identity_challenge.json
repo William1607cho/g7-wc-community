@@ -231,9 +231,7 @@
                         "name": "Button",
                         "props": {
                           "type": "button",
-                          "title": "$t:user.identity.challenge.verify",
-                          "aria-label": "$t:user.identity.challenge.verify",
-                          "className": "w-full px-4 py-3 inline-flex items-center justify-center bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors cursor-pointer",
+                          "className": "w-full px-4 py-3 text-sm font-medium bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors",
                           "disabled": "{{!_local.code || _local.code.length < 4 || (_local.remainingSeconds ?? 0) <= 0 || ((_local.maxAttempts ?? 0) > 0 && (_local.attempts ?? 0) >= (_local.maxAttempts ?? 0))}}"
                         },
                         "actions": [
@@ -295,7 +293,12 @@
                           }
                         ],
                         "children": [
-                          { "type": "basic", "name": "Icon", "props": { "name": "check", "aria-hidden": "true" } }
+                          {
+                            "comment": "인증 화면 제출 버튼은 아이콘화의 예외 — 1차 작업 전 원래 글자·모양으로 되돌렸다(2026-09-26 2차).",
+                            "type": "basic",
+                            "name": "Span",
+                            "text": "$t:user.identity.challenge.verify"
+                          }
                         ]
                       },
                       {
