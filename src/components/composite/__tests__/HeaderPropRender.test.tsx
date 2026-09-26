@@ -4,7 +4,7 @@
  * @description 실제 Header 컴포넌트 prop 렌더링 검증.
  *
  * 기존 Header.test.tsx 는 MockHeader(가짜)로 구조만 본다. 본 스위트는 실제 Header.tsx 를
- * 렌더해 editor-spec 으로 노출한 핵심 prop(siteName / logo / maxVisibleBoards /
+ * 렌더해 editor-spec 으로 노출한 핵심 prop(siteName / logo /
  * availableLocales / currentLocale)이 실제 출력 DOM·동작에 반영됨을 검증한다.
  * (wc-community 는 레이아웃에서 availableLocales 를 넘기지 않아 사이트 헤더에는 언어 선택이 없지만,
  *  컴포넌트 자체의 prop 동작은 그대로 검증한다. 이커머스 통화 슬롯(header_currency)은 뺐다.)
@@ -74,22 +74,22 @@ describe('Header prop 렌더링 — 편집기 속성이 사용자 화면에 반�
     expect(img.getAttribute('src')).toBe('/custom-logo.png');
   });
 
-  it('maxVisibleBoards prop 이 탭에 표시되는 게시판 수를 제한한다', () => {
+  it('탭 줄은 게시판 탭 없이 홈·인기글과 상단 메뉴만 그린다 (maxVisibleBoards prop 없음 — 상단 메뉴 백포트)', () => {
+    // 옛 prop 을 넘겨도 게시판 탭이 생기지 않는다 — 게시판 목록은 상단 메뉴(g7-easy-topmenu)가 맡는다
     const { container } = render(
       <Header
         siteName="S"
-        boards={boards as any}
-        maxVisibleBoards={2}
+        {...({ boards, maxVisibleBoards: 2 } as any)}
         availableLocales={['ko', 'en']}
         currentLocale="ko"
       />,
     );
-    // 처음 2개 게시판은 탭으로 노출, 나머지는 "더보기" 뒤로 숨김
     const nav = container.querySelector('nav');
     expect(nav).not.toBeNull();
+    expect(nav!.querySelector('[data-testid="nav-home"]')?.textContent).toContain('nav.home');
+    expect(nav!.querySelector('[data-testid="nav-popular"]')?.textContent).toContain('nav.popular');
     const navText = nav!.textContent ?? '';
-    expect(navText).toContain('자유게시판');
-    expect(navText).toContain('질문답변');
+    for (const b of boards) expect(navText).not.toContain(b.name);
   });
 
   it('availableLocales 가 2개 이상이면 언어 선택기(현재 로케일 코드)가 렌더된다', () => {
@@ -116,5 +116,17 @@ describe('Header prop 렌더링 — 편집기 속성이 사용자 화면에 반�
       expect((el!.textContent ?? '').trim()).toBe('');
       expect(el!.querySelector('i, svg, [class*="fa-"]')).not.toBeNull();
     }
+  });
+
+  it('로그인은 right-to-bracket, 회원가입은 user-plus 아이콘에 primary(주황) 채움 (2026-09-26 2차)', () => {
+    const { container } = render(<Header siteName="S" />);
+    const login = container.querySelector('[aria-label="auth.login"]') as HTMLElement;
+    const register = container.querySelector('[aria-label="auth.register_link"]') as HTMLElement;
+    expect(login.querySelector('.fa-right-to-bracket')).not.toBeNull();
+    expect(login.querySelector('.fa-user')).toBeNull();
+    expect(register.querySelector('.fa-user-plus')).not.toBeNull();
+    expect(register.className).toContain('bg-primary-600');
+    expect(register.className).toContain('hover:bg-primary-700');
+    expect(register.className).not.toMatch(/emerald/);
   });
 });

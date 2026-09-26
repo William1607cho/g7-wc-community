@@ -115,11 +115,19 @@ describe('Header editor-spec capability ↔ controls ↔ Header.tsx prop 정합'
     }
   });
 
-  it('핵심 설정 prop(siteName/logo/maxVisibleBoards)이 propControls 로 노출된다', () => {
+  it('핵심 설정 prop(siteName/logo)이 propControls 로 노출된다', () => {
     const propKeys = headerCap.propControls.map((id: string) => controls[id].apply.propKey);
-    for (const key of ['siteName', 'logo', 'maxVisibleBoards']) {
+    for (const key of ['siteName', 'logo']) {
       expect(propKeys, `${key} 미노출`).toContain(key);
     }
+  });
+
+  it('게시판 탭 개수 컨트롤(hdrMaxBoards)은 노출하지 않는다 — 상단 메뉴 백포트 이후 Header.tsx 에 maxVisibleBoards prop 이 없다', () => {
+    const propKeys = headerCap.propControls.map((id: string) => controls[id].apply.propKey);
+    expect(propKeys).not.toContain('maxVisibleBoards');
+    expect(headerCap.propControls).not.toContain('hdrMaxBoards');
+    expect(controls.hdrMaxBoards).toBeUndefined();
+    expect(/\bmaxVisibleBoards\b/.test(headerSource)).toBe(false);
   });
 
   it('상점 경로 컨트롤(shopBase)은 노출하지 않는다 — Header.tsx 에 그 prop 이 없다', () => {
