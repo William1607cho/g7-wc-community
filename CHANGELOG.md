@@ -7,6 +7,40 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## Unreleased
+
+### Changed
+
+- Buttons across the site are icon-only. The original label stays as the tooltip (`title`) and
+  `aria-label`; toggles (deleted posts/comments, blinded original, editor preview) expose
+  `aria-pressed` and a visible "on" state. Plugin-rendered buttons are not changed here.
+- The home page keeps only the `main_content` injection point; its content comes from
+  `g7-home-widgets`.
+- Every page except home shows a translucent quick-nav stack at the bottom right: top, home,
+  comments (only when the post has visible comments) and list (only inside a board, same
+  address as the list buttons).
+- Post view: the top bar is list | board name | previous, next, admin post view, board settings;
+  the bottom bar is list on the left and reply/report/edit/delete on the right. The bottom bar
+  keeps the classes `g7-forum-addon` uses to find it.
+- Comment and reply inputs use two rows: author (avatar + name, or guest fields), then a
+  full-width editor with the submit icon below it on the right.
+- The language selector is hidden in the header and the mobile drawer.
+
+### Removed
+
+- E-commerce traces inherited from the Basic template: shop and mypage order/mileage/wishlist/
+  address/inquiry routes, the currency selector, shop translations, product components and SEO
+  renderers, and the layout editor's e-commerce samples, recipes, states, controls and labels.
+- The template home blocks, the `NoticeTicker` component and the home translations.
+
+### Tests
+
+- The test setup now lives in this repository (`tests/vitest.setup.ts`, happy-dom). Tests that
+  render layouts through the core engine run only when a Gnuboard7 core with its npm
+  dependencies is found (`G7_ROOT`); otherwise they are excluded with a notice.
+- Tests of removed features were deleted; tests whose expectations changed with the icon-only
+  buttons were updated. See README 「테스트」 for how to run them and the known failures.
+
 ## fork-20260924 — 2026-09-24
 
 ### Added

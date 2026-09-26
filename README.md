@@ -319,6 +319,29 @@ Brands 아이콘(github · x 등)은 이 서브셋에 없다. 쓰려면 Brands �
 플러그인의 항목에 저장되고, 그 선택지 64종은 목록에 미리 넣어 두었다. 저장소만 봐서는
 확인할 수 없으므로 `fa-icons-check.mjs` 는 "쓰는데 목록에 없는" 경우만 실패로 본다.
 
+## 테스트 (커스터마이징 사본 전용)
+
+```bash
+npm ci
+npx vitest run
+```
+
+- 이 저장소만으로 돈다. 셋업은 `tests/vitest.setup.ts`, DOM 환경은 `happy-dom`(패키지에 포함).
+  외부 네트워크는 쓰지 않는다.
+- **코어 의존 테스트**: 코어 렌더 엔진(`@/core/…`·`@core/…`)을 불러오는 레이아웃 렌더 테스트(16개,
+  `src/__tests__/layouts/*` 등)는 그누보드7 코어 소스와 코어의 npm 의존성이 있어야 돈다.
+  `G7_ROOT=<코어 루트> npx vitest run` 처럼 코어 루트(`artisan` 이 있는 곳, `npm ci` 를 마친 곳)를
+  주면 함께 돌고, 없으면 제외된다(실행 시 제외 사유를 한 줄 알린다). 이 테스트들은 `jsdom` 환경을
+  쓰는데, `jsdom` 은 코어 쪽 의존성이다.
+- **알려진 실패** (단독 실행, 2026-09-26 기준 — 이번 디자인 변경과 무관):
+  - `src/components/composite/__tests__/HtmlContent.test.tsx` 9건 — `happy-dom` 의 DOM 파서가 브라우저와
+    달라 정화 결과가 다르게 나온다. 같은 DOMPurify·같은 설정을 실제 크로미엄에서 돌리면 모두 기대대로
+    동작한다(원래 `jsdom` 에서 돌던 테스트).
+  - `__tests__/layouts/headerEditorSpecAndCurrencySlot.test.tsx`·`src/components/composite/__tests__/HeaderPropRender.test.tsx`
+    각 1건 — 상단 메뉴 백포트(ae6d837)로 Header 가 게시판 탭 대신 상단 메뉴를 그리면서 `maxVisibleBoards`
+    prop 이 없어졌는데, 편집기 컨트롤 `hdrMaxBoards` 와 그 단언이 남아 있다. 컨트롤 정리는 별도 작업이다.
+- Playwright(`tests/Playwright`)는 실행 중인 사이트가 필요하다(`PLAYWRIGHT_BASE_URL`).
+
 ## 변경 이력
 
 [CHANGELOG.md](CHANGELOG.md)
