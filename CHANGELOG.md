@@ -25,6 +25,28 @@
 - Comment and reply inputs use two rows: author (avatar + name, or guest fields), then a
   full-width editor with the submit icon below it on the right.
 - The language selector is hidden in the header and the mobile drawer.
+- Login and sign-up icon buttons (header, mobile header, mobile drawer, secret-post login, the
+  "go to login" buttons on the reset-password page) use `right-to-bracket` and `user-plus`; both
+  icons were added to the Font Awesome subset (143 names / 131 glyphs).
+- The sign-up buttons in the header and the mobile drawer use the primary (orange) token
+  (`bg-primary-600`, hover `bg-primary-700`) instead of emerald / a grey outline.
+- The quick-nav buttons rest at 50% opacity and go to 80% on hover, keyboard focus and press,
+  with a 150 ms transition.
+- Submit buttons on the auth pages (login, two-factor verify, register, forgot password, reset
+  password, identity challenge) show their original text labels and styling again; the other
+  buttons on those pages stay icon-only.
+- `/boards` lists boards by their latest original post (newest first, boards without posts last,
+  ties by board id descending), using `recent_posts` from `?limit=1`. The bot (SEO) server render
+  cannot apply this sort, so bots still get the creation order.
+
+### Fixed
+
+- The mobile header's person button treated guests as signed in (`_global.currentUser` is an empty
+  object for guests), so it showed "My page" to them. It now checks `currentUser?.uuid` and shows
+  the login icon and link to guests.
+- Five layout editor translation keys that were missing in both ko and en:
+  `layout_editor.palette.table.header_1` / `header_2` / `cell` and
+  `layout_editor.list_editor.item_label` / `item_placeholder`.
 
 ### Removed
 
@@ -32,12 +54,19 @@
   address/inquiry routes, the currency selector, shop translations, product components and SEO
   renderers, and the layout editor's e-commerce samples, recipes, states, controls and labels.
 - The template home blocks, the `NoticeTicker` component and the home translations.
+- The dead layout editor control `hdrMaxBoards` (the Header no longer has a `maxVisibleBoards`
+  prop since the top-menu backport) and its translation.
 
 ### Tests
 
 - The test setup now lives in this repository (`tests/vitest.setup.ts`, happy-dom). Tests that
   render layouts through the core engine run only when a Gnuboard7 core with its npm
   dependencies is found (`G7_ROOT`); otherwise they are excluded with a notice.
+- The two Header tests that still asserted a `maxVisibleBoards` prop now check the current
+  contract (no such control or prop; the tab row has home, popular and the top menu only), and
+  the login/sign-up icon test checks the new icons and colour.
+- New layout test for the `/boards` sort rule (latest post first, empty boards last, ties by id
+  descending, source array left untouched).
 - Tests of removed features were deleted; tests whose expectations changed with the icon-only
   buttons were updated. See README 「테스트」 for how to run them and the known failures.
 

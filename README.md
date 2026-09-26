@@ -14,7 +14,7 @@
 >   release archive has to carry them. `scripts/dist-repro-check.mjs` verifies that the committed
 >   `dist/` still comes out of this source.
 > - **Font Awesome is subsetted**: only the Solid face and only the icons listed in
->   `scripts/fa-icons.json` (141 names / 129 glyphs) ship, which takes `all.inlined.css` from 479 KB
+>   `scripts/fa-icons.json` (143 names / 131 glyphs) ship, which takes `all.inlined.css` from 479 KB
 >   down to 35 KB. `.fa-regular` / `.far` therefore render with the Solid face, and the Brands face is
 >   dropped — nothing in the template draws a brand icon through it (the footer social links are
 >   rendered with the Solid style class, so they were already blank). See
@@ -245,16 +245,20 @@ php artisan template:update sirsoft-basic --force
 ### 아이콘 서브셋
 
 동봉 Font Awesome 은 `scripts/fa-icons.json` 에 적힌 이름만 담은 **Solid 전용 서브셋**이다
-(141종 / 고유 글리프 129개). 이 목록이 단일 원본이고, 서브셋 폰트와 레이아웃 편집기의 아이콘
+(143종 / 고유 글리프 131개). 이 목록이 단일 원본이고, 서브셋 폰트와 레이아웃 편집기의 아이콘
 선택기 목록이 모두 여기서 만들어진다.
 
-- `all.inlined.css` 479,299 B → 35,673 B (gzip 311 KB → 16 KB). 렌더 차단 CSS 라 첫 화면 표시에
+- `all.inlined.css` 479,299 B → 35,894 B (gzip 311 KB → 16 KB). 렌더 차단 CSS 라 첫 화면 표시에
   바로 영향을 준다.
 - 폰트는 계속 `data:` URI 로 인라인한다. 자산 URL 이 `?file=` 쿼리가 되는 구성에서는 CSS 안의
   상대 `url()` 이 풀리지 않아 아이콘이 통째로 사라지기 때문이다.
 - **의도된 차이**: `.fa-regular` / `.far` 는 Regular 페이스가 없어 Solid 모양으로 보인다.
   Brands 페이스와 구버전 호환 패밀리(`Font Awesome 5 …` · `FontAwesome`)는 제거됐다.
 - 수식어·유틸리티 규칙(`fa-spin` · `fa-fw` · `fa-2x` · `fa-ul` · `fa-rotate-90` 등)은 전부 남아 있다.
+- **재현성**: 같은 목록으로 다시 생성해도 폰트 바이트(따라서 `all.inlined.css` 해시)는 매번 달라진다.
+  fontTools 가 저장할 때 `head.modified` 에 생성 시각을 넣기 때문이다. 내용이 같은지는 두 woff2 를
+  fontTools 로 열어 `head.modified` 를 뺀 나머지 테이블을 비교해 확인한다(CSS 규칙은 그대로 같다).
+  커밋된 해시는 `scripts/vendor-manifest.json` 에 적힌 마지막 생성본 기준이다.
 
 ### 스크립트
 
@@ -337,9 +341,6 @@ npx vitest run
   - `src/components/composite/__tests__/HtmlContent.test.tsx` 9건 — `happy-dom` 의 DOM 파서가 브라우저와
     달라 정화 결과가 다르게 나온다. 같은 DOMPurify·같은 설정을 실제 크로미엄에서 돌리면 모두 기대대로
     동작한다(원래 `jsdom` 에서 돌던 테스트).
-  - `__tests__/layouts/headerEditorSpecAndCurrencySlot.test.tsx`·`src/components/composite/__tests__/HeaderPropRender.test.tsx`
-    각 1건 — 상단 메뉴 백포트(ae6d837)로 Header 가 게시판 탭 대신 상단 메뉴를 그리면서 `maxVisibleBoards`
-    prop 이 없어졌는데, 편집기 컨트롤 `hdrMaxBoards` 와 그 단언이 남아 있다. 컨트롤 정리는 별도 작업이다.
 - Playwright(`tests/Playwright`)는 실행 중인 사이트가 필요하다(`PLAYWRIGHT_BASE_URL`).
 
 ## 변경 이력

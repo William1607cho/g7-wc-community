@@ -160,6 +160,8 @@
 `/mypage` 자체는 레이아웃이 `-` 입니다 — 진입하면 하위 탭 중 하나로 넘기는 자리이며 자기
 화면을 갖지 않습니다.
 
+`/boards`(`board/boards`)는 게시판을 최근 원글 작성 시각 내림차순으로 보여 줍니다(`limit=1` 로 받은 `recent_posts[0].created_at`, 글 없는 게시판은 맨 뒤, 동률은 id 내림차순). 봇용 서버 렌더링은 이 정렬을 적용하지 못해 봇에게는 생성일순으로 나갑니다.
+
 라우트를 바꾸면 `php artisan template:update sirsoft-basic --force` 로 반영합니다. 빌드는
 필요 없습니다.
 <!-- @intent END -->
