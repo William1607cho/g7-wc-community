@@ -592,9 +592,6 @@
     "hdr_logo": {
       "label": "Logo Image"
     },
-    "hdr_max_boards": {
-      "label": "Boards Shown in Tabs"
-    },
     "hdr_current_locale": {
       "label": "Current Locale"
     },

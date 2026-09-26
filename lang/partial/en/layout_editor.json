@@ -165,7 +165,14 @@
       "default_submit_text": "Submit"
     },
     "table": {
-      "label": "Table"
+      "label": "Table",
+      "header_1": "Header 1",
+      "header_2": "Header 2",
+      "cell": "Cell"
     }
+  },
+  "list_editor": {
+    "item_label": "Label",
+    "item_placeholder": "Placeholder"
   }
 }

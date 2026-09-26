@@ -2768,6 +2768,14 @@
         ]
       },
       {
+        "value": "right-to-bracket",
+        "keywords": [
+          "right",
+          "to",
+          "bracket"
+        ]
+      },
+      {
         "value": "robot"
       },
       {
@@ -2888,6 +2896,13 @@
       },
       {
         "value": "user"
+      },
+      {
+        "value": "user-plus",
+        "keywords": [
+          "user",
+          "plus"
+        ]
       },
       {
         "value": "users"
@@ -4038,14 +4053,6 @@
       "propKey": "logo"
     },
     "label": "$t:editor.control.hdr_logo.label"
-  },
-  "hdrMaxBoards": {
-    "widget": "number",
-    "apply": {
-      "type": "propValue",
-      "propKey": "maxVisibleBoards"
-    },
-    "label": "$t:editor.control.hdr_max_boards.label"
   },
   "hdrCurrentLocale": {
     "widget": "text",

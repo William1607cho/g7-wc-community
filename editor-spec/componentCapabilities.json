@@ -1304,7 +1304,6 @@
     "propControls": [
       "hdrSiteName",
       "hdrLogo",
-      "hdrMaxBoards",
       "hdrCurrentLocale",
       "hdrNotifTitle",
       "hdrNotifEmpty",

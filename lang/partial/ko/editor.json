@@ -592,9 +592,6 @@
     "hdr_logo": {
       "label": "로고 이미지"
     },
-    "hdr_max_boards": {
-      "label": "탭 표시 게시판 수"
-    },
     "hdr_current_locale": {
       "label": "현재 언어"
     },

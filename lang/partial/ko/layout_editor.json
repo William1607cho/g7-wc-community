@@ -165,7 +165,14 @@
       "default_submit_text": "제출"
     },
     "table": {
-      "label": "표"
+      "label": "표",
+      "header_1": "제목 1",
+      "header_2": "제목 2",
+      "cell": "내용"
     }
+  },
+  "list_editor": {
+    "item_label": "라벨",
+    "item_placeholder": "입력 안내 문구"
   }
 }
