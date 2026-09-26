@@ -224,7 +224,8 @@
                           }
                         },
                         {
-                          "comment": "댓글 삭제 시 데이터소스 갱신, 게시글 삭제 시 목록으로 이동",
+                          "comment": "댓글 삭제 시 데이터소스 갱신, 게시글 삭제 시 목록으로 이동. data-g7-anchor 는 확장(g7-forum-addon)이 이 스텝 뒤에 자기 데이터소스 재조회를 붙이는 자리 표식이다(동작 없음).",
+                          "data-g7-anchor": "comment-delete-refetch",
                           "if": "{{_global.deleteModal.type === 'comment'}}",
                           "handler": "refetchDataSource",
                           "params": {

@@ -126,19 +126,21 @@
           "name": "Div",
           "if": "{{(comment?.depth ?? 0) === 0 || (_local.collapsedReplies?.[$computed.commentRootMap?.[comment?.id]] === false)}}",
           "props":{
-            "className": "border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors {{(comment?.depth ?? 0) > 0 ? 'bg-gray-50 dark:bg-gray-900/50' : ''}}"
+            "className": "border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors {{(comment?.depth ?? 0) > 0 ? 'bg-gray-50 dark:bg-gray-900/50' : ''}}",
+            "data-g7-anchor": "comment-replies-row"
           },
           "children": [
             {
               "partial": "partials/board/show/_comment_item.json"
             },
             {
-              "comment": "답글이 있는 경우 토글 버튼 — 아이콘(펼침/접힘 화살표) + 답글 수(숫자는 버튼 이름이 아니라 데이터라 남긴다). 원래 문구는 children[1] 에 화면낭독 전용(sr-only)으로 둔다: g7-forum-addon 이 children[0].props.name·children[1].text 를 위치로 덮어써 포럼 게시판의 '기본 펼침' 문구로 바꾸기 때문이다(BoardShowWidgetListener::applyForumRepliesDefaultExpanded). 툴팁(title)은 원래 문구 식을 쓴다 — 플러그인이 title 은 바꾸지 않아 포럼 게시판 첫 화면에서는 툴팁 문구가 반대로 보일 수 있다(설계안 보고).",
+              "comment": "답글이 있는 경우 토글 버튼 — 아이콘(펼침/접힘 화살표) + 답글 수(숫자는 버튼 이름이 아니라 데이터라 남긴다). 원래 문구는 children[1] 에 화면낭독 전용(sr-only)으로 둔다. g7-forum-addon 이 포럼 게시판의 '기본 펼침' 식으로 바꾸는 자리다: 1.4.0 은 children[0].props.name·children[1].text 를 위치로 덮어쓰고(title 은 그대로 둬 툴팁이 반대로 보였다), 1.5.0 부터는 data-g7-anchor 표식으로 이 버튼을 찾아 title 을 포함한 모든 collapsedReplies 식을 바꾼다. 1.4.0 과의 호환을 위해 children 순서와 if·collapsedReplies 원래 식을 유지한다.",
               "type": "basic",
               "name": "Button",
               "if": "{{(comment?.replies_count ?? 0) > 0 && (comment?.depth ?? 0) === 0}}",
               "props": {
                 "type": "button",
+                "data-g7-anchor": "comment-replies-toggle",
                 "title": "{{_local.collapsedReplies?.[comment?.id] === false ? '$t:board.hide_replies' : '$t:board.show_replies'}} ({{comment?.replies_count}})",
                 "className": "ml-16 mb-2 h-8 px-2 rounded-md text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 inline-flex items-center gap-1 cursor-pointer"
               },
