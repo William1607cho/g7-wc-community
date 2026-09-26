@@ -10,7 +10,7 @@
  *
  * 수정: EMPTY_FILES 모듈 상수 + useMemo 기반 참조 안정화
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  */
 
 import { describe, it, expect } from 'vitest';

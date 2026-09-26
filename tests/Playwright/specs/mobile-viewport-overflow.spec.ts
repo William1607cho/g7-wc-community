@@ -20,6 +20,10 @@
  *
  * 단위 테스트(Vitest)는 레이아웃 JSON 구조만 본다. 실제 브라우저 폭·줄 수·가시성은
  * 여기서만 검증된다 (위지윅 발행 회귀 #238 교훈).
+ *
+ * wc-community(2026-09-26): 헤더·드로어의 언어 선택을 숨기고 통화 선택은 이커머스와 함께 뺐다.
+ * 드로어 선호설정 아코디언(mobile_drawer_prefs)·데스크톱 통화 드롭다운·상품 쿠폰 칩 검사는 그 화면이
+ * 없어져 지웠고, 320px 햄버거 검사는 드로어(mobile_nav_drawer)가 열리는지로 확인한다.
  */
 import { test, expect, type Page } from '@playwright/test';
 
@@ -91,107 +95,14 @@ test.describe('모바일 헤더/드로어 (390px)', () => {
     await expect(page.locator('#mobile_header_right #mobile_currency_selector_wrap')).toHaveCount(0);
   });
 
-  /**
-   * 드로어 선호설정은 언어 / 통화·배송국가 두 개의 독립 아코디언이며 기본은 접힘이다.
-   * 전부 펼쳐 두면 드로어가 세로로 길어져 정작 메뉴가 스크롤 밖으로 밀린다.
-   */
-  test('드로어 선호설정은 기본 접힘이고 트리거에 현재값을 요약 표기한다 (비회원 포함)', async ({ page }) => {
+  test('드로어에 언어/통화 선호설정 영역이 없다', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
     await page.locator('#mobile_menu_toggle').click();
 
-    const prefs = page.locator('#mobile_drawer_prefs');
-    await expect(prefs).toBeVisible();
-
-    // 언어: 접힘 (트리거 aria-expanded=false, 잘림 래퍼 높이 0)
-    const langToggle = page.locator('#mobile_drawer_language_toggle');
-    await expect(langToggle).toHaveAttribute('aria-expanded', 'false');
-    const langBodyHeight = await page.evaluate(() => {
-      const body = document
-        .querySelector('#mobile_drawer_language_toggle')
-        ?.parentElement?.querySelector('.overflow-hidden');
-      return body ? Math.round(body.getBoundingClientRect().height) : -1;
-    });
-    expect(langBodyHeight).toBe(0);
-
-    // 접힘 상태 요약 = 현재 선택된 언어 칩의 이름 (세션 로케일 무관)
-    const summary = await page.evaluate(() => {
-      const toggle = document.querySelector('#mobile_drawer_language_toggle');
-      const selected = document.querySelector('#mobile_drawer_language [role="option"][aria-selected="true"]');
-      if (!toggle || !selected) return null;
-      return { toggleText: (toggle.textContent ?? '').trim(), chipName: (selected.textContent ?? '').trim() };
-    });
-    expect(summary).not.toBeNull();
-    expect(summary!.toggleText).toContain(summary!.chipName);
-
-    // 통화 슬롯: 이커머스 모듈 주입 + id 스코프. 접힘 → 트리거는 보이고 패널은 언마운트.
-    const currencyRoot = page.locator('#mobile_drawer_currency_wrap [id^="ext_header_currency_selector"]');
-    await expect(currencyRoot).toBeVisible();
-    const trigger = currencyRoot.locator('button[aria-haspopup="listbox"]');
-    await expect(trigger).toBeVisible();
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(currencyRoot.locator('[role="listbox"]')).toHaveCount(0);
-
+    await expect(page.locator('#mobile_nav_drawer')).toBeVisible();
+    await expect(page.locator('#mobile_drawer_prefs')).toHaveCount(0);
     expect(await docOverflow(page)).toBe(0);
-  });
-
-  test('아코디언을 펼치면 언어/통화 칩이 가로로 나열되고 뷰포트를 넘지 않는다', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/');
-    await page.locator('#mobile_menu_toggle').click();
-
-    const prefs = page.locator('#mobile_drawer_prefs');
-    await expect(prefs).toBeVisible();
-
-    // 언어 펼치기 — iteration 이 Button 에 걸려 있어야 칩이 가로로 나열된다
-    await page.locator('#mobile_drawer_language_toggle').click();
-    const langChips = prefs.locator('button[role="option"]:not(#mobile_drawer_currency_wrap button)');
-    expect(await langChips.count()).toBeGreaterThan(0);
-
-    // 통화 펼치기 — portable 에서는 absolute 팝오버가 아니라 static 인라인 목록
-    const currencyRoot = page.locator('#mobile_drawer_currency_wrap [id^="ext_header_currency_selector"]');
-    await currencyRoot.locator('button[aria-haspopup="listbox"]').click();
-    const panel = currencyRoot.locator('[role="listbox"]');
-    await expect(panel).toBeVisible();
-    await expect(panel).toHaveClass(/\bstatic\b/);
-
-    // 모든 옵션이 칩(rounded-full) 이고 뷰포트를 넘지 않는다
-    const chips = currencyRoot.locator('button[role="option"]');
-    const n = await chips.count();
-    expect(n).toBeGreaterThan(0);
-    for (let i = 0; i < n; i += 1) {
-      await expect(chips.nth(i)).toHaveClass(/rounded-full/);
-    }
-
-    // 드로어 안 인라인 아코디언이라 배경 오버레이(fixed inset-0)는 렌더되지 않는다.
-    // 렌더되면 드로어 전체 클릭을 가로챈다.
-    const backdrops = await page.evaluate(
-      () => document.querySelectorAll('#mobile_drawer_prefs .fixed.inset-0').length,
-    );
-    expect(backdrops).toBe(0);
-
-    expect(await docOverflow(page)).toBe(0);
-  });
-
-  test('언어와 통화 아코디언은 독립적으로 개폐된다', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/');
-    await page.locator('#mobile_menu_toggle').click();
-
-    const langToggle = page.locator('#mobile_drawer_language_toggle');
-    const currencyRoot = page.locator('#mobile_drawer_currency_wrap [id^="ext_header_currency_selector"]');
-    const trigger = currencyRoot.locator('button[aria-haspopup="listbox"]');
-
-    await langToggle.click();
-    await trigger.click();
-    await expect(langToggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-
-    // 언어만 닫는다 → 통화는 열린 채 유지
-    await langToggle.click();
-    await expect(langToggle).toHaveAttribute('aria-expanded', 'false');
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(currencyRoot.locator('[role="listbox"]')).toHaveCount(1);
   });
 
   test('320px 에서도 햄버거 버튼을 누를 수 있다 (내비게이션 접근성)', async ({ page }) => {
@@ -206,36 +117,12 @@ test.describe('모바일 헤더/드로어 (390px)', () => {
     expect(await docOverflow(page)).toBe(0);
 
     await toggle.click();
-    await expect(page.locator('#mobile_drawer_prefs')).toBeVisible();
+    await expect(page.locator('#mobile_nav_drawer')).toBeVisible();
     expect(await docOverflow(page)).toBe(0);
   });
 });
 
-test.describe('데스크톱 회귀 방지 (1280px)', () => {
-  test('헤더 통화 셀렉터는 여전히 absolute 드롭다운이다', async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto('/');
-
-    const root = page.locator('#ext_header_currency_selector__header_currency_slot_desktop');
-    const trigger = root.locator('button[aria-haspopup="listbox"]');
-    await expect(trigger).toBeVisible({ timeout: 15_000 });
-
-    await trigger.click();
-    const panel = root.locator('[role="listbox"]');
-    await expect(panel).toBeVisible();
-    await expect(panel).toHaveClass(/\babsolute\b/);
-    await expect(panel).toHaveClass(/\bz-50\b/);
-
-    // 세로 목록 — 칩이 아니다
-    const options = panel.locator('button[role="option"]');
-    expect(await options.count()).toBeGreaterThan(0);
-    await expect(options.first()).not.toHaveClass(/rounded-full/);
-
-    expect(await docOverflow(page)).toBe(0);
-  });
-});
-
-test.describe('비회원 폼/칩 (390px)', () => {
+test.describe('비회원 폼 (390px)', () => {
   test('게시판 글쓰기폼의 이름/비밀번호가 세로로 쌓인다', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/board/free/write');
@@ -246,45 +133,6 @@ test.describe('비회원 폼/칩 (390px)', () => {
     // 압착(147px) 이 아니라 전체폭에 가까워야 한다
     const box = await pw.boundingBox();
     expect(box!.width).toBeGreaterThan(250);
-    expect(await docOverflow(page)).toBe(0);
-  });
-
-  test('상품 상세의 쿠폰 칩 라벨이 한 줄을 유지한다', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/shop/products/105');
-
-    // 쿠폰 칩 라벨은 whitespace-nowrap Span. 상품에 다운로드 가능 쿠폰이 없으면 렌더되지 않는다.
-    const labels = page.locator('button span.whitespace-nowrap');
-    await page.waitForLoadState('networkidle');
-    const count = await labels.count();
-    test.skip(count === 0, '이 상품에 다운로드 가능한 쿠폰이 없다');
-
-    for (let i = 0; i < count; i += 1) {
-      const lines = await labels.nth(i).evaluate((el) => {
-        const lh = parseFloat(getComputedStyle(el).lineHeight) || 16;
-        return Math.max(1, Math.round(el.getBoundingClientRect().height / lh));
-      });
-      expect(lines).toBe(1);
-    }
-
-    // 칩 컨테이너는 가로 스크롤이 아니라 줄바꿈으로 흘린다.
-    // (컨테이너 > [ticket Icon, iteration Div ×N, 더보기 Button] > Button > Span 구조라
-    //  DOM 깊이가 가변적이므로 조상 체인을 올라가며 flex 컨테이너를 찾는다)
-    const containerInfo = await labels.first().evaluate((el) => {
-      // 칩 Button 자신도 inline-flex 이므로, wrap 을 켠 첫 조상(=칩 컨테이너)까지 올라간다
-      let n: HTMLElement | null = el.parentElement;
-      while (n && n !== document.body) {
-        const cs = getComputedStyle(n);
-        if (cs.flexWrap === 'wrap') {
-          return { flexWrap: cs.flexWrap, overflowX: cs.overflowX };
-        }
-        n = n.parentElement;
-      }
-      return null;
-    });
-    expect(containerInfo).not.toBeNull();
-    expect(containerInfo!.overflowX).not.toBe('auto');
-
     expect(await docOverflow(page)).toBe(0);
   });
 });

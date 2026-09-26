@@ -15,7 +15,7 @@
  * - 토큰 + 글로벌 state 정리를 별도 setState 가 아닌 logout 에 위임 (단일 책임)
  * - onError 체인은 그대로 (isWithdrawing 복구 + 에러 토스트)
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  */
 
 import { describe, it, expect } from 'vitest';

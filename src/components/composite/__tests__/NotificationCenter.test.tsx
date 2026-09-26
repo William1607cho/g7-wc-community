@@ -137,8 +137,11 @@ describe('NotificationCenter (sirsoft-basic)', () => {
       );
       fireEvent.click(screen.getByLabelText('알림'));
 
-      const deleteBtn = container.querySelector('[aria-label="Delete notification"]');
+      // 2026-09-26: 개별 삭제 버튼 이름표는 번역된 "삭제"(common.delete) — title 과 같다
+      const deleteLabel = (window as any).G7Core?.t?.('common.delete') ?? 'Delete notification';
+      const deleteBtn = container.querySelector(`[data-notification-id] [aria-label="${deleteLabel}"]`);
       expect(deleteBtn).not.toBeNull();
+      expect(deleteBtn!.getAttribute('title')).toBe(deleteLabel);
       fireEvent.click(deleteBtn!);
 
       expect(onDelete).toHaveBeenCalledTimes(1);
@@ -160,7 +163,11 @@ describe('NotificationCenter (sirsoft-basic)', () => {
         />
       );
       fireEvent.click(screen.getByLabelText('알림'));
-      fireEvent.click(screen.getByText('모두 읽음'));
+      // 2026-09-26: 아이콘 버튼 — 문구는 aria-label·title 에만 있고 보이는 글자는 없다
+      const markAllBtn = screen.getByRole('button', { name: '모두 읽음' });
+      expect(markAllBtn.getAttribute('title')).toBe('모두 읽음');
+      expect((markAllBtn.textContent ?? '').trim()).toBe('');
+      fireEvent.click(markAllBtn);
       expect(onMarkAllRead).toHaveBeenCalledTimes(1);
     });
 
@@ -174,7 +181,11 @@ describe('NotificationCenter (sirsoft-basic)', () => {
         />
       );
       fireEvent.click(screen.getByLabelText('알림'));
-      fireEvent.click(screen.getByText('모두 삭제'));
+      // 2026-09-26: 아이콘 버튼 — 문구는 aria-label·title 에만 있고 보이는 글자는 없다
+      const deleteAllBtn = screen.getByRole('button', { name: '모두 삭제' });
+      expect(deleteAllBtn.getAttribute('title')).toBe('모두 삭제');
+      expect((deleteAllBtn.textContent ?? '').trim()).toBe('');
+      fireEvent.click(deleteAllBtn);
       expect(onDeleteAll).toHaveBeenCalledTimes(1);
     });
 

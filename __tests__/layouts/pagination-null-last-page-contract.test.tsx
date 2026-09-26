@@ -10,7 +10,7 @@
  * 특정 화면을 손으로 열거하면 새로 추가되는 목록을 놓치므로, 이 템플릿의 레이아웃 전체를
  * 스캔해 조건으로 도출한다.
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  */
 
 import { describe, it, expect } from 'vitest';

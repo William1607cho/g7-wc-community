@@ -6,7 +6,7 @@
  * - MIME 타입 와일드카드 매칭 (image/*, video/*)
  * - 정확한 MIME 타입 매칭 (image/jpeg)
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';

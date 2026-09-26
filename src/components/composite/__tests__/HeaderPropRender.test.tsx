@@ -4,13 +4,15 @@
  * @description 실제 Header 컴포넌트 prop 렌더링 검증.
  *
  * 기존 Header.test.tsx 는 MockHeader(가짜)로 구조만 본다. 본 스위트는 실제 Header.tsx 를
- * 렌더해 editor-spec 으로 노출한 핵심 prop(siteName / logo / maxVisibleBoards / shopBase /
+ * 렌더해 editor-spec 으로 노출한 핵심 prop(siteName / logo / maxVisibleBoards /
  * availableLocales / currentLocale)이 실제 출력 DOM·동작에 반영됨을 검증한다.
+ * (wc-community 는 레이아웃에서 availableLocales 를 넘기지 않아 사이트 헤더에는 언어 선택이 없지만,
+ *  컴포넌트 자체의 prop 동작은 그대로 검증한다. 이커머스 통화 슬롯(header_currency)은 뺐다.)
  *
  * 데스크톱 폭으로 useResponsive 를 모킹해 데스크톱 헤더 분기(검색바·언어 선택기·게시판 탭)를
  * 렌더한다.
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  */
 
 import React from 'react';
@@ -103,12 +105,16 @@ describe('Header prop 렌더링 — 편집기 속성이 사용자 화면에 반�
     expect(langTrigger).toBeNull();
   });
 
-  it('header_currency 슬롯 컨테이너가 렌더된다 (모듈 통화 셀렉터 주입 지점)', () => {
-    // SlotContainer 는 빈 슬롯이면 null 이지만, 컴포넌트가 마운트되어 슬롯을 구독해야 한다.
-    // 슬롯 등록분이 생기면 즉시 렌더되도록 SlotContext 구독이 성립함을 보장(번들 포함 회귀 차단은
-    // headerEditorSpecAndCurrencySlot.test 가 담당). 여기서는 렌더가 throw 없이 완료됨을 확인.
-    expect(() =>
-      render(<Header siteName="S" availableLocales={['ko', 'en']} currentLocale="ko" />),
-    ).not.toThrow();
+  it('로그인·회원가입 버튼은 아이콘만 두고 글자는 title/aria-label 로 가진다 (2026-09-26 아이콘화)', () => {
+    // 비로그인(user 미전달) 데스크톱 분기. t() 는 위 모킹에서 키를 그대로 돌려준다.
+    const { container } = render(<Header siteName="S" />);
+    for (const key of ['auth.login', 'auth.register_link']) {
+      const el = container.querySelector(`[aria-label="${key}"]`) as HTMLElement | null;
+      expect(el, `${key} 버튼 없음`).not.toBeNull();
+      expect(el!.getAttribute('title')).toBe(key);
+      // 보이는 글자 없이 아이콘만 — 원래 글자는 title/aria-label 에만 있다
+      expect((el!.textContent ?? '').trim()).toBe('');
+      expect(el!.querySelector('i, svg, [class*="fa-"]')).not.toBeNull();
+    }
   });
 });

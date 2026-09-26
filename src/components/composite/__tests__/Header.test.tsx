@@ -2,6 +2,8 @@
  * Header 컴포넌트 테스트
  *
  * @description 사이트 헤더 컴포넌트의 렌더링 및 동작을 테스트합니다.
+ * (wc-community 2026-09-26: 이커머스를 뺐으므로 가짜 헤더의 쇼핑 메뉴·장바구니 수와 그 단언을 없앴다.
+ *  실제 Header.tsx 의 prop 렌더는 HeaderPropRender.test.tsx 가 본다.)
  */
 
 import React from 'react';
@@ -14,8 +16,6 @@ const mockG7Core = {
     const translations: Record<string, string> = {
       'nav.home': '홈',
       'nav.popular': '인기글',
-      'nav.shop': '쇼핑',
-      'nav.cart': '장바구니',
       'auth.login': '로그인',
       'auth.register': '회원가입',
     };
@@ -33,9 +33,8 @@ const MockHeader: React.FC<{
   logo?: string;
   siteName?: string;
   user?: { id: number; name: string } | null;
-  cartCount?: number;
   boards?: { id: number; name: string; slug: string }[];
-}> = ({ logo, siteName = '그누보드7', user, cartCount = 0, boards = [] }) => {
+}> = ({ logo, siteName = '그누보드7', user, boards = [] }) => {
   const t = (key: string) => mockG7Core.t(key);
 
   return (
@@ -46,7 +45,6 @@ const MockHeader: React.FC<{
       <nav data-testid="main-nav">
         <a href="/">{t('nav.home')}</a>
         <a href="/popular">{t('nav.popular')}</a>
-        <a href="/shop">{t('nav.shop')}</a>
         {boards.map((board) => (
           <a key={board.id} href={`/board/${board.slug}`}>
             {board.name}
@@ -63,9 +61,6 @@ const MockHeader: React.FC<{
           </>
         )}
       </div>
-      {cartCount > 0 && (
-        <span data-testid="cart-count">{cartCount}</span>
-      )}
     </header>
   );
 };
@@ -94,7 +89,7 @@ describe('Header 컴포넌트', () => {
       render(<MockHeader />);
       expect(screen.getByText('홈')).toBeInTheDocument();
       expect(screen.getByText('인기글')).toBeInTheDocument();
-      expect(screen.getByText('쇼핑')).toBeInTheDocument();
+      expect(screen.queryByText('쇼핑')).not.toBeInTheDocument();
     });
 
     it('게시판 목록이 표시되어야 함', () => {
@@ -119,18 +114,6 @@ describe('Header 컴포넌트', () => {
       const user = { id: 1, name: '홍길동' };
       render(<MockHeader user={user} />);
       expect(screen.getByTestId('user-name')).toHaveTextContent('홍길동');
-    });
-  });
-
-  describe('장바구니', () => {
-    it('장바구니에 아이템이 있으면 카운트가 표시되어야 함', () => {
-      render(<MockHeader cartCount={3} />);
-      expect(screen.getByTestId('cart-count')).toHaveTextContent('3');
-    });
-
-    it('장바구니가 비어있으면 카운트가 표시되지 않아야 함', () => {
-      render(<MockHeader cartCount={0} />);
-      expect(screen.queryByTestId('cart-count')).not.toBeInTheDocument();
     });
   });
 });

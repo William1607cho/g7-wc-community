@@ -1,48 +1,35 @@
 /**
  * 회원/마이페이지 도메인 편집기 샘플 데이터 계약 테스트
  *
- * 회원 화면(프로필/내정보수정/배송지/알림함/마이게시판/문의/공개프로필)은 sirsoft-basic
- * 템플릿 레이아웃이며, 데이터소스를 선언한 레이아웃 소유 확장이 템플릿이므로 편집기 샘플
- * SSoT 는 템플릿 editor-spec(`editor-spec/sampleData.json`)의 `byDataSourceId` 다.
+ * 회원 화면(프로필/내정보수정/알림함/마이게시판/공개프로필)은 이 템플릿 레이아웃이며, 데이터소스를
+ * 선언한 레이아웃 소유 확장이 템플릿이므로 편집기 샘플 SSoT 는 템플릿 editor-spec
+ * (`editor-spec/sampleData.json`)의 `byDataSourceId` 다.
  *
  * 실제 Resource shape 대조:
  *  - user             : UserResource::toProfileArray + 게시판 notify 필터(core.user.filter_resource_data)
- *  - addresses        : UserAddressResource[] (data.addresses.data[])
  *  - userNotifications: UserNotificationResource[] (data.data[] + unread_count/페이지네이션)
  *  - myPosts/myComments: 게시판 board-activities/my-comments (data.data[] + query/total)
- *  - myInquiries      : ProductInquiryService 목록 item (data.items[] + data.meta.board_settings)
- *  - qna              : ProductInquiryService 상품 문의 (data.items[] + data.meta)
  *  - stats/myActivityStats: BoardService 통계 (flat counter)
  *  - profile/postStats/recentPosts/userProfile/userPosts: 공개 프로필(users/show, users/posts)
  *
- * 바인딩 SSoT: layouts/mypage/{profile,profile-edit,addresses,notifications,board,inquiries}.json,
- *              layouts/home.json, layouts/shop/show.json, layouts/users/{show,posts}.json (+ partials).
+ * 바인딩 SSoT: layouts/mypage/{profile,profile-edit,notifications,board}.json,
+ *              layouts/users/{show,posts}.json (+ partials).
+ *
+ * wc-community(2026-09-26): 이 템플릿 자신의 editor-spec 을 읽는다(예전에는 코어의
+ * templates/_bundled/sirsoft-basic 것을 읽어 저장소 단독 실행에서 불러오기부터 실패했다).
+ * 이커머스와 함께 지운 배송지(addresses)·상품 문의(myInquiries/qna) 샘플 단언과, 다른 템플릿
+ * (sirsoft-admin_basic)의 스펙을 검사하던 묶음은 뺐다 — 그 템플릿의 테스트는 그 저장소 소관이다.
  */
 import { describe, it, expect } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-function findProjectRoot(startDir: string): string {
-  let dir = startDir;
-  while (dir !== path.dirname(dir)) {
-    if (fs.existsSync(path.join(dir, 'artisan'))) return dir;
-    dir = path.dirname(dir);
-  }
-  return path.resolve(startDir, '../../../../..');
-}
-
-const REPO_ROOT = findProjectRoot(__dirname);
-const SAMPLE_PATH = path.join(REPO_ROOT, 'templates/_bundled/sirsoft-basic/editor-spec/sampleData.json');
-const STATES_PATH = path.join(REPO_ROOT, 'templates/_bundled/sirsoft-basic/editor-spec/states.json');
-const ADMIN_SAMPLE_PATH = path.join(REPO_ROOT, 'templates/_bundled/sirsoft-admin_basic/editor-spec/sampleData.json');
-const ADMIN_STATES_PATH = path.join(REPO_ROOT, 'templates/_bundled/sirsoft-admin_basic/editor-spec/states.json');
+const SAMPLE_PATH = path.resolve(__dirname, '../../editor-spec/sampleData.json');
+const STATES_PATH = path.resolve(__dirname, '../../editor-spec/states.json');
 
 const sample = JSON.parse(fs.readFileSync(SAMPLE_PATH, 'utf-8'));
 const byId = sample.byDataSourceId as Record<string, any>;
 const states = JSON.parse(fs.readFileSync(STATES_PATH, 'utf-8'));
-const adminSample = JSON.parse(fs.readFileSync(ADMIN_SAMPLE_PATH, 'utf-8'));
-const adminById = adminSample.byDataSourceId as Record<string, any>;
-const adminStates = JSON.parse(fs.readFileSync(ADMIN_STATES_PATH, 'utf-8'));
 
 function hasStub(node: unknown): boolean {
   if (node === '샘플') return true;
@@ -63,12 +50,18 @@ function findGroup(specStates: any, match: string): any {
   return (specStates.groups || []).find((g: any) => g.scope?.match === match);
 }
 
-describe('회원/마이페이지 도메인 편집기 샘플 — sirsoft-basic', () => {
+describe('회원/마이페이지 도메인 편집기 샘플 — wc-community', () => {
   const targets = [
-    'user', 'addresses', 'userNotifications', 'myPosts', 'myComments',
-    'myInquiries', 'qna', 'stats', 'myActivityStats',
+    'user', 'userNotifications', 'myPosts', 'myComments',
+    'stats', 'myActivityStats',
     'profile', 'postStats', 'recentPosts', 'userProfile', 'userPosts',
   ];
+
+  it('지운 이커머스 샘플(배송지·상품 문의)이 남아 있지 않다', () => {
+    for (const id of ['addresses', 'userAddresses', 'myInquiries', 'qna']) {
+      expect(byId[id], id).toBeUndefined();
+    }
+  });
 
   describe('DoD #1 — 스텁 0', () => {
     for (const id of targets) {
@@ -99,25 +92,6 @@ describe('회원/마이페이지 도메인 편집기 샘플 — sirsoft-basic', 
       expect(d.is_super).toBe(false);
       expect(d.withdrawn_at).toBeNull();
       expect(d.abilities?.can_update).toBe(true);
-    });
-
-    it('addresses.data.addresses.data 는 배송지 목록 (≥3 + is_default 분기)', () => {
-      const list = get(byId, 'addresses.data.addresses.data');
-      expect(Array.isArray(list)).toBe(true);
-      expect(list.length).toBeGreaterThanOrEqual(3);
-      expect(list.some((a: any) => a.is_default === true)).toBe(true);
-      expect(list.some((a: any) => a.is_default === false)).toBe(true);
-      for (const a of list) {
-        for (const p of ['name', 'recipient_name', 'recipient_phone', 'zipcode', 'address', 'address_detail', 'full_address']) {
-          expect(a[p], `address.${p}`).toBeTruthy();
-        }
-        expect(a.abilities).toBeTruthy();
-        expect(typeof a.abilities.can_update).toBe('boolean');
-        expect(typeof a.abilities.can_delete).toBe('boolean');
-      }
-      // 기본 배송지는 삭제 불가 (UserAddressResource::resolveAbilities)
-      const def = list.find((a: any) => a.is_default);
-      expect(def.abilities.can_delete).toBe(false);
     });
 
     it('userNotifications.data 는 페이지네이션 + 읽음/안읽음 분기', () => {
@@ -163,42 +137,6 @@ describe('회원/마이페이지 도메인 편집기 샘플 — sirsoft-basic', 
       }
     });
 
-    it('myInquiries.data.items 는 ≥3 + 답변/미답변·비밀·reply 분기 + meta.board_settings', () => {
-      const d = byId.myInquiries.data;
-      expect(d.items.length).toBeGreaterThanOrEqual(3);
-      expect(d.items.some((i: any) => i.is_answered === true)).toBe(true);
-      expect(d.items.some((i: any) => i.is_answered === false)).toBe(true);
-      expect(d.items.some((i: any) => i.is_secret === true)).toBe(true);
-      expect(d.items.some((i: any) => !!i.reply)).toBe(true);
-      expect(d.items.some((i: any) => !i.reply)).toBe(true);
-      expect(d.meta.total).toBeGreaterThan(0);
-      expect(Array.isArray(d.meta.board_settings.categories)).toBe(true);
-      expect(d.meta.board_settings.categories.length).toBeGreaterThanOrEqual(2);
-      // 상품 썸네일/URL 분기를 위해 product 채워짐
-      for (const i of d.items) {
-        expect(i.product?.thumbnail_url).toBeTruthy();
-        expect(i.product?.url).toBeTruthy();
-        expect(i.product_name).toBeTruthy();
-      }
-      const answered = d.items.find((i: any) => i.is_answered);
-      expect(answered.reply.content).toBeTruthy();
-      expect(answered.reply.created_at).toBeTruthy();
-    });
-
-    it('qna.data.items 는 ≥3 + owner/secret/answered 분기 + meta.board_settings', () => {
-      const d = byId.qna.data;
-      expect(d.items.length).toBeGreaterThanOrEqual(3);
-      expect(d.items.some((i: any) => i.is_owner === true)).toBe(true);
-      expect(d.items.some((i: any) => i.is_owner === false)).toBe(true);
-      expect(d.items.some((i: any) => i.is_secret === true)).toBe(true);
-      expect(d.items.some((i: any) => i.is_secret === false)).toBe(true);
-      expect(d.items.some((i: any) => i.is_answered === true)).toBe(true);
-      expect(d.meta.abilities).toBeTruthy();
-      expect(Array.isArray(d.meta.board_settings.categories)).toBe(true);
-      const answered = d.items.find((i: any) => i.is_answered && i.reply);
-      expect(answered.reply.content).toBeTruthy();
-    });
-
     it('stats / myActivityStats / postStats 는 카운터 전 경로를 채운다', () => {
       for (const k of ['users', 'posts', 'comments', 'boards']) {
         expect(typeof get(byId, `stats.data.${k}`), `stats.data.${k}`).toBe('number');
@@ -242,14 +180,6 @@ describe('회원/마이페이지 도메인 편집기 샘플 — sirsoft-basic', 
       expect(ov.last_page).toBeGreaterThanOrEqual(1);
     });
 
-    it('empty_addresses override 는 base 와 동일 shape (addresses.data 배열만 비움)', () => {
-      const g = findGroup(states, '/mypage/addresses');
-      const empty = g.items.find((s: any) => s.id === 'empty_addresses');
-      const ov = get(empty, 'sampleDataOverrides.byDataSourceId.addresses.data.addresses.data');
-      expect(Array.isArray(ov)).toBe(true);
-      expect(ov.length).toBe(0);
-    });
-
     it('/users/:userId active/withdrawn override 는 profile base 충실 shape (name/bio/created_at 유지)', () => {
       const g = findGroup(states, '/users/:userId');
       const active = g.items.find((s: any) => s.id === 'active_user');
@@ -272,76 +202,6 @@ describe('회원/마이페이지 도메인 편집기 샘플 — sirsoft-basic', 
       expect(Array.isArray(d.data)).toBe(true);
       expect(d.data.length).toBe(0);
       expect(d.total).toBe(0);
-    });
-  });
-});
-
-describe('관리자 회원 편집기 샘플 — sirsoft-admin_basic', () => {
-  describe('DoD #1 / #5 — user (withAdminInfo shape)', () => {
-    it('admin user.data 는 관리자 표시 필드를 채운다 (name 문자열, stub 0)', () => {
-      const d = adminById.user.data;
-      expect(hasStub(adminById.user)).toBe(false);
-      expect(typeof d.name).toBe('string');
-      for (const p of [
-        'uuid', 'name', 'nickname', 'email', 'language_label', 'country_name',
-        'status_label', 'admin_memo', 'ip_address', 'email_verified_at',
-        'last_login_at', 'created_at',
-      ]) {
-        expect(d[p], `admin user.data.${p}`).toBeTruthy();
-      }
-      // roles[] = {id, identifier, name}
-      expect(Array.isArray(d.roles)).toBe(true);
-      expect(d.roles.length).toBeGreaterThanOrEqual(1);
-      for (const r of d.roles) {
-        expect(typeof r.id).toBe('number');
-        expect(r.identifier).toBeTruthy();
-        expect(r.name).toBeTruthy();
-      }
-      // 동의 이력 nested object
-      expect(d.terms_consent?.agreed_at).toBeTruthy();
-      expect(d.privacy_consent?.agreed_at).toBeTruthy();
-      // 분기 가드: blocked/withdrawn 은 null (활성 회원)
-      expect(d.blocked_at).toBeNull();
-      expect(d.withdrawn_at).toBeNull();
-      expect(d.abilities?.can_update).toBe(true);
-      expect(d.abilities?.can_assign_roles).toBe(true);
-    });
-  });
-
-  describe('DoD #6 / 1.1-bis #9 — edit-form prefill 시드', () => {
-    const editGroup = (adminStates.groups || []).find(
-      (g: any) => g.scope?.match === '*/admin/users/:id/edit',
-    );
-
-    it('edit_existing 상태는 _local.form 을 user.data 와 동일 값으로 시드한다', () => {
-      const st = editGroup.items.find((s: any) => s.id === 'edit_existing');
-      const form = get(st, 'initialState.local.form');
-      expect(form, 'edit_existing initialState.local.form').toBeTruthy();
-      const ud = adminById.user.data;
-      // 핵심 필드가 user.data 와 일치 (편집기는 initLocal 미실행 → 직접 시드 필수)
-      expect(form.name).toBe(ud.name);
-      expect(form.email).toBe(ud.email);
-      expect(form.nickname).toBe(ud.nickname);
-      expect(form.status).toBe(ud.status);
-      expect(form.admin_memo).toBe(ud.admin_memo);
-      // role_ids = roles[].id
-      expect(form.role_ids).toEqual(ud.roles.map((r: any) => r.id));
-      for (const p of ['mobile', 'phone', 'homepage', 'zipcode', 'address', 'address_detail', 'country', 'language', 'timezone']) {
-        expect(form[p], `form.${p}`).toBe(ud[p]);
-      }
-    });
-
-    it('create_mode 는 폼 시드 없이 route.id 만 제거한다 (빈 폼 의도)', () => {
-      const st = editGroup.items.find((s: any) => s.id === 'create_mode');
-      expect(get(st, 'initialState.route.id')).toBeNull();
-      expect(get(st, 'initialState.local.form')).toBeUndefined();
-    });
-
-    it('validation_failed 는 수정 폼 시드 + 검증 오류를 함께 가진다', () => {
-      const st = editGroup.items.find((s: any) => s.id === 'validation_failed');
-      expect(get(st, 'initialState.local.form')).toBeTruthy();
-      expect(st.formErrors['_local.errors.name']).toBeTruthy();
-      expect(st.formErrors['_local.errors.email']).toBeTruthy();
     });
   });
 });

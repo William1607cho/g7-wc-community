@@ -16,7 +16,11 @@
  * 그 controls.json 컨트롤 정의를 신설. 모든 propControls 가 controls.json 에 존재하고 각 컨트롤의
  * apply.propKey 가 Header.tsx 실제 prop 과 일치해야 한다(편집한 속성이 실제 렌더 prop 에 도달).
  *
- * @vitest-environment jsdom
+ * wc-community(2026-09-26): 이커머스를 뺐으므로 Header 의 shopBase 컨트롤과 이커머스 모듈
+ * editor-spec(sampleGlobal 통화/배송국가 시드) 단언은 없앴다. SlotContainer 는 다른 모듈이 헤더에
+ * 조각을 끼우는 통로로 그대로 남는다.
+ *
+ * @vitest-environment happy-dom
  */
 
 import { describe, it, expect } from 'vitest';
@@ -24,7 +28,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const baseDir = path.resolve(__dirname, '../..');
-const repoRoot = path.resolve(baseDir, '../../..');
 
 function loadJson(relPath: string): any {
   return JSON.parse(fs.readFileSync(path.resolve(baseDir, relPath), 'utf8'));
@@ -112,40 +115,16 @@ describe('Header editor-spec capability ↔ controls ↔ Header.tsx prop 정합'
     }
   });
 
-  it('핵심 설정 prop(siteName/logo/maxVisibleBoards/shopBase)이 propControls 로 노출된다', () => {
+  it('핵심 설정 prop(siteName/logo/maxVisibleBoards)이 propControls 로 노출된다', () => {
     const propKeys = headerCap.propControls.map((id: string) => controls[id].apply.propKey);
-    for (const key of ['siteName', 'logo', 'maxVisibleBoards', 'shopBase']) {
+    for (const key of ['siteName', 'logo', 'maxVisibleBoards']) {
       expect(propKeys, `${key} 미노출`).toContain(key);
     }
   });
-});
 
-describe('이커머스 editor-spec sampleGlobal — 편집기 통화/배송국가 셀렉터 표시 조건 시드', () => {
-  // 편집기 캔버스는 모듈 init_actions 를 실행하지 않으므로 셀렉터 표시 조건
-  // (availableCurrencies / availableShippingCountries / modules 설정)을 sampleGlobal 로 직접 시드해야 한다.
-  const ecommerceSpec = JSON.parse(
-    fs.readFileSync(
-      path.resolve(repoRoot, 'modules/_bundled/sirsoft-ecommerce/editor-spec.json'),
-      'utf8',
-    ),
-  );
-  const sg = ecommerceSpec.sampleGlobal ?? {};
-
-  it('availableCurrencies 가 2개 이상 시드되어 통화 셀렉터 표시 조건을 만족', () => {
-    expect(Array.isArray(sg.availableCurrencies)).toBe(true);
-    expect(sg.availableCurrencies.length).toBeGreaterThan(0);
-    expect(sg.availableCurrencies[0].code).toBeTruthy();
-  });
-
-  it('availableShippingCountries 가 2개 이상 시드되어 배송국가 섹션 표시 조건을 만족', () => {
-    expect(Array.isArray(sg.availableShippingCountries)).toBe(true);
-    expect(sg.availableShippingCountries.length).toBeGreaterThan(1);
-  });
-
-  it('modules[sirsoft-ecommerce].language_currency / shipping 설정이 시드된다', () => {
-    const mod = sg.modules?.['sirsoft-ecommerce'];
-    expect(mod?.language_currency?.currencies?.length).toBeGreaterThan(0);
-    expect(mod?.shipping?.international_shipping_enabled).toBe(true);
-    expect(Array.isArray(mod?.shipping?.available_countries)).toBe(true);
+  it('상점 경로 컨트롤(shopBase)은 노출하지 않는다 — Header.tsx 에 그 prop 이 없다', () => {
+    const propKeys = headerCap.propControls.map((id: string) => controls[id].apply.propKey);
+    expect(propKeys).not.toContain('shopBase');
+    expect(controls.hdrShopBase).toBeUndefined();
   });
 });

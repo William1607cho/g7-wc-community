@@ -75,17 +75,21 @@ const makeAttachment = (downloadUrl: string) => ({
 // @effects cross_origin_asset_request_omits_session_token
 describe('SortableThumbnailItem 의 공개 자산 URL 처리', () => {
   it('동일 출처 URL 은 종전대로 인증 요청으로 이미지를 로드한다', async () => {
+    // 예시 경로는 게시판 첨부 미리보기(동일 출처 경로면 무엇이든 같다 — 원본의 이커머스 상품 이미지 경로는
+    // 이 템플릿에서 이커머스를 뺐으므로 바꿨다).
     render(
       <SortableThumbnailItem
-        file={makeAttachment('/api/modules/sirsoft-ecommerce/product-image/abc') as any}
+        file={makeAttachment('/api/modules/sirsoft-board/boards/free/attachments/abc/preview') as any}
         onRemove={vi.fn()}
       />
     );
 
     await waitFor(() => expect(apiGet).toHaveBeenCalledTimes(1));
+    // headers: 비밀글 열람 토큰 헤더(src/support/secretContentHeaders.ts). 토큰이 없으면 빈 객체다.
+    // (이 기대값은 그 헤더를 추가한 커밋에서 갱신되지 않아 실패하던 것을 현재 계약에 맞췄다.)
     expect(apiGet).toHaveBeenCalledWith(
-      '/api/modules/sirsoft-ecommerce/product-image/abc',
-      { responseType: 'blob' }
+      '/api/modules/sirsoft-board/boards/free/attachments/abc/preview',
+      { responseType: 'blob', headers: {} }
     );
   });
 

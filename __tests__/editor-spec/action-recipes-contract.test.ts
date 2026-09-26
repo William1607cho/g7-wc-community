@@ -6,7 +6,7 @@
  * `setTheme` 레시피가 `params.target` 으로 굽고 있었으나 테마 핸들러는 `action.target` 만 읽으므로,
  * 편집기로 만든 테마 버튼은 생성 즉시 no-op 이었다 (오류·경고 없음).
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  */
 
 import { describe, it, expect } from 'vitest';

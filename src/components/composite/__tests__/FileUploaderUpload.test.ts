@@ -5,7 +5,7 @@
  * - 정상 응답: pendingFile 제거 + existingFile 추가
  * - data 누락 응답: pendingFile을 에러 상태로 전환
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  * @module composite/__tests__/FileUploaderUpload.test
  */
 

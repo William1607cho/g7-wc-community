@@ -42,24 +42,36 @@ function collectNodes(node: unknown, predicate: (n: Node) => boolean): Node[] {
     return result;
 }
 
+const LOGIN_KEY = '$t:common.login';
+
 /**
- * 비밀글 로그인 버튼(text: "$t:common.login")의 클릭 액션들을 수집한다.
+ * 비밀글 로그인 버튼인가 — 2026-09-26 아이콘화 이후 글자는 자식 text 가 아니라
+ * props['aria-label'](=title)로 옮겨졌다. 둘 중 어느 쪽이든 로그인 키를 가진, 액션 있는 노드.
+ */
+function isLoginButton(n: Node): boolean {
+    const props = (n as any).props ?? {};
+    return (n.text === LOGIN_KEY || props['aria-label'] === LOGIN_KEY) && Array.isArray((n as any).actions);
+}
+
+/**
+ * 비밀글 로그인 버튼의 클릭 액션들을 수집한다.
  */
 function collectLoginButtonActions(): Node[] {
-    const loginButtons = collectNodes(
-        basicShow,
-        (n) => n.text === '$t:common.login' && Array.isArray((n as any).actions),
-    );
+    const loginButtons = collectNodes(basicShow, isLoginButton);
     return loginButtons.flatMap((btn) => (btn.actions as Node[]) ?? []);
 }
 
 describe('이슈 #413-28 — 비밀글 로그인 버튼 redirect 보존 (basic/show.json)', () => {
     it('비밀글 로그인 버튼이 존재해야 한다', () => {
-        const loginButtons = collectNodes(
-            basicShow,
-            (n) => n.text === '$t:common.login' && Array.isArray((n as any).actions),
-        );
+        const loginButtons = collectNodes(basicShow, isLoginButton);
         expect(loginButtons.length).toBeGreaterThan(0);
+    });
+
+    it('아이콘만 둔 로그인 버튼은 툴팁(title)과 aria-label 이 같은 로그인 문구다', () => {
+        const iconButtons = collectNodes(basicShow, isLoginButton).filter((n) => n.text === undefined);
+        for (const btn of iconButtons) {
+            expect((btn as any).props.title).toBe(LOGIN_KEY);
+        }
     });
 
     it('로그인 버튼 액션이 redirectToLoginWithReturn 핸들러여야 한다', () => {

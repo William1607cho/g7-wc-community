@@ -18,17 +18,9 @@ import { describe, it, expect } from 'vitest';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-function findProjectRoot(startDir: string): string {
-  let dir = startDir;
-  while (dir !== path.dirname(dir)) {
-    if (fs.existsSync(path.join(dir, 'artisan'))) return dir;
-    dir = path.dirname(dir);
-  }
-  return path.resolve(startDir, '../../../../..');
-}
-
-const REPO_ROOT = findProjectRoot(__dirname);
-const SAMPLE_PATH = path.join(REPO_ROOT, 'templates/_bundled/sirsoft-basic/editor-spec/sampleData.json');
+// 이 템플릿 자신의 editor-spec 을 읽는다(위 주석의 SSoT). 예전에는 코어 루트를 찾아
+// templates/_bundled/sirsoft-basic 의 것을 읽어, 저장소 단독 실행에서는 불러오기부터 실패했다.
+const SAMPLE_PATH = path.resolve(__dirname, '../../editor-spec/sampleData.json');
 
 const sample = JSON.parse(fs.readFileSync(SAMPLE_PATH, 'utf-8'));
 const byId = sample.byDataSourceId as Record<string, any>;

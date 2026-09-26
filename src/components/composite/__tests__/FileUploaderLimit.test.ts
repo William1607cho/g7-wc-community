@@ -4,7 +4,7 @@
  * maxFiles 를 초과해 파일을 선택하면 초과분을 조용히 버리지 않고
  * onUploadError 콜백으로 안내한다. (admin_basic 과 동일 동작 — 공통 문구)
  *
- * @vitest-environment jsdom
+ * @vitest-environment happy-dom
  * @module composite/__tests__/FileUploaderLimit.test
  */
 
