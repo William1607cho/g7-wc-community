@@ -7,6 +7,20 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## Unreleased
+
+### Added
+
+- `data-g7-anchor` markers on the seven `board/show` places that `g7-forum-addon` patches:
+  `post-actions` (post action row), `comment-input`, `comment-row`, `comment-body`,
+  `comment-replies-row`, `comment-replies-toggle` and `comment-delete-refetch` (the delete
+  dialog's post-refetch step). `g7-forum-addon` 1.5.0 finds these places by marker first, so
+  restyling them no longer drops forum features silently. Attributes only — no visual change;
+  the shapes that 1.4.0 matches (`justify-end`, `is_guest_post`, the `collapsedReplies`
+  expressions, the toggle's children order) are kept, so either release can go first.
+- Test `__tests__/layouts/board-show-extension-anchors.test.ts` — each marker exists once, on the
+  right node, and the 1.4.0 shape anchors are still there.
+
 ## fork-20260926 — 2026-09-26
 
 ### Changed
