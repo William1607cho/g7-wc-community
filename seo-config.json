@@ -123,40 +123,6 @@
                 { "tag": "p", "content": "© {siteName}. All rights reserved." },
                 { "tag": "p", "content": "Powered by 그누보드7" }
             ]
-        },
-        "product_card_view": {
-            "type": "fields",
-            "source": "$props_source",
-            "link": {
-                "href": "/products/{id}",
-                "base_url": "$var:shopBase"
-            },
-            "fields": [
-                { "tag": "img", "attrs": { "src": "{thumbnail_url}", "alt": "{name_localized|name}" } },
-                { "tag": "h3", "content": "{name_localized|name}" },
-                {
-                    "tag": "p",
-                    "children": [
-                        { "tag": "span", "content": "{primary_category}", "if": "{primary_category}" },
-                        { "tag": "span", "content": "{brand_name}", "if": "{brand_name}" }
-                    ]
-                },
-                {
-                    "tag": "p",
-                    "children": [
-                        { "tag": "span", "content": "{selling_price_formatted}" },
-                        { "tag": "del", "content": "{list_price_formatted}", "if": "{discount_rate}" },
-                        { "tag": "span", "content": "{discount_rate}%", "if": "{discount_rate}" }
-                    ]
-                },
-                {
-                    "tag": "p",
-                    "iterate": "labels",
-                    "item_tag": "span",
-                    "item_content": "{name}"
-                },
-                { "tag": "span", "content": "{sales_status_label}", "if": "{sales_status}" }
-            ]
         }
     },
     "component_map": {
@@ -204,11 +170,6 @@
         "Hr": { "tag": "hr" },
         "Br": { "tag": "br" },
         "Fragment": { "tag": "" },
-        "ProductImageViewer": {
-            "tag": "div",
-            "render": "image_gallery",
-            "props_source": "images"
-        },
         "TabNavigation": {
             "tag": "nav",
             "render": "tab_list",
@@ -297,19 +258,10 @@
             "tag": "div",
             "skip": true
         },
-        "ProductCard": {
-            "tag": "article",
-            "render": "product_card_view",
-            "props_source": "product"
-        },
         "ImageGallery": {
             "tag": "div",
             "render": "image_gallery",
             "props_source": "images"
-        },
-        "QuantitySelector": {
-            "tag": "div",
-            "skip": true
         },
         "PostReactions": {
             "tag": "div",

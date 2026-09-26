@@ -14,14 +14,8 @@
   "auth": {
     "$partial": "partial/en/auth.json"
   },
-  "home": {
-    "$partial": "partial/en/home.json"
-  },
   "board": {
     "$partial": "partial/en/board.json"
-  },
-  "shop": {
-    "$partial": "partial/en/shop.json"
   },
   "mypage": {
     "$partial": "partial/en/mypage.json"

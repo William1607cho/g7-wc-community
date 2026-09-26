@@ -4,6 +4,7 @@ import { Label } from '../basic/Label';
 import { Button } from '../basic/Button';
 import { Textarea } from '../basic/Textarea';
 import { Input } from '../basic/Input';
+import { Icon } from '../basic/Icon';
 import { HtmlContent } from './HtmlContent';
 import type { EditorAttrs } from '../../types';
 
@@ -216,13 +217,17 @@ export const HtmlEditor: React.FC<HtmlEditorProps> = ({
             <Button
               type="button"
               onClick={handlePreviewModeToggle}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg focus:outline-none focus:ring-2 ${
+              title={previewMode ? t('common.preview_off') : t('common.preview')}
+              aria-label={previewMode ? t('common.preview_off') : t('common.preview')}
+              aria-pressed={previewMode}
+              className={`w-8 h-8 rounded-lg focus:outline-none focus:ring-2 cursor-pointer ${
                 previewMode
                   ? 'text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-gray-600 border border-gray-300 dark:border-gray-500 hover:bg-gray-300 dark:hover:bg-gray-500 focus:ring-gray-400 dark:focus:ring-gray-500'
                   : 'text-primary-600 dark:text-primary-400 bg-white dark:bg-gray-700 border border-primary-300 dark:border-primary-600 hover:bg-primary-50 dark:hover:bg-gray-600 focus:ring-primary-500 dark:focus:ring-primary-600'
               }`}
             >
-              {previewMode ? t('common.preview_off') : t('common.preview')}
+              {/* 아이콘만(2026-09-26): 켜짐=eye-slash(미리보기 끄기), 꺼짐=eye(미리보기) — 배경색도 상태에 따라 다르다 */}
+              <Icon name={previewMode ? 'eye-slash' : 'eye'} size="sm" aria-hidden="true" />
             </Button>
           )}
 

@@ -128,8 +128,9 @@ export const ExpandableContent: React.FC<ExpandableContentProps> = ({
     setIsExpanded((prev) => !prev);
   };
 
-  const resolvedExpandText = expandText || t('sirsoft-ecommerce.shop.product.expand_detail');
-  const resolvedCollapseText = collapseText || t('sirsoft-ecommerce.shop.product.collapse_detail');
+  // 기본 문구는 템플릿 자체 번역 키(2026-09-26 — 이커머스 모듈 키 sirsoft-ecommerce.shop.product.* 에서 교체)
+  const resolvedExpandText = expandText || t('board.show_more');
+  const resolvedCollapseText = collapseText || t('board.show_less');
 
   return (
     <Div className={className} id={id} {...editorAttrs}>

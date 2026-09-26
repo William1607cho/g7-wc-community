@@ -26,10 +26,9 @@
           "type": "basic",
           "name": "Button",
           "if": "{{(searchResults?.data?.pages_count ?? 0) > 0}}",
-          "props": { "className": "text-sm text-primary-600 dark:text-primary-400 hover:underline flex items-center gap-1" },
+          "props": { "type": "button", "title": "$t:search.view_all", "aria-label": "$t:search.view_all", "className": "inline-flex items-center justify-center w-8 h-8 rounded-md text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 cursor-pointer" },
           "children": [
-            { "type": "basic", "name": "Span", "text": "$t:search.view_all" },
-            { "type": "basic", "name": "Icon", "props": { "name": "chevron-right", "size": "sm" } }
+            { "type": "basic", "name": "Icon", "props": { "name": "chevron-right", "aria-hidden": "true" } }
           ],
           "actions": [
             {

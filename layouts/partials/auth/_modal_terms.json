@@ -95,8 +95,10 @@
             {
               "type": "basic",
               "name": "Button",
-              "props": { "className": "px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100" },
-              "text": "$t:common.close",
+              "props": { "type": "button", "title": "$t:common.close", "aria-label": "$t:common.close", "className": "inline-flex items-center justify-center w-10 h-10 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 cursor-pointer" },
+              "children": [
+                { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+              ],
               "actions": [
                 { "type": "click", "handler": "closeModal" }
               ]

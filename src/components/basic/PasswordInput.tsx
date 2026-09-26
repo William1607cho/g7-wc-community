@@ -358,6 +358,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
               onClick={handleToggle}
               disabled={disabled}
               className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed dark:disabled:opacity-50"
+              title={showPassword ? t('auth.password_input.hide') : t('auth.password_input.show')}
               aria-label={showPassword ? t('auth.password_input.hide') : t('auth.password_input.show')}
             >
               <Icon

@@ -733,7 +733,10 @@
           "name": "Button",
           "props": {
             "type": "button",
-            "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+            "title": "$t:common.cancel",
+            "aria-label": "$t:common.cancel",
+            "data-testid": "form-cancel",
+            "className": "inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
           },
           "actions": [
             {
@@ -746,15 +749,20 @@
               }
             }
           ],
-          "text": "$t:common.cancel"
+          "children": [
+            { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+          ]
         },
         {
           "type": "basic",
           "name": "Button",
           "props": {
             "type": "button",
+            "title": "{{_local?.isSaving ? '$t:common.saving' : (route?.id ? '$t:common.save' : '$t:board.form.submit')}}",
+            "aria-label": "{{_local?.isSaving ? '$t:common.saving' : (route?.id ? '$t:common.save' : '$t:board.form.submit')}}",
+            "data-testid": "form-save",
             "disabled": "{{_local?.isSaving}}",
-            "className": "flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            "className": "inline-flex items-center justify-center w-10 h-10 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           },
           "actions": [
             {
@@ -834,17 +842,21 @@
             {
               "type": "basic",
               "name": "Icon",
-              "if": "{{_local?.isSaving}}",
+              "if": "{{!_local?.isSaving}}",
               "props": {
-                "name": "spinner",
-                "size": "sm",
-                "className": "animate-spin"
+                "name": "save",
+                "aria-hidden": "true"
               }
             },
             {
               "type": "basic",
-              "name": "Span",
-              "text": "{{_local?.isSaving ? '$t:common.saving' : (route?.id ? '$t:common.save' : '$t:board.form.submit')}}"
+              "name": "Icon",
+              "if": "{{_local?.isSaving}}",
+              "props": {
+                "name": "spinner",
+                "className": "animate-spin",
+                "aria-hidden": "true"
+              }
             }
           ]
         }

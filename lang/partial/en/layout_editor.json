@@ -131,10 +131,6 @@
     "social_login_buttons": {
       "label": "Social login buttons"
     },
-    "product_card": {
-      "label": "Product card",
-      "default_name": "Sample product"
-    },
     "image_gallery": {
       "label": "Image gallery",
       "default_alt1": "Gallery image 1",
@@ -154,13 +150,6 @@
     "user_info": {
       "label": "User info",
       "default_name": "Username"
-    },
-    "quantity_selector": {
-      "label": "Quantity selector"
-    },
-    "product_image_viewer": {
-      "label": "Product image viewer",
-      "default_alt": "Product image"
     },
     "post_reactions": {
       "label": "Post reactions"

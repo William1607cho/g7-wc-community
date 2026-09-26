@@ -245,6 +245,7 @@ const ToastItemComponent: React.FC<ToastItemComponentProps> = ({ toast, position
       <Button
         onClick={onClose}
         className={`flex-shrink-0 p-1 rounded hover:bg-black/10 dark:hover:bg-white/10 ${typeStyle.text} focus:outline-none`}
+        title={getTranslation('common.close')}
         aria-label={getTranslation('common.close')}
       >
         <Icon name={IconName.Times} className="w-4 h-4" />

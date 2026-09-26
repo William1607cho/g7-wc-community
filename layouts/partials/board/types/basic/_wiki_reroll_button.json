@@ -9,8 +9,10 @@
   "if": "{{posts?.data?.board?.wiki?.list_mode === 'random'}}",
   "props": {
     "type": "button",
+    "title": "$t:board.wiki.reroll",
+    "aria-label": "$t:board.wiki.reroll",
     "disabled": "{{_local.wikiRerollLock === true || posts?.loading === true}}",
-    "className": "shrink-0 inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+    "className": "shrink-0 inline-flex items-center justify-center w-10 h-10 text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
   },
   "actions": [
     {
@@ -76,13 +78,8 @@
       "name": "Icon",
       "props": {
         "name": "rotate-right",
-        "size": "sm"
+        "aria-hidden": "true"
       }
-    },
-    {
-      "type": "basic",
-      "name": "Span",
-      "text": "$t:board.wiki.reroll"
     }
   ]
 }

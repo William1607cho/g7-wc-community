@@ -26,9 +26,6 @@
     "home": "Home",
     "popular": "Popular",
     "boards": "Boards",
-    "shop": "Shop",
-    "products": "Products",
-    "cart": "Cart",
     "mypage": "My Page"
   },
   "footer": {
@@ -39,8 +36,7 @@
     "policy": "Policy",
     "notice": "Notice",
     "terms": "Terms of Service",
-    "privacy": "Privacy Policy",
-    "refund": "Refund Policy"
+    "privacy": "Privacy Policy"
   },
   "page": {
     "page_title": "Page",
@@ -60,14 +56,8 @@
     "profile_title": "Profile",
     "profile_edit_title": "Edit Profile",
     "change_password_title": "Change Password",
-    "orders_title": "Order History",
-    "order_detail_title": "Order Details",
-    "mileage_title": "Mileage",
-    "wishlist_title": "Wishlist",
-    "addresses_title": "Address Management",
     "notifications_title": "Notifications",
-    "board_title": "Board Activity",
-    "inquiries_title": "Product Inquiries"
+    "board_title": "Board Activity"
   },
   "identity": {
     "challenge": {
@@ -109,16 +99,6 @@
     "write_title": "Write Post",
     "edit_title": "Edit Post"
   },
-  "shop": {
-    "list_title": "Products",
-    "show_title": "Product Detail",
-    "category_title": "Category",
-    "cart_title": "Cart",
-    "checkout_title": "Checkout",
-    "order_complete_title": "Order Complete",
-    "guest_order_form_title": "Guest Order Lookup",
-    "guest_order_show_title": "Guest Order Detail"
-  },
   "search": {
     "page_title": "Search"
   },
@@ -132,15 +112,6 @@
       "privacyModal": "Privacy Policy",
       "termsModal": "Terms of Service"
     },
-    "shop_detail": {
-      "coupon_download_confirm_modal": "Download Coupon",
-      "inquiry_delete_modal": "Delete Product Inquiry",
-      "login_required_modal": "Login Required",
-      "qna_reply_modal": "Reply to Product Inquiry",
-      "qna_write_modal": "Write Product Inquiry",
-      "review_image_modal": "View Review Image",
-      "cart_added_modal": "Added to Cart"
-    },
     "board_form": {
       "password_verify_modal": "Verify Password"
     },
@@ -148,26 +119,6 @@
       "board_delete_modal": "Delete Post or Comment",
       "board_report_modal": "Report Post or Comment",
       "board_guest_password_modal": "Verify Guest Password"
-    },
-    "mypage_addresses": {
-      "addressModal": "Add or Edit Address",
-      "confirmDeleteAddressModal": "Delete Address",
-      "confirmOverwriteModal": "Overwrite Address"
-    },
-    "shop": {
-      "addressManageModal": "Manage Addresses",
-      "cart_delete_confirm_modal": "Remove from Cart",
-      "cart_option_change_modal": "Change Cart Option",
-      "cart_unavailable_modal": "Unavailable Items",
-      "coupon_download_modal": "Download Coupon",
-      "exclusiveCouponConfirm": "Apply Exclusive Coupon",
-      "tempOrderNotFoundModal": "Order Not Found"
-    },
-    "mypage_orders": {
-      "modal_cancel_order": "Cancel Order",
-      "changeAddressModal": "Change Address",
-      "modal_confirm_purchase": "Confirm Purchase",
-      "modal_write_review": "Write Review"
     },
     "mypage_profile": {
       "withdrawModal": "Withdraw Membership"

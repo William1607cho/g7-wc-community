@@ -156,7 +156,10 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                                "className": "inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 font-medium transition-colors cursor-pointer"
+                                "type": "button",
+                                "title": "$t:board.reload_page",
+                                "aria-label": "$t:board.reload_page",
+                                "className": "inline-flex items-center justify-center w-12 h-12 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors cursor-pointer"
                             },
                             "actions": [
                                 {
@@ -170,13 +173,9 @@
                                     "name": "Icon",
                                     "props": {
                                         "name": "sync",
-                                        "size": "lg"
+                                        "size": "lg",
+                                        "aria-hidden": "true"
                                     }
-                                },
-                                {
-                                    "type": "basic",
-                                    "name": "Span",
-                                    "text": "$t:board.reload_page"
                                 }
                             ]
                         }

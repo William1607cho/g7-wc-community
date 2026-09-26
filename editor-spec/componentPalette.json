@@ -47,14 +47,11 @@
       "label": "$t:layout_editor.palette.group.db",
       "kind": "data",
       "components": [
-        "ProductCard",
         "ImageGallery",
         "Pagination",
         "SearchBar",
         "Avatar",
         "UserInfo",
-        "QuantitySelector",
-        "ProductImageViewer",
         "PostReactions"
       ]
     }
@@ -542,22 +539,6 @@
         }
       }
     },
-    "ProductCard": {
-      "label": "$t:layout_editor.palette.product_card.label",
-      "requiresDefaultNode": true,
-      "defaultNode": {
-        "type": "composite",
-        "name": "ProductCard",
-        "props": {
-          "product": {
-            "id": "sample",
-            "name": "$t:layout_editor.palette.product_card.default_name",
-            "price": 10000,
-            "image": "https://via.placeholder.com/240"
-          }
-        }
-      }
-    },
     "ImageGallery": {
       "label": "$t:layout_editor.palette.image_gallery.label",
       "requiresDefaultNode": true,
@@ -626,35 +607,6 @@
           "name": "$t:layout_editor.palette.user_info.default_name",
           "userId": "sample",
           "subText": "user@example.com"
-        }
-      }
-    },
-    "QuantitySelector": {
-      "label": "$t:layout_editor.palette.quantity_selector.label",
-      "requiresDefaultNode": true,
-      "defaultNode": {
-        "type": "composite",
-        "name": "QuantitySelector",
-        "props": {
-          "value": 1,
-          "min": 1,
-          "max": 99
-        }
-      }
-    },
-    "ProductImageViewer": {
-      "label": "$t:layout_editor.palette.product_image_viewer.label",
-      "requiresDefaultNode": true,
-      "defaultNode": {
-        "type": "composite",
-        "name": "ProductImageViewer",
-        "props": {
-          "images": [
-            {
-              "src": "https://via.placeholder.com/400",
-              "alt": "$t:layout_editor.palette.product_image_viewer.default_alt"
-            }
-          ]
         }
       }
     },

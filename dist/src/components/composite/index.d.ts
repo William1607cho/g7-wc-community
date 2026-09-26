@@ -15,8 +15,6 @@ export { default as RichTextEditor } from './RichTextEditor';
 export { HtmlContent } from './HtmlContent';
 export { HtmlEditor } from './HtmlEditor';
 export { ExpandableContent } from './ExpandableContent';
-export { NoticeTicker } from './NoticeTicker';
-export type { NoticeTickerProps, NoticeTickerItem } from './NoticeTicker';
 export { default as FileUploader } from './FileUploader';
 export { ConfirmDialog } from './ConfirmDialog';
 export { default as SocialLoginButtons } from './SocialLoginButtons';
@@ -60,7 +58,6 @@ export declare const compositeComponents: {
     HtmlContent: () => Promise<typeof import("./HtmlContent")>;
     HtmlEditor: () => Promise<typeof import("./HtmlEditor")>;
     ExpandableContent: () => Promise<typeof import("./ExpandableContent")>;
-    NoticeTicker: () => Promise<typeof import("./NoticeTicker")>;
     FileUploader: () => Promise<typeof import("./FileUploader")>;
     ConfirmDialog: () => Promise<typeof import("./ConfirmDialog")>;
     SocialLoginButtons: () => Promise<typeof import("./SocialLoginButtons")>;

@@ -3,6 +3,9 @@
   "error": "An error occurred",
   "retry": "Retry",
   "save": "Save",
+  "scroll_to_top": "Back to top",
+  "theme_toggle": "Change theme",
+  "floating_nav": "Quick navigation",
   "cancel": "Cancel",
   "confirm": "Confirm",
   "confirming": "Confirming...",
@@ -36,7 +39,6 @@
   "processing": "Processing...",
   "member": "Member",
   "language": "Language",
-  "currency": "Currency",
   "admin_menu": "Admin",
   "theme": {
     "auto": "System",
@@ -60,6 +62,5 @@
   "prev_page": "Previous page",
   "next_page": "Next page",
   "last_page": "Last page",
-  "page_n": "Page {{n}}",
-  "currency_unit": ""
+  "page_n": "Page {{n}}"
 }

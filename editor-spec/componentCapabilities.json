@@ -347,60 +347,6 @@
       "overflow"
     ]
   },
-  "ProductCard": {
-    "label": "$t:editor.component.product_card",
-    "propControls": [
-      "pcShopBase"
-    ],
-    "styleControls": [
-      "paddingAll",
-      "marginAll",
-      "width",
-      "height",
-      "backgroundColor",
-      "textColor",
-      "boxShadow",
-      "borderStyle",
-      "borderColor",
-      "borderRadius",
-      "opacity",
-      "overflow"
-    ],
-    "events": [
-      "onClick"
-    ],
-    "dataProps": [
-      {
-        "propKey": "product",
-        "shape": "object",
-        "label": "$t:editor.data_prop.product",
-        "itemFields": [
-          "id",
-          "name",
-          "name_localized",
-          "name_highlighted",
-          "description_highlighted",
-          "short_description",
-          "thumbnail_url",
-          "primary_category",
-          "brand_name",
-          "selling_price",
-          "selling_price_formatted",
-          "list_price",
-          "list_price_formatted",
-          "discount_rate",
-          "multi_currency_selling_price",
-          "multi_currency_list_price",
-          "sales_status",
-          "sales_status_label",
-          "labels",
-          "rating_avg",
-          "review_count"
-        ],
-        "required": true
-      }
-    ]
-  },
   "ImageGallery": {
     "label": "$t:editor.component.image_gallery",
     "coreProps": true,
@@ -674,56 +620,6 @@
         ]
       }
     }
-  },
-  "QuantitySelector": {
-    "label": "$t:editor.component.quantity_selector",
-    "propControls": [
-      "qsValue",
-      "qsMin",
-      "qsMax",
-      "qsSize",
-      "qsDisabled"
-    ],
-    "styleControls": [
-      "marginAll",
-      "width"
-    ],
-    "events": [
-      "onChange"
-    ],
-    "dataProps": [
-      {
-        "propKey": "value",
-        "shape": "scalar",
-        "label": "$t:editor.data_prop.value"
-      }
-    ]
-  },
-  "ProductImageViewer": {
-    "label": "$t:editor.component.product_image_viewer",
-    "styleControls": [
-      "width",
-      "height",
-      "marginAll",
-      "borderRadius",
-      "overflow"
-    ],
-    "events": [
-      "onClick"
-    ],
-    "dataProps": [
-      {
-        "propKey": "images",
-        "shape": "array",
-        "label": "$t:editor.data_prop.images",
-        "itemFields": [
-          "id",
-          "url",
-          "alt_text_current"
-        ],
-        "required": true
-      }
-    ]
   },
   "FileUploader": {
     "label": "$t:editor.component.file_uploader",
@@ -1408,7 +1304,6 @@
     "propControls": [
       "hdrSiteName",
       "hdrLogo",
-      "hdrShopBase",
       "hdrMaxBoards",
       "hdrCurrentLocale",
       "hdrNotifTitle",
@@ -1450,11 +1345,6 @@
         "propKey": "availableLocales",
         "shape": "scalar",
         "label": "$t:editor.data_prop.header_available_locales"
-      },
-      {
-        "propKey": "cartCount",
-        "shape": "scalar",
-        "label": "$t:editor.data_prop.header_cart_count"
       },
       {
         "propKey": "notificationCount",

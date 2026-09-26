@@ -5,7 +5,7 @@
 ## 레이아웃 목록
 
 <!-- @generated:layouts START — ext:docgen 이 갱신. 이 블록 안은 직접 수정하지 않는다 -->
-레이아웃 166개 (루트: `layouts`).
+레이아웃 80개 (루트: `layouts`).
 
 | 그룹 | 개수 |
 |---|---|
@@ -13,11 +13,10 @@
 | `auth` | 5개 |
 | `board` | 5개 |
 | `errors` | 6개 |
-| `mypage` | 11개 |
+| `mypage` | 5개 |
 | `page` | 1개 |
-| `partials` | 124개 |
+| `partials` | 53개 |
 | `search` | 1개 |
-| `shop` | 9개 |
 | `users` | 2개 |
 
 | 레이아웃 | 그룹 | 종류 | extends |
@@ -40,17 +39,11 @@
 | `503` | `errors` | 화면 | `_user_base` |
 | `maintenance` | `errors` | 화면 | `_user_base` |
 | `home` | `(root)` | 화면 | `_user_base` |
-| `addresses` | `mypage` | 화면 | `_user_base` |
 | `board` | `mypage` | 화면 | `_user_base` |
 | `change-password` | `mypage` | 화면 | `_user_base` |
-| `inquiries` | `mypage` | 화면 | `_user_base` |
-| `mileage` | `mypage` | 화면 | `_user_base` |
 | `notifications` | `mypage` | 화면 | `_user_base` |
-| `orders` | `mypage` | 화면 | `_user_base` |
-| `show` | `mypage` | 화면 | `_user_base` |
 | `profile-edit` | `mypage` | 화면 | `_user_base` |
 | `profile` | `mypage` | 화면 | `_user_base` |
-| `wishlist` | `mypage` | 화면 | `_user_base` |
 | `show` | `page` | 화면 | `_user_base` |
 | `_identity_challenge_modal` | `partials` | partial | - |
 | `_modal_notification_delete_all_confirm` | `partials` | partial | - |
@@ -81,49 +74,22 @@
 | `_modal_delete` | `partials` | partial | - |
 | `_modal_report` | `partials` | partial | - |
 | `_password_verify_modal` | `partials` | partial | - |
+| `_wiki_front_button` | `partials` | partial | - |
+| `_wiki_reroll_button` | `partials` | partial | - |
 | `form` | `partials` | 화면 | - |
 | `index` | `partials` | 화면 | - |
 | `show` | `partials` | 화면 | - |
 | `index` | `partials` | 화면 | - |
 | `index` | `partials` | 화면 | - |
-| `_currency_selector` | `partials` | partial | - |
-| `_board_summary` | `partials` | partial | - |
-| `_community_guide` | `partials` | partial | - |
-| `_popular_boards` | `partials` | partial | - |
-| `_recent_posts` | `partials` | partial | - |
-| `_shop_promo` | `partials` | partial | - |
-| `_stat_card_boards` | `partials` | partial | - |
-| `_stat_card_comments` | `partials` | partial | - |
-| `_stat_card_posts` | `partials` | partial | - |
-| `_stat_card_users` | `partials` | partial | - |
-| `_welcome_card` | `partials` | partial | - |
 | `_tab_navigation` | `partials` | partial | - |
-| `_list` | `partials` | partial | - |
-| `_modal_address` | `partials` | partial | - |
-| `_modal_confirm_delete` | `partials` | partial | - |
-| `_modal_confirm_overwrite` | `partials` | partial | - |
 | `_list` | `partials` | partial | - |
 | `_my_comments` | `partials` | partial | - |
 | `_my_posts` | `partials` | partial | - |
 | `_list` | `partials` | partial | - |
-| `_list` | `partials` | partial | - |
-| `_list` | `partials` | partial | - |
-| `_history` | `partials` | partial | - |
-| `_items` | `partials` | partial | - |
-| `_list` | `partials` | partial | - |
-| `_modal_cancel` | `partials` | partial | - |
-| `_modal_change_address` | `partials` | partial | - |
-| `_modal_confirm_purchase` | `partials` | partial | - |
-| `_modal_write_review` | `partials` | partial | - |
-| `_orderer` | `partials` | partial | - |
-| `_payment` | `partials` | partial | - |
-| `_shipping` | `partials` | partial | - |
-| `_status_header` | `partials` | partial | - |
 | `_edit` | `partials` | partial | - |
 | `_modal_withdraw` | `partials` | partial | - |
 | `_password_verify_section` | `partials` | partial | - |
 | `_view` | `partials` | partial | - |
-| `_list` | `partials` | partial | - |
 | `_search_filters` | `partials` | partial | - |
 | `_search_input` | `partials` | partial | - |
 | `_search_results` | `partials` | partial | - |
@@ -132,71 +98,18 @@
 | `_section` | `partials` | partial | - |
 | `_list` | `partials` | partial | - |
 | `_section` | `partials` | partial | - |
-| `_item_card` | `partials` | partial | - |
-| `_item_list` | `partials` | partial | - |
-| `_section` | `partials` | partial | - |
-| `_cart_item` | `partials` | partial | - |
-| `_cart_list` | `partials` | partial | - |
-| `_cart_summary` | `partials` | partial | - |
-| `_checkout_discount` | `partials` | partial | - |
-| `_checkout_items` | `partials` | partial | - |
-| `_checkout_mileage` | `partials` | partial | - |
-| `_checkout_orderer` | `partials` | partial | - |
-| `_checkout_payment` | `partials` | partial | - |
-| `_checkout_shipping` | `partials` | partial | - |
-| `_checkout_summary` | `partials` | partial | - |
-| `_modal_address_manage` | `partials` | partial | - |
-| `_modal_cart_delete_confirm` | `partials` | partial | - |
-| `_modal_cart_option_change` | `partials` | partial | - |
-| `_modal_cart_unavailable` | `partials` | partial | - |
-| `_modal_coupon_download` | `partials` | partial | - |
-| `_modal_exclusive_coupon_confirm` | `partials` | partial | - |
-| `_modal_temp_order_not_found` | `partials` | partial | - |
-| `_product_purchase_card` | `partials` | partial | - |
-| `_admin_edit_link` | `partials` | partial | - |
-| `_header` | `partials` | partial | - |
-| `_info_summary` | `partials` | partial | - |
-| `_modal_cart_added` | `partials` | partial | - |
-| `_modal_coupon_download_confirm` | `partials` | partial | - |
-| `_modal_inquiry_delete` | `partials` | partial | - |
-| `_modal_login_required` | `partials` | partial | - |
-| `_modal_qna_reply` | `partials` | partial | - |
-| `_modal_qna_write` | `partials` | partial | - |
-| `_modal_review_image` | `partials` | partial | - |
-| `_price_mobile` | `partials` | partial | - |
-| `_purchase_card` | `partials` | partial | - |
-| `_review_avatar` | `partials` | partial | - |
-| `_tab_detail` | `partials` | partial | - |
-| `_tab_qna` | `partials` | partial | - |
-| `_tab_reviews` | `partials` | partial | - |
-| `_category_breadcrumb` | `partials` | partial | - |
-| `_category_filter` | `partials` | partial | - |
-| `_new_products` | `partials` | partial | - |
-| `_popular_products` | `partials` | partial | - |
-| `_product_grid` | `partials` | partial | - |
-| `_recent_products` | `partials` | partial | - |
-| `_search_filter_bar` | `partials` | partial | - |
 | `index` | `search` | 화면 | `_user_base` |
-| `cart` | `shop` | 화면 | `_user_base` |
-| `category` | `shop` | 화면 | `_user_base` |
-| `checkout` | `shop` | 화면 | `_user_base` |
-| `guest_order_form` | `shop` | 화면 | `_user_base` |
-| `guest_order_show` | `shop` | 화면 | `_user_base` |
-| `index` | `shop` | 화면 | `_user_base` |
-| `order_complete` | `shop` | 화면 | `_user_base` |
-| `reorder` | `shop` | 화면 | `_user_base` |
-| `show` | `shop` | 화면 | `_user_base` |
 | `posts` | `users` | 화면 | `_user_base` |
 | `show` | `users` | 화면 | `_user_base` |
 <!-- @generated:layouts END -->
 
 <!-- @intent START -->
-166개 중 **124개가 partial** 입니다(화면 42). 이 비율이 이 템플릿의 구조를 그대로 보여줍니다 —
+80개 중 **49개가 partial** 입니다(화면 31). 이 비율이 이 템플릿의 구조를 그대로 보여줍니다 —
 화면 하나가 여러 조각으로 나뉘어 있고, 조각은 여러 화면이 공유합니다. 화면 하나를 고칠 때는
 그 화면 이름의 partials 디렉토리를 함께 열어야 전체가 보입니다.
 
 그룹은 방문자 여정과 1:1 입니다 — `auth`(로그인·가입·비밀번호·본인인증) · `board`(게시판) ·
-`shop`(상점) · `mypage`(마이페이지) · `page`(단일 문서) · `search` · `users` · `errors`.
+`mypage`(마이페이지) · `page`(단일 문서) · `search` · `users` · `errors`.
 `(root)` 둘은 `_user_base`(모든 화면의 베이스)와 `home` 입니다.
 
 **모든 화면이 `_user_base` 를 상속합니다.** 헤더·푸터·모바일 네비·토스트·모달 호스트가 거기
@@ -226,27 +139,12 @@
 | `/board/:slug/write` | `board/form` | - |
 | `/board/:slug/:id` | `board/show` | - |
 | `/board/:slug/:id/edit` | `board/form` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/products` | `shop/index` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/category/:slug` | `shop/category` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/products/:product_code` | `shop/show` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/cart` | `shop/cart` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/checkout` | `shop/checkout` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/orders/:id/complete` | `shop/order_complete` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/guest/orders` | `shop/guest_order_form` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/guest/orders/:order_number` | `shop/guest_order_show` | - |
-| `/{{_global.modules?.['sirsoft-ecommerce']?.basic_info?.no_route ? '' : (_global.modules?.['sirsoft-ecommerce']?.basic_info?.route_path ?? 'shop')}}/reorder/:id` | `shop/reorder` | - |
 | `/mypage` | `-` | - |
 | `/mypage/profile` | `mypage/profile` | - |
 | `/mypage/profile/edit` | `mypage/profile-edit` | - |
 | `/mypage/change-password` | `mypage/change-password` | - |
-| `/mypage/orders` | `mypage/orders` | - |
-| `/mypage/orders/:order_number` | `mypage/orders/show` | - |
-| `/mypage/mileage` | `mypage/mileage` | - |
-| `/mypage/wishlist` | `mypage/wishlist` | - |
-| `/mypage/addresses` | `mypage/addresses` | - |
 | `/mypage/notifications` | `mypage/notifications` | - |
 | `/mypage/board` | `mypage/board` | - |
-| `/mypage/inquiries` | `mypage/inquiries` | - |
 | `/users/:userId` | `users/show` | - |
 | `/users/:userId/posts` | `users/posts` | - |
 | `/page/:slug` | `page/show` | - |
@@ -257,14 +155,7 @@
 <!-- @generated:layout-map END -->
 
 <!-- @intent START -->
-상점 경로 9개만 **표현식**입니다. 운영자가 이커머스 환경설정에서 상점 경로(`route_path`,
-기본 `shop`)를 바꾸거나 아예 루트로 두면(`no_route`), 그 설정이 라우트 문자열에 그대로
-반영됩니다 — `routes.json` 이 정적 파일이 아니라 **표현식을 담을 수 있다**는 것이 이 템플릿의
-전제입니다.
-
-그래서 상점 라우트를 손볼 때는 세 경우를 함께 생각해야 합니다: 기본(`/shop/...`) · 운영자
-지정 경로(`/store/...`) · 루트 배치(`/products`). 문자열을 하드코딩하면 뒤의 둘이 조용히
-깨집니다.
+라우트는 모두 정적 경로입니다(원본 Basic 의 상점 경로 표현식 라우트는 이 템플릿에서 뺐습니다).
 
 `/mypage` 자체는 레이아웃이 `-` 입니다 — 진입하면 하위 탭 중 하나로 넘기는 자리이며 자기
 화면을 갖지 않습니다.
@@ -285,7 +176,7 @@
 오버라이드는 **확장이 제공한 조각을 이 템플릿의 것으로 갈아 끼우는** 장치입니다. 지금은 하나
 있습니다 — `sirsoft-daum_postcode` 의 주소 검색 조각.
 
-플러그인이 제공하는 원본 조각은 이커머스 관리자 화면에 맞춰져 있어, 방문자 화면의 배송지 입력
+플러그인이 제공하는 원본 조각은 관리자 화면에 맞춰져 있어, 방문자 화면(회원정보 수정)의 주소 입력
 디자인과 어긋납니다. 조각을 고치는 대신 **템플릿이 자기 버전을 얹는** 것이 이 방향입니다 —
 플러그인을 업데이트해도 이 오버라이드는 남고, 다른 템플릿은 원본을 그대로 씁니다.
 
@@ -313,10 +204,10 @@
 
 ```text
 1. 베이스: _user_base.json (헤더 + 푸터 + 모바일 네비 + 콘텐츠 슬롯)
-2. 코어 페이지 30개+: 인증, 게시판, 쇼핑몰, 마이페이지, 검색, 프로필
+2. 코어 페이지 30개+: 인증, 게시판, 마이페이지, 검색, 프로필
 3. Partial 100개+: 폼, 모달, 탭, 카드, 목록, 필터, 타입별 렌더러
 4. 에러 페이지 6개: 401, 403, 404, 500, 503, maintenance
-5. 패턴: 게시판(타입별 렌더러), 쇼핑몰(장바구니/결제 플로우), 마이페이지(탭 네비게이션)
+5. 패턴: 게시판(타입별 렌더러), 마이페이지(탭 네비게이션)
 ```
 
 ---
@@ -327,7 +218,6 @@
 2. [카테고리별 가이드](#카테고리별-가이드)
    - [인증 페이지 패턴](#인증-페이지-패턴)
    - [게시판 패턴](#게시판-패턴)
-   - [쇼핑몰 패턴](#쇼핑몰-패턴)
    - [마이페이지 패턴](#마이페이지-패턴)
    - [검색 패턴](#검색-패턴)
    - [기타 페이지 패턴](#기타-페이지-패턴)
@@ -350,8 +240,7 @@ _user_base.json (베이스 레이아웃)
 │       ├── _recent_posts.json (최근 게시글)
 │       ├── _popular_boards.json (인기 게시판)
 │       ├── _board_summary.json (게시판 요약)
-│       ├── _community_guide.json (커뮤니티 가이드)
-│       └── _shop_promo.json (쇼핑 프로모션)
+│       └── _community_guide.json (커뮤니티 가이드)
 │
 ├── 인증 (auth/)
 │   ├── login.json (로그인)
@@ -408,55 +297,6 @@ _user_base.json (베이스 레이아웃)
 │       └── gallery/
 │           └── index.json (갤러리형 목록)
 │
-├── 쇼핑몰 (shop/)
-│   ├── index.json (상품 목록/메인)
-│   │   └── partials/shop/list/
-│   │       ├── _product_grid.json (상품 그리드)
-│   │       ├── _popular_products.json (인기 상품)
-│   │       ├── _new_products.json (신상품)
-│   │       ├── _recent_products.json (최근 본 상품)
-│   │       ├── _category_filter.json (카테고리 필터)
-│   │       ├── _category_breadcrumb.json (카테고리 경로)
-│   │       └── _search_filter_bar.json (검색/필터 바)
-│   ├── category.json (카테고리 상품)
-│   ├── show.json (상품 상세)
-│   │   └── partials/shop/detail/
-│   │       ├── _header.json (상품 헤더)
-│   │       ├── _info_summary.json (상품 정보 요약)
-│   │       ├── _purchase_card.json (구매 카드)
-│   │       ├── _price_mobile.json (모바일 가격)
-│   │       ├── _tab_detail.json (상세 탭)
-│   │       ├── _tab_reviews.json (리뷰 탭)
-│   │       ├── _tab_qna.json (Q&A 탭)
-│   │       ├── _review_avatar.json (리뷰 아바타)
-│   │       ├── _modal_cart_added.json (장바구니 추가 확인)
-│   │       ├── _modal_coupon_download_confirm.json (쿠폰 다운로드 확인)
-│   │       ├── _modal_login_required.json (로그인 필요)
-│   │       └── _modal_review_image.json (리뷰 이미지 확대)
-│   ├── cart.json (장바구니)
-│   │   └── partials/shop/
-│   │       ├── _cart_list.json (장바구니 목록)
-│   │       ├── _cart_item.json (장바구니 아이템)
-│   │       ├── _cart_summary.json (장바구니 요약)
-│   │       ├── _product_purchase_card.json (구매 카드)
-│   │       ├── _modal_cart_delete_confirm.json (삭제 확인)
-│   │       ├── _modal_cart_option_change.json (옵션 변경)
-│   │       ├── _modal_cart_unavailable.json (품절 안내)
-│   │       └── _modal_temp_order_not_found.json (임시주문 없음)
-│   ├── checkout.json (결제)
-│   │   └── partials/shop/
-│   │       ├── _checkout_orderer.json (주문자 정보)
-│   │       ├── _checkout_shipping.json (배송 정보)
-│   │       ├── _checkout_items.json (주문 상품)
-│   │       ├── _checkout_discount.json (할인/쿠폰)
-│   │       ├── _checkout_mileage.json (마일리지)
-│   │       ├── _checkout_payment.json (결제 수단)
-│   │       ├── _checkout_summary.json (주문 요약)
-│   │       ├── _modal_address_manage.json (배송지 관리)
-│   │       ├── _modal_coupon_download.json (쿠폰 다운로드)
-│   │       └── _modal_exclusive_coupon_confirm.json (전용 쿠폰 확인)
-│   └── order_complete.json (주문 완료)
-│
 ├── 마이페이지 (mypage/)
 │   ├── profile.json (프로필 보기)
 │   ├── profile-edit.json (프로필 수정)
@@ -465,42 +305,17 @@ _user_base.json (베이스 레이아웃)
 │   │       ├── _edit.json (프로필 수정 섹션)
 │   │       ├── _password_verify_section.json (비밀번호 확인)
 │   │       └── _modal_withdraw.json (회원 탈퇴)
-│   ├── orders.json (주문 내역)
-│   │   └── partials/mypage/orders/
-│   │       └── _list.json (주문 목록)
-│   ├── orders/show.json (주문 상세)
-│   │   └── partials/mypage/orders/
-│   │       ├── _status_header.json (주문 상태 헤더)
-│   │       ├── _items.json (주문 상품)
-│   │       ├── _shipping.json (배송 정보)
-│   │       ├── _payment.json (결제 정보)
-│   │       ├── _history.json (주문 이력)
-│   │       ├── _modal_cancel.json (주문 취소)
-│   │       └── _modal_change_address.json (배송지 변경)
 │   ├── board.json (내 게시글/댓글)
 │   │   └── partials/mypage/board/
 │   │       ├── _list.json (탭 목록)
 │   │       ├── _my_posts.json (내 게시글)
 │   │       └── _my_comments.json (내 댓글)
-│   ├── addresses.json (배송지 관리)
-│   │   └── partials/mypage/addresses/
-│   │       ├── _list.json (배송지 목록)
-│   │       ├── _modal_address.json (배송지 추가/수정)
-│   │       ├── _modal_confirm_delete.json (삭제 확인)
-│   │       └── _modal_confirm_overwrite.json (덮어쓰기 확인)
 │   ├── notifications.json (알림)
 │   │   └── partials/mypage/notifications/
 │   │       └── _list.json (알림 목록)
 │   ├── change-password.json (비밀번호 변경)
-│   ├── wishlist.json (위시리스트)
-│   │   └── partials/mypage/wishlist/
-│   │       └── _list.json (위시리스트 목록)
-│   ├── inquiries.json (상품 1:1 문의내역)
-│   │   └── partials/mypage/inquiries/
-│   │       └── _list.json (문의 목록)
 │   └── partials/mypage/
 │       └── _tab_navigation.json (마이페이지 공통 탭)
-│           hiddenTabIds: inquiries 탭은 sirsoft-ecommerce inquiry 설정 시에만 노출
 │
 ├── 검색 (search/)
 │   └── index.json (통합 검색)
@@ -513,10 +328,6 @@ _user_base.json (베이스 레이아웃)
 │           ├── posts/
 │           │   ├── _section.json (게시글 결과 섹션)
 │           │   └── _list.json (게시글 결과 목록)
-│           ├── products/
-│           │   ├── _section.json (상품 결과 섹션)
-│           │   ├── _item_card.json (상품 카드)
-│           │   └── _item_list.json (상품 리스트)
 │           └── pages/
 │               └── _section.json (페이지 결과 섹션)
 │
@@ -526,10 +337,6 @@ _user_base.json (베이스 레이아웃)
 │
 ├── 페이지 (page/)
 │   └── show.json (정적 페이지)
-│
-├── 공통 Partial
-│   └── partials/common/
-│       └── _currency_selector.json (통화 선택기)
 │
 └── 에러 페이지 (errors/)
     ├── 401.json (인증 필요)
@@ -685,107 +492,9 @@ form.json:
 
 ---
 
-#### 쇼핑몰 패턴
-
-**대표**: `shop/index.json`, `shop/show.json`, `shop/cart.json`, `shop/checkout.json`
-
-##### 상품 목록 (shop/index.json)
-
-```text
-extends: _user_base
-data_sources: [products (상품 API), categories (카테고리)]
-slots.content:
-  └── Container
-      ├── _category_breadcrumb.json (경로)
-      ├── _search_filter_bar.json (검색/정렬)
-      ├── _category_filter.json (카테고리 사이드)
-      ├── _product_grid.json (상품 그리드, ProductCard iteration)
-      ├── _popular_products.json (인기 상품)
-      ├── _new_products.json (신상품)
-      ├── _recent_products.json (최근 본 상품)
-      └── Pagination
-```
-
-##### 상품 상세 (shop/show.json)
-
-```text
-extends: _user_base
-init_actions: [최근 본 상품 localStorage 저장]
-data_sources: [product, reviews, popularProducts, relatedProducts]
-computed: [displayPrice, displayListPrice, ...]
-slots.content:
-  └── ThreeColumnLayout
-      ├── left: _header.json (이미지 뷰어 — ProductImageViewer)
-      ├── center: _info_summary.json (상품 정보, 옵션 선택)
-      └── right: _purchase_card.json (가격, 수량, 구매 버튼)
-  └── _price_mobile.json (모바일 가격 — responsive portable)
-  └── TabNavigation
-      ├── _tab_detail.json (상세 정보 — HtmlContent)
-      ├── _tab_reviews.json (리뷰 — iteration)
-      └── _tab_qna.json (Q&A — iteration)
-  └── modals: 장바구니 추가, 쿠폰 다운로드, 로그인 필요, 리뷰 이미지
-```
-
-**SEO 특수사항**:
-- `meta.seo.structured_data`: Product, AggregateRating 스키마
-- `meta.seo.og`: 상품 이미지, 가격 정보 포함
-
-**핸들러 패턴**:
-- `sirsoft-basic.addSelectedItemIfComplete` — 옵션 선택 완료 시 자동 추가
-- `sirsoft-basic.updateSelectedItemQuantity` — 수량 변경
-- `sirsoft-basic.getDisplayPrice` — 다중 통화 가격 표시
-- `apiCall` — 장바구니 추가, 리뷰 작성, 위시리스트 토글
-- `saveToLocalStorage` — 최근 본 상품 저장
-
-##### 장바구니 (shop/cart.json)
-
-```text
-extends: _user_base
-state: { selectedItems, allSelected, isCalculating, optionModal, deleteModal, ... }
-data_sources: [cartItems (POST /cart/query)]
-slots.content:
-  └── Flex
-      ├── _cart_list.json (장바구니 목록)
-      │   └── _cart_item.json (아이템, iteration)
-      │       ├── Checkbox (선택)
-      │       ├── 상품 정보/가격
-      │       ├── QuantitySelector
-      │       └── 삭제/옵션변경 버튼
-      └── _cart_summary.json (주문 요약, 결제 버튼)
-  └── modals: 삭제 확인, 옵션 변경, 품절 안내
-```
-
-**특수사항**:
-- `auth_mode: "optional"`: 비회원도 장바구니 사용 가능 (X-Cart-Key 헤더)
-- `state` 섹션으로 모달/선택 상태 관리
-- 장바구니 핸들러: `toggleCartItemSelection`, `selectAllCartItems`, `recalculateCart`
-
-##### 결제 (shop/checkout.json)
-
-```text
-extends: _user_base
-data_sources: [tempOrder (임시 주문)]
-slots.content:
-  └── Container
-      ├── _checkout_orderer.json (주문자 정보)
-      ├── _checkout_shipping.json (배송 정보)
-      ├── _checkout_items.json (주문 상품 목록)
-      ├── _checkout_discount.json (할인/쿠폰)
-      ├── _checkout_mileage.json (마일리지)
-      ├── _checkout_payment.json (결제 수단 선택)
-      └── _checkout_summary.json (최종 요약 + 결제 버튼)
-  └── modals: 배송지 관리, 쿠폰 다운로드, 전용 쿠폰 확인
-```
-
-**핸들러 패턴**:
-- `apiCall` — 주문 생성, 배송지 조회/저장, 쿠폰 적용
-- `setState` — 배송지 선택, 결제 수단, 쿠폰/마일리지 계산
-
----
-
 #### 마이페이지 패턴
 
-**대표**: `mypage/profile.json`, `mypage/orders.json`
+**대표**: `mypage/profile.json`, `mypage/board.json`
 
 **구성**:
 ```text
@@ -796,7 +505,7 @@ transition_overlay: { target: "mypage_tab_content" }
 slots.content:
   └── Div
       ├── _tab_navigation.json (공통 마이페이지 탭)
-      │   → 프로필, 주문내역, 게시글, 배송지, 알림, 위시리스트
+      │   → 프로필, 게시글, 알림
       └── 탭별 콘텐츠 영역
 ```
 
@@ -807,17 +516,12 @@ slots.content:
 |---|---------|---------|
 | 프로필 | `profile.json` | `_view.json` |
 | 프로필 수정 | `profile-edit.json` | `_edit.json`, `_password_verify_section.json`, `_modal_withdraw.json` |
-| 주문 내역 | `orders.json` | `_list.json` |
-| 주문 상세 | `orders/show.json` | `_status_header.json`, `_items.json`, `_shipping.json`, `_payment.json`, `_history.json` |
 | 내 게시글 | `board.json` | `_my_posts.json`, `_my_comments.json` |
-| 배송지 | `addresses.json` | `_list.json`, `_modal_address.json`, `_modal_confirm_delete.json` |
 | 알림 | `notifications.json` | `_list.json` |
 | 비밀번호 변경 | `change-password.json` | (인라인) |
-| 위시리스트 | `wishlist.json` | `_list.json` |
-| 상품 1:1 문의내역 | `inquiries.json` | `_list.json` (sirsoft-ecommerce 모듈 연동 시에만 탭 표시) |
 
 **핸들러 패턴**:
-- `apiCall` — 프로필 수정, 주문 취소, 배송지 CRUD, 알림 읽음 처리
+- `apiCall` — 프로필 수정, 알림 읽음 처리
 - `navigate` — 탭 간 이동 (별도 페이지)
 - `setState` — 폼 상태, 모달 제어
 - `openModal`/`closeModal` — 탈퇴, 주소 편집, 삭제 확인
@@ -834,27 +538,25 @@ extends: _user_base
 state: { q: "" }
 init_actions: [setState — query 파라미터에서 검색어 추출]
 global_state: { searchActiveTab, searchBoardFilter, searchSortBy, searchPage }
-data_sources: [searchPosts, searchProducts, searchPages]
+data_sources: [searchPosts, searchPages]
 slots.content:
   └── Container
       ├── _search_input.json (검색 입력 — SearchBar)
-      ├── _search_tabs.json (탭: 전체/게시글/상품/페이지)
+      ├── _search_tabs.json (탭: 전체/게시글/페이지)
       ├── _search_filters.json (정렬, 게시판 필터)
       ├── _search_states.json (검색 전/로딩/결과없음 상태)
       └── _search_results.json (결과 표시)
           ├── posts/_section.json → posts/_list.json
-          ├── products/_section.json → products/_item_card.json / _item_list.json
           └── pages/_section.json
 ```
 
 **특수사항**:
-- 통합 검색: 게시글 + 상품 + 페이지 동시 검색
+- 통합 검색: 게시글 + 페이지 동시 검색
 - `searchActiveTab`으로 탭 전환 시 해당 카테고리만 표시
-- 상품 결과는 카드/리스트 뷰 전환 지원
 - `global_state`로 검색 상태 유지 (탭, 필터, 정렬, 페이지)
 
 **핸들러 패턴**:
-- `apiCall` — 검색 API (게시글, 상품, 페이지 별도)
+- `apiCall` — 검색 API (게시글, 페이지 별도)
 - `setState` — 탭 전환, 필터, 정렬
 - `replaceUrl` — 검색어/필터 변경 시 URL 갱신
 
@@ -900,9 +602,10 @@ slots.content:
       ├── _recent_posts.json (최근 게시글)
       ├── _popular_boards.json (인기 게시판)
       ├── _board_summary.json (게시판 요약)
-      ├── _community_guide.json (가이드)
-      └── _shop_promo.json (쇼핑 프로모션)
+      └── _community_guide.json (가이드)
 ```
+
+> **정정(wc-community)**: 홈은 템플릿 블록을 모두 뺐고 `main_content` 주입 지점만 남겼습니다(g7-home-widgets 가 채움).
 
 ---
 
@@ -934,13 +637,13 @@ components:
 
 ```text
 _user_base.json
-├── globalHeaders: [X-Cart-Key (이커머스·인증 API) / X-Guest-Order-Token (비회원 주문 후속 액션) / X-Board-Secret-View-Token (게시판 API)]
+├── globalHeaders: [X-Board-Secret-View-Token (게시판 API)]
 ├── transition_overlay: { style: "skeleton", target: "main_content_area" }
-├── init_actions: [initTheme, initCartKey, loadPreferredCurrency, setState(shopBase)]
+├── init_actions: [initTheme, loadTopMenu]
 ├── data_sources:
 │   ├── boards (게시판 메뉴 — progressive, fallback)
 │   ├── current_user (인증 사용자 — auth_required, suppress 401)
-│   └── cart (장바구니 카운트 — optional auth)
+│   └── notification_unread_count · notifications · user_notification_ws (알림)
 ├── components:
 │   ├── Toast (전역 알림)
 │   ├── PageTransitionIndicator
@@ -959,8 +662,6 @@ _user_base.json
 
 **특수사항**:
 - `globalHeaders`: 패턴별 공통 헤더 자동 첨부
-  - `/api/modules/sirsoft-ecommerce/*` — `X-Cart-Key`, `X-Currency`, `X-Shipping-Country`
-  - `/api/modules/sirsoft-ecommerce/guest/orders/*` — `X-Guest-Order-Token` (비회원 주문 후속 액션)
   - `/api/modules/sirsoft-board/*` — `X-Board-Secret-View-Token`
     비밀번호를 입력해 비밀글 원문을 연 사실을 다음 요청으로 넘기는 값입니다. 서버는 이
     사실을 검증 응답 하나에만 담고 있어서, 토큰을 싣지 않으면 원문을 연 사용자도 댓글·답글·
@@ -969,7 +670,6 @@ _user_base.json
     비밀번호 검증 `onSuccess` 가 `_global.secretViewToken` 에 넣습니다.
 - `transition_overlay.style: "skeleton"`: 페이지 전환 시 PageSkeleton 표시
 - `responsive`: 모바일 오버레이/네비게이션은 `portable` breakpoint에서만 표시
-- `auth_mode: "optional"`: 비회원도 장바구니 카운트 조회 가능
 - `errorHandling.401.handler: "suppress"`: 비회원의 인증 API 401은 에러 전파 방지
 
 ---

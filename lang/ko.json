@@ -14,14 +14,8 @@
   "auth": {
     "$partial": "partial/ko/auth.json"
   },
-  "home": {
-    "$partial": "partial/ko/home.json"
-  },
   "board": {
     "$partial": "partial/ko/board.json"
-  },
-  "shop": {
-    "$partial": "partial/ko/shop.json"
   },
   "mypage": {
     "$partial": "partial/ko/mypage.json"

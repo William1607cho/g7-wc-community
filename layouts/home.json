@@ -4,9 +4,9 @@
     "permissions": [],
     "extends": "_user_base",
     "meta": {
+        "description": "홈 본문은 g7-home-widgets 가 overlay 로 _user_base 의 main_content(slot: content)에 앞쪽 삽입(prepend_child)한다. 템플릿은 홈에 자기 블록·데이터소스를 두지 않는다(2026-09-26 — 옛 최근글·인기글·공지 티커 제거). main_content 노드는 _user_base 에 있으므로 여기서 지워도 주입 지점은 남는다.",
         "seo": {
             "enabled": true,
-            "data_sources": ["recent_posts_unified", "home_popular_posts"],
             "priority": 1.0,
             "changefreq": "daily",
             "og": {
@@ -19,100 +19,8 @@
             }
         }
     },
-    "data_sources": [
-        {
-            "id": "recent_posts_unified",
-            "label_key": "$t:home.recent_posts",
-            "type": "api",
-            "endpoint": "/api/plugins/g7-home-widgets/recent-posts?limit=10",
-            "method": "GET",
-            "auto_fetch": true,
-            "auth_mode": "optional",
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": []
-            }
-        },
-        {
-            "id": "home_popular_posts",
-            "label_key": "$t:board.popular.title",
-            "type": "api",
-            "endpoint": "/api/plugins/g7-home-widgets/popular-posts",
-            "method": "GET",
-            "params": {
-                "period": "{{_local.homePopularPeriod ?? 'week'}}",
-                "limit": 10
-            },
-            "auto_fetch": true,
-            "auth_mode": "optional",
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": []
-            }
-        },
-        {
-            "id": "home_notice_posts",
-            "label_key": "$t:home.notice_ticker.aria_label",
-            "type": "api",
-            "endpoint": "/api/plugins/g7-home-widgets/notice-posts",
-            "method": "GET",
-            "params": {
-                "board": "notice",
-                "limit": 5
-            },
-            "auto_fetch": true,
-            "auth_mode": "optional",
-            "loading_strategy": "progressive",
-            "fallback": {
-                "data": []
-            }
-        }
-    ],
+    "data_sources": [],
     "slots": {
-        "content": [
-            {
-                "comment": "모바일 좌우 여백은 _user_base.json의 main_content 컨테이너(px-4 → desktop px-8)가 이미 담당한다 — 여기서 또 px를 주면 이중 여백이 된다(2026-09-13 확인·제거). 세로 간격(py-6)만 이 페이지 전용으로 유지.",
-                "type": "layout",
-                "name": "Container",
-                "props": {
-                    "className": "py-6"
-                },
-                "children": [
-                    {
-                        "comment": "=== 홈 2컬럼(2026-09-14): 좌측 전체 최근글, 우측 인기글. lg 미만(모바일·태블릿)은 1컬럼으로 쌓인다 ===",
-                        "type": "basic",
-                        "name": "Div",
-                        "props": {
-                            "className": "grid grid-cols-1 lg:grid-cols-2 gap-6 items-start"
-                        },
-                        "children": [
-                            {
-                                "comment": "=== 좌측: 전체 최근글(게시판 무관 통합) 위젯 — g7-home-widgets 애드온. 종전 게시판별 요약카드 그리드(_board_summary_magazine.json/_board_summary.json)를 대체 ===",
-                                "type": "basic",
-                                "name": "Div",
-                                "props": {
-                                    "className": "min-w-0"
-                                },
-                                "children": [
-                                    { "partial": "partials/home/_recent_posts_unified.json" }
-                                ]
-                            },
-                            {
-                                "comment": "=== 우측: 인기글 위젯 — 코어 인기글 API, 기간 토글(주/월/년) ===",
-                                "type": "basic",
-                                "name": "Div",
-                                "props": {
-                                    "className": "min-w-0"
-                                },
-                                "children": [
-                                    { "partial": "partials/home/_popular_posts.json" }
-                                ]
-                            }
-                        ]
-                    },
-                    { "partial": "partials/home/_notice_ticker.json" }
-                ]
-            }
-        ]
+        "content": []
     }
 }

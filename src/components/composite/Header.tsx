@@ -35,9 +35,6 @@ import { ThemeToggle } from './ThemeToggle';
 // Avatar 컴포넌트 import
 import { Avatar } from './Avatar';
 
-// SlotContainer — 헤더 통화 등 모듈 주입 UI 를 떙겨 렌더 (헤더는 주입 모듈을 모름)
-import { SlotContainer } from './SlotContainer';
-
 // NotificationCenter 컴포넌트 import
 import { NotificationCenter, type NotificationItem } from './NotificationCenter';
 
@@ -516,12 +513,6 @@ const Header: React.FC<HeaderProps> = ({
               </Div>
             )}
 
-            {/* 통화 선택 — 이커머스 모듈이 'header_currency' 슬롯에 주입(layout_extensions).
-                헤더는 슬롯 이름만 알고 통화/모듈을 모름. 모듈 비활성 시 빈 슬롯 → 미렌더(인프라 자동 게이트).
-                id 지정 필수 — 같은 슬롯이 모바일 헤더 SlotContainer 와 동시 렌더되므로 주입 컴포넌트
-                root id 가 컨테이너별로 스코프되도록(SlotContainer 가 id 로 자식 root id 를 고유화) 한다. */}
-            <SlotContainer slotId="header_currency" id="header_currency_slot_desktop" className="flex items-center" />
-
             {/* 사용자 메뉴 */}
             {user?.uuid ? (
               <Div ref={userMenuRef} className="relative">
@@ -592,17 +583,25 @@ const Header: React.FC<HeaderProps> = ({
               </Div>
             ) : (
               <Div className="flex items-center gap-1.5">
+                {/* 로그인·회원가입 — 아이콘만(2026-09-26). 툴팁·aria-label 은 원래 글자.
+                    서브셋에 right-to-bracket·user-plus 가 없어 로그인=user, 회원가입=pen-to-square 를 쓴다(결정 사항). */}
                 <Button
+                  type="button"
                   onClick={() => navigate('/login')}
-                  className="px-2.5 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white cursor-pointer"
+                  title={t('auth.login')}
+                  aria-label={t('auth.login')}
+                  className="w-10 h-10 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
                 >
-                  {t('auth.login')}
+                  <Icon name="user" aria-hidden="true" />
                 </Button>
                 <Button
+                  type="button"
                   onClick={() => navigate('/register')}
-                  className="ml-1 px-3 py-2 text-sm font-medium text-white bg-emerald-500 rounded-lg hover:bg-emerald-600 cursor-pointer"
+                  title={t('auth.register_link')}
+                  aria-label={t('auth.register_link')}
+                  className="ml-1 w-10 h-10 text-white bg-emerald-500 rounded-lg hover:bg-emerald-600 cursor-pointer"
                 >
-                  {t('auth.register_link')}
+                  <Icon name="pen-to-square" aria-hidden="true" />
                 </Button>
               </Div>
             )}

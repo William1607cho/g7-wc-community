@@ -13,7 +13,7 @@
 | 스타일 시스템 | `tailwind` |
 | 다크 모드 전략 | `ancestor-class` |
 
-> 분할 13블록 · 팔레트 45 · 스타일 컨트롤 173 · 편집 역량 51 · 중첩 컨테이너 14 · 프리뷰 샘플 59 · 엔드포인트 샘플 1 · 페이지 상태 17 · 액션 레시피 20
+> 분할 13블록 · 팔레트 42 · 스타일 컨트롤 166 · 편집 역량 48 · 중첩 컨테이너 14 · 프리뷰 샘플 32 · 엔드포인트 샘플 1 · 페이지 상태 13 · 액션 레시피 9
 <!-- @generated:editor-spec-summary END -->
 
 <!-- @intent START -->
@@ -30,18 +30,18 @@
 <!-- @generated:editor-spec-blocks START — ext:docgen 이 갱신. 이 블록 안은 직접 수정하지 않는다 -->
 | 블록 | 역할 | 항목 수 | 출처 |
 |---|---|---|---|
-| `componentPalette.entries` | 편집기 "요소 추가" 팔레트에 나타나는 항목 | 45 | `editor-spec/componentPalette.json` |
+| `componentPalette.entries` | 편집기 "요소 추가" 팔레트에 나타나는 항목 | 42 | `editor-spec/componentPalette.json` |
 | `componentPalette.groups` | 팔레트 좌측 목록의 묶음 | 2 | `editor-spec/componentPalette.json` |
-| `controls` | 재사용 스타일 컨트롤 정의 | 173 | `editor-spec/controls.json` |
-| `componentCapabilities` | 컴포넌트별 편집 역량(어떤 속성을 편집기가 다루는가) | 51 | `editor-spec/componentCapabilities.json` |
-| `nesting.draggable` | 캔버스에서 끌어 옮길 수 있는 컴포넌트 | 45 | `editor-spec/nesting.json` |
+| `controls` | 재사용 스타일 컨트롤 정의 | 166 | `editor-spec/controls.json` |
+| `componentCapabilities` | 컴포넌트별 편집 역량(어떤 속성을 편집기가 다루는가) | 48 | `editor-spec/componentCapabilities.json` |
+| `nesting.draggable` | 캔버스에서 끌어 옮길 수 있는 컴포넌트 | 42 | `editor-spec/nesting.json` |
 | `nesting.containers` | 자식을 담을 수 있는 컴포넌트와 그 허용 규칙 | 14 | `editor-spec/nesting.json` |
-| `sampleData.byDataSourceId` | 레이아웃 `data_sources` ID 로 붙는 프리뷰 응답 | 59 | `editor-spec/sampleData.json` |
+| `sampleData.byDataSourceId` | 레이아웃 `data_sources` ID 로 붙는 프리뷰 응답 | 32 | `editor-spec/sampleData.json` |
 | `sampleData.byEndpointPattern` | 엔드포인트 패턴으로 붙는 프리뷰 응답 | 1 | `editor-spec/sampleData.json` |
-| `sampleGlobal` | `_global.*` 프리뷰 baseline 시드 | 6 | `editor-spec/sampleGlobal.json` |
-| `states.groups` | 상태 변종을 적용할 범위(라우트·베이스 레이아웃) | 17 | `editor-spec/states.json` |
+| `sampleGlobal` | `_global.*` 프리뷰 baseline 시드 | 5 | `editor-spec/sampleGlobal.json` |
+| `states.groups` | 상태 변종을 적용할 범위(라우트·베이스 레이아웃) | 13 | `editor-spec/states.json` |
 | `stateLabels` | 상태값 친화 명칭 카탈로그 | 7 | `editor-spec/stateLabels.json` |
-| `actionRecipes` | 친화 명칭 → 액션 JSON 레시피 | 20 | `editor-spec/actionRecipes.json` |
+| `actionRecipes` | 친화 명칭 → 액션 JSON 레시피 | 9 | `editor-spec/actionRecipes.json` |
 | `conditionRecipes.operators` | 조건 표현식에 쓸 수 있는 연산자 | 37 | `editor-spec/conditionRecipes.json` |
 | `computedRecipes` | 계산값 레시피 | 4 | `editor-spec/computedRecipes.json` |
 | `errorRecipes` | 오류 처리 레시피 | 7 | `editor-spec/errorRecipes.json` |
@@ -85,15 +85,15 @@
 <!-- @generated:editor-spec-samples START — ext:docgen 이 갱신. 이 블록 안은 직접 수정하지 않는다 -->
 | 자리 | 역할 | 개수 | ID |
 |---|---|---|---|
-| `sampleData.byDataSourceId` | 레이아웃 `data_sources` ID 로 붙는 프리뷰 응답 | 59 | `mileage_balance` · `mileage_history` · `user` · `userNotifications` · `searchResults` · `profile` · `userProfile` · `addresses` · `userAddresses` · `boardList` · `boards` · `home_boards` … 외 47개 |
+| `sampleData.byDataSourceId` | 레이아웃 `data_sources` ID 로 붙는 프리뷰 응답 | 32 | `user` · `userNotifications` · `searchResults` · `profile` · `userProfile` · `boardList` · `boards` · `home_boards` · `challenge` · `current_user` · `form_data` · `form_meta` … 외 20개 |
 | `sampleData.byEndpointPattern` | 엔드포인트 패턴으로 붙는 프리뷰 응답 | 1 | `/api/modules/sirsoft-page/pages/*` |
-| `states.groups` | 상태 변종을 적용할 범위(라우트·베이스 레이아웃) | 17 | `/login` · `/search` · `/mypage/notifications` · `/mypage/profile/edit` · `/forgot-password` · `/reset-password` · `/identity/challenge` · `/mypage/change-password` · `/mypage/wishlist` · `/mypage/addresses` · `/users/:userId` · `/users/:userId/posts` … 외 5개 |
+| `states.groups` | 상태 변종을 적용할 범위(라우트·베이스 레이아웃) | 13 | `/login` · `/search` · `/mypage/notifications` · `/mypage/profile/edit` · `/forgot-password` · `/reset-password` · `/identity/challenge` · `/mypage/change-password` · `/users/:userId` · `/users/:userId/posts` · `/register` · `/mypage/board` … 외 1개 |
 
 _이 확장 레이아웃의 `data_source` 는 전부 프리뷰 샘플이 붙습니다 (이 확장 또는 번들 템플릿 스펙이 커버)._
 <!-- @generated:editor-spec-samples END -->
 
 <!-- @intent START -->
-`byDataSourceId` 59종이 사용자 화면 전반을 덮고, `byEndpointPattern` 1종이
+`byDataSourceId` 32종이 사용자 화면 전반을 덮고, `byEndpointPattern` 1종이
 `sirsoft-page` 의 공개 페이지를 덮습니다. 다른 확장 소유 경로를 이 템플릿이 덮는 것은
 그 화면을 **렌더하는 쪽이 템플릿**이기 때문입니다 — 페이지 모듈은 데이터를 주고, 그리는
 것은 템플릿입니다.

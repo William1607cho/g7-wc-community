@@ -131,10 +131,6 @@
     "social_login_buttons": {
       "label": "소셜 로그인 버튼"
     },
-    "product_card": {
-      "label": "상품 카드",
-      "default_name": "샘플 상품"
-    },
     "image_gallery": {
       "label": "이미지 갤러리",
       "default_alt1": "갤러리 이미지 1",
@@ -154,13 +150,6 @@
     "user_info": {
       "label": "사용자 정보",
       "default_name": "사용자명"
-    },
-    "quantity_selector": {
-      "label": "수량 선택기"
-    },
-    "product_image_viewer": {
-      "label": "상품 이미지 뷰어",
-      "default_alt": "상품 이미지"
     },
     "post_reactions": {
       "label": "게시글 반응"

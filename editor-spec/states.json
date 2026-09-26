@@ -37,7 +37,7 @@
         "kind": "route",
         "match": "/search"
       },
-      "comment": "검색 결과 영역은 searchResults 데이터소스가 condition `{{query?.q}}` 로 게이트된다(본문 line 62). 검색어가 없으면 결과 영역 자체가 렌더되지 않아 두 상태가 동일해 보이므로, 두 변종 모두 query.q 를 주입해 결과 영역을 띄운 뒤 데이터 유무로 변종을 구분한다. — query.type(기본 'all') 게이트로 게시글/상품/페이지 서브탭 본체가 분기된다(_search_results.json). 탭은 전역 상태가 아니라 URL 쿼리가 SSoT 이므로 상태 패치도 query 로 준다. 각 서브탭 상태를 추가해 탭별 프레젠테이션을 캔버스에 노출(클릭 불가, 상태 패치로 시뮬레이션). all 탭 posts/pages 섹션 본체는 searchResults.data.{posts,pages}.items 바인딩이라 base 샘플에 해당 배열을 채워 렌더 보장.",
+      "comment": "검색 결과 영역은 searchResults 데이터소스가 condition `{{query?.q}}` 로 게이트된다(본문 line 62). 검색어가 없으면 결과 영역 자체가 렌더되지 않아 두 상태가 동일해 보이므로, 두 변종 모두 query.q 를 주입해 결과 영역을 띄운 뒤 데이터 유무로 변종을 구분한다. — query.type(기본 'all') 게이트로 게시글/페이지 서브탭 본체가 분기된다(_search_results.json). 탭은 전역 상태가 아니라 URL 쿼리가 SSoT 이므로 상태 패치도 query 로 준다. 각 서브탭 상태를 추가해 탭별 프레젠테이션을 캔버스에 노출(클릭 불가, 상태 패치로 시뮬레이션). all 탭 posts/pages 섹션 본체는 searchResults.data.{posts,pages}.items 바인딩이라 base 샘플에 해당 배열을 채워 렌더 보장.",
       "items": [
         {
           "id": "with_results",
@@ -80,16 +80,6 @@
             "query": {
               "q": "티셔츠",
               "type": "posts"
-            }
-          }
-        },
-        {
-          "id": "tab_products",
-          "label": "$t:editor.state.search_tab_products",
-          "initialState": {
-            "query": {
-              "q": "티셔츠",
-              "type": "products"
             }
           }
         },
@@ -329,67 +319,6 @@
       ]
     },
     {
-      "comment": "찜 목록. _list partial 이 wishlist.data.data 길이로 그리드/빈 상태를 if 분기한다(line 60/110).",
-      "scope": {
-        "kind": "route",
-        "match": "/mypage/wishlist"
-      },
-      "items": [
-        {
-          "id": "with_items",
-          "label": "$t:editor.state.wishlist_with_items",
-          "default": true
-        },
-        {
-          "id": "empty_wishlist",
-          "label": "$t:editor.state.wishlist_empty",
-          "sampleDataOverrides": {
-            "byDataSourceId": {
-              "wishlist": {
-                "data": {
-                  "data": [],
-                  "pagination": {
-                    "total": 0,
-                    "per_page": 20,
-                    "current_page": 1
-                  }
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
-      "comment": "배송지 관리. _list partial 이 addresses.data.addresses.data 길이로 목록/빈 상태를 if 분기한다(line 55/179).",
-      "scope": {
-        "kind": "route",
-        "match": "/mypage/addresses"
-      },
-      "items": [
-        {
-          "id": "with_addresses",
-          "label": "$t:editor.state.addresses_with",
-          "default": true
-        },
-        {
-          "id": "empty_addresses",
-          "label": "$t:editor.state.addresses_empty",
-          "sampleDataOverrides": {
-            "byDataSourceId": {
-              "addresses": {
-                "data": {
-                  "addresses": {
-                    "data": []
-                  }
-                }
-              }
-            }
-          }
-        }
-      ]
-    },
-    {
       "comment": "회원 공개 프로필. users/show 레이아웃은 profile.data.status 가 'withdrawn' 인지로 일반/탈퇴 회원 정보를 if 분기한다(본문 line 187/269).",
       "scope": {
         "kind": "route",
@@ -542,52 +471,6 @@
           "initialState": {
             "global": {
               "boardActivitySubTab": "my-comments"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "comment": " states 전수 — 주문/결제 배송지 관리 모달(_modal_address_manage, id=addressManageModal). 주소 검색 확장점(checkout_modal_address_search_slot)은 _local.addressModalMode === 'form' 게이트 뒤라 모달 편집 모드에서 이 상태로 연다. route scope 가 아니라 modal scope 인 이유: 확장 편집 모드의 shop/checkout 은 본문 확장점이 기본 노출되어 모달이 렌더되지 않고, 모달 내부 게이트는 모달 편집 모드(scope.kind=modal)에서 열어야 한다. /shop/checkout route 그룹(normal 등)은 ecommerce 모듈 스펙 소유 — 중복 정의 금지.",
-      "scope": {
-        "kind": "modal",
-        "match": "addressManageModal"
-      },
-      "items": [
-        {
-          "id": "address_list",
-          "label": "$t:editor.state.address_modal_list",
-          "default": true
-        },
-        {
-          "id": "address_manual_form",
-          "label": "$t:editor.state.address_modal_form",
-          "initialState": {
-            "local": {
-              "addressModalMode": "form"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "comment": " states 전수 — 주문 상세. 배송지 변경 모달(_modal_change_address)의 주소 검색 확장점(modal_change_address_search_slot)은 (_local.changeAddressMode ?? 'saved') === 'manual' 게이트 뒤. 확장 편집 모드의 모달 표시용 append 와 조합해 노출한다.",
-      "scope": {
-        "kind": "route",
-        "match": "/mypage/orders/:order_number"
-      },
-      "items": [
-        {
-          "id": "default",
-          "label": "$t:editor.state.order_show_default",
-          "default": true
-        },
-        {
-          "id": "change_address_manual",
-          "label": "$t:editor.state.order_change_address_manual",
-          "initialState": {
-            "local": {
-              "changeAddressMode": "manual"
             }
           }
         }

@@ -579,30 +579,6 @@
         }
       },
       {
-        "name": "ProductCard",
-        "type": "composite",
-        "description": "상품 카드",
-        "path": "src/components/composite/ProductCard.tsx",
-        "props": {
-          "product": {
-            "type": "object",
-            "required": true,
-            "description": "상품 데이터"
-          },
-          "showDiscount": {
-            "type": "boolean",
-            "required": false,
-            "default": true,
-            "description": "할인율 표시 여부"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "사용자 정의 클래스"
-          }
-        }
-      },
-      {
         "name": "RichTextEditor",
         "type": "composite",
         "description": "리치 텍스트 에디터",
@@ -635,55 +611,6 @@
             "type": "array",
             "required": true,
             "description": "이미지 URL 배열"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "사용자 정의 클래스"
-          }
-        }
-      },
-      {
-        "name": "ProductImageViewer",
-        "type": "composite",
-        "description": "상품 이미지 뷰어 (메인 이미지 + 썸네일 + 라이트박스)",
-        "path": "src/components/composite/ProductImageViewer.tsx",
-        "props": {
-          "images": {
-            "type": "array",
-            "required": true,
-            "description": "상품 이미지 배열 (ProductImageResource 응답)"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "사용자 정의 클래스"
-          }
-        }
-      },
-      {
-        "name": "QuantitySelector",
-        "type": "composite",
-        "description": "수량 선택기 (+/- 버튼)",
-        "path": "src/components/composite/QuantitySelector.tsx",
-        "props": {
-          "value": {
-            "type": "number",
-            "required": false,
-            "default": 1,
-            "description": "현재 수량"
-          },
-          "min": {
-            "type": "number",
-            "required": false,
-            "default": 1,
-            "description": "최소 수량"
-          },
-          "max": {
-            "type": "number",
-            "required": false,
-            "default": 99,
-            "description": "최대 수량"
           },
           "className": {
             "type": "string",
@@ -1212,30 +1139,6 @@
         }
       },
       {
-        "name": "BrandMark",
-        "type": "composite",
-        "description": "결제 브랜드 마크 (색 배지 또는 인라인 SVG 로고, DOMPurify 화이트리스트 sanitize)",
-        "path": "src/components/composite/BrandMark.tsx",
-        "props": {
-          "brandMark": {
-            "type": "object",
-            "required": false,
-            "description": "브랜드 마크 데이터 { text, class } 또는 { svg }"
-          },
-          "size": {
-            "type": "number",
-            "required": false,
-            "default": 32,
-            "description": "마크 컨테이너 크기(px)"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "사용자 정의 클래스"
-          }
-        }
-      },
-      {
         "name": "HtmlEditor",
         "type": "composite",
         "description": "HTML/텍스트 에디터 (WYSIWYG, 미리보기, Form 자동 바인딩)",
@@ -1490,7 +1393,7 @@
       {
         "name": "SlotContainer",
         "type": "composite",
-        "description": "동적 슬롯 컨테이너 — 레이아웃 JSON 노드(slot)/확장 주입 조각을 떙겨 렌더 (빈 슬롯=미렌더). 헤더 통화 등 모듈 주입 UI 소비",
+        "description": "동적 슬롯 컨테이너 — 레이아웃 JSON 노드(slot)/확장 주입 조각을 떙겨 렌더 (빈 슬롯=미렌더). 모듈 주입 UI 소비",
         "path": "src/components/composite/SlotContainer.tsx",
         "props": {
           "slotId": {
@@ -1531,40 +1434,6 @@
             "type": "string",
             "required": false,
             "description": "접기 버튼 텍스트"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "사용자 정의 클래스"
-          }
-        }
-      },
-      {
-        "name": "NoticeTicker",
-        "type": "composite",
-        "description": "홈 공지 티커 (한 줄 세로 롤링, 호버 정지, prefers-reduced-motion 시 첫 건 고정, 0건이면 렌더링 안 함) — g7-home-widgets 0.2.0 notice-posts 데이터",
-        "path": "src/components/composite/NoticeTicker.tsx",
-        "props": {
-          "items": {
-            "type": "array",
-            "required": false,
-            "description": "공지 목록 ({ id, board_slug, title, created_at, created_at_formatted }[])"
-          },
-          "label": {
-            "type": "string",
-            "required": false,
-            "description": "좌측 라벨 텍스트"
-          },
-          "ariaLabel": {
-            "type": "string",
-            "required": false,
-            "description": "영역 접근성 라벨 (미지정 시 label)"
-          },
-          "intervalMs": {
-            "type": "number",
-            "required": false,
-            "default": 4000,
-            "description": "롤링 간격 (ms)"
           },
           "className": {
             "type": "string",

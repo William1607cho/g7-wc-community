@@ -160,21 +160,18 @@
                                                 "if": "{{_global.currentUser?.is_admin}}",
                                                 "props": {
                                                     "href": "/admin/pages/{{page?.data?.id}}/edit",
-                                                    "className": "inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors no-underline"
+                                                    "title": "$t:user.page.admin_edit",
+                                                    "aria-label": "$t:user.page.admin_edit",
+                                                    "className": "inline-flex items-center justify-center w-8 h-8 text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors no-underline"
                                                 },
                                                 "children": [
                                                     {
                                                         "type": "basic",
                                                         "name": "Icon",
                                                         "props": {
-                                                            "name": "pencil",
-                                                            "className": "text-xs"
+                                                            "name": "pencil-alt",
+                                                            "aria-hidden": "true"
                                                         }
-                                                    },
-                                                    {
-                                                        "type": "basic",
-                                                        "name": "Span",
-                                                        "text": "$t:user.page.admin_edit"
                                                     }
                                                 ]
                                             }
@@ -322,7 +319,9 @@
                                                                 "name": "Button",
                                                                 "props": {
                                                                     "type": "button",
-                                                                    "className": "flex items-center gap-1.5 px-3 py-1.5 text-sm text-primary-600 dark:text-primary-400 hover:underline flex-shrink-0 bg-transparent border-0 cursor-pointer"
+                                                                    "title": "$t:user.page.download",
+                                                                    "aria-label": "$t:user.page.download",
+                                                                    "className": "inline-flex items-center justify-center w-8 h-8 rounded-md text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 flex-shrink-0 bg-transparent border-0 cursor-pointer"
                                                                 },
                                                                 "actions": [
                                                                     {
@@ -340,13 +339,8 @@
                                                                         "name": "Icon",
                                                                         "props": {
                                                                             "name": "download",
-                                                                            "className": "text-xs"
+                                                                            "aria-hidden": "true"
                                                                         }
-                                                                    },
-                                                                    {
-                                                                        "type": "basic",
-                                                                        "name": "Span",
-                                                                        "text": "$t:user.page.download"
                                                                     }
                                                                 ]
                                                             }
@@ -403,7 +397,9 @@
                                                 "name": "Button",
                                                 "props": {
                                                     "type": "button",
-                                                    "className": "inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                                                    "title": "$t:user.page.back_to_home",
+                                                    "aria-label": "$t:user.page.back_to_home",
+                                                    "className": "inline-flex items-center justify-center w-10 h-10 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
                                                 },
                                                 "actions": [
                                                     {
@@ -420,13 +416,8 @@
                                                         "name": "Icon",
                                                         "props": {
                                                             "name": "house",
-                                                            "className": "text-sm"
+                                                            "aria-hidden": "true"
                                                         }
-                                                    },
-                                                    {
-                                                        "type": "basic",
-                                                        "name": "Span",
-                                                        "text": "$t:user.page.back_to_home"
                                                     }
                                                 ]
                                             },
@@ -436,7 +427,9 @@
                                                 "if": "{{_global.currentUser?.is_admin}}",
                                                 "props": {
                                                     "href": "/admin/pages/create?slug={{route?.slug ?? ''}}",
-                                                    "className": "inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary-600 dark:bg-primary-500 rounded-md hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors no-underline"
+                                                    "title": "$t:user.page.create_page",
+                                                    "aria-label": "$t:user.page.create_page",
+                                                    "className": "inline-flex items-center justify-center w-10 h-10 text-white bg-primary-600 dark:bg-primary-500 rounded-md hover:bg-primary-700 dark:hover:bg-primary-600 transition-colors no-underline"
                                                 },
                                                 "children": [
                                                     {
@@ -444,13 +437,8 @@
                                                         "name": "Icon",
                                                         "props": {
                                                             "name": "plus",
-                                                            "className": "text-sm"
+                                                            "aria-hidden": "true"
                                                         }
-                                                    },
-                                                    {
-                                                        "type": "basic",
-                                                        "name": "Span",
-                                                        "text": "$t:user.page.create_page"
                                                     }
                                                 ]
                                             }
@@ -479,7 +467,9 @@
                                         "name": "Button",
                                         "props": {
                                             "type": "button",
-                                            "className": "inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer"
+                                            "title": "$t:user.page.back_to_home",
+                                            "aria-label": "$t:user.page.back_to_home",
+                                            "className": "inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
                                         },
                                         "actions": [
                                             {
@@ -495,14 +485,9 @@
                                                 "type": "basic",
                                                 "name": "Icon",
                                                 "props": {
-                                                    "name": "arrow-left",
-                                                    "className": "text-sm"
+                                                    "name": "house",
+                                                    "aria-hidden": "true"
                                                 }
-                                            },
-                                            {
-                                                "type": "basic",
-                                                "name": "Span",
-                                                "text": "$t:user.page.back_to_home"
                                             }
                                         ]
                                     }

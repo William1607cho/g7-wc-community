@@ -6,12 +6,8 @@
     "meta": {
         "seo": {
             "enabled": true,
-            "extensions": [
-                { "type": "module", "id": "sirsoft-ecommerce" }
-            ],
             "data_sources": ["searchResults"],
             "page_type": "search",
-            "toggle_setting": "$module_settings:sirsoft-ecommerce:seo.seo_search_result",
             "vars": {
                 "site_name": "$core_settings:general.site_name"
             },

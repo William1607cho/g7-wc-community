@@ -64,24 +64,6 @@
             "loading_strategy": "progressive",
             "initGlobal": "currentUser",
             "fallback": { "data": [] },
-            "onSuccess": [
-                {
-                    "_comment": "로그인 유저 로드 후 선호 통화 재해석 (D-LOGIN-CUR). current_user 는 비동기 data_source 라 init_actions 의 통화 초기화 시점엔 currentUser 가 비어 localStorage 세션값으로 폴백된다. 로드 완료 후 갓 받은 응답값(accountCurrency)을 직접 넘겨 재실행하면 계정 영속 통화(ecommerce_preferred_currency)가 1순위로 덮어쓴다(로그인/새로고침 모두). 핸들러는 이커머스 모듈 소유.",
-                    "handler": "sirsoft-ecommerce.initPreferredCurrency",
-                    "params": {
-                        "accountCurrency": "{{response.data?.data?.ecommerce_preferred_currency ?? response.data?.ecommerce_preferred_currency}}",
-                        "defaultCurrency": "{{_global.defaultCurrency}}"
-                    }
-                },
-                {
-                    "_comment": "로그인 유저 로드 후 선호 배송국가 재해석 (MP08 후속). 계정 영속 배송국가(ecommerce_preferred_shipping_country)를 1순위로 덮어쓴다.",
-                    "handler": "sirsoft-ecommerce.initPreferredShippingCountry",
-                    "params": {
-                        "accountCountry": "{{response.data?.data?.ecommerce_preferred_shipping_country ?? response.data?.ecommerce_preferred_shipping_country}}",
-                        "defaultCountry": "{{_global.modules?.['sirsoft-ecommerce']?.shipping?.default_country ?? 'KR'}}"
-                    }
-                }
-            ],
             "errorHandling": {
                 "401": {
                     "comment": "비회원의 /api/auth/user 401은 정상 — fallback 사용, 레이아웃 에러 핸들링으로 전파 방지",
@@ -294,7 +276,7 @@
                                     }
                                 },
                                 {
-                                    "comment": "알림센터 드롭다운 — 모바일 (PC와 동일 순서: 알림 → 장바구니)",
+                                    "comment": "알림센터 드롭다운 — 모바일 (PC와 동일 위치)",
                                     "id": "mobile_notification_center",
                                     "type": "composite",
                                     "name": "NotificationCenter",
@@ -551,6 +533,9 @@
                                     "type": "basic",
                                     "name": "Button",
                                     "props": {
+                                        "type": "button",
+                                        "title": "{{_global.currentUser ? '$t:common.mypage' : '$t:auth.login'}}",
+                                        "aria-label": "{{_global.currentUser ? '$t:common.mypage' : '$t:auth.login'}}",
                                         "className": "p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
                                     },
                                     "actions": [
@@ -579,7 +564,11 @@
                                     "type": "basic",
                                     "name": "Button",
                                     "props": {
-                                        "className": "p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                                        "type": "button",
+                                        "title": "$t:user.menu",
+                                        "aria-label": "$t:user.menu",
+                                        "aria-expanded": "{{_global.mobileMenuOpen ? 'true' : 'false'}}",
+                                        "className": "p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
                                     },
                                     "actions": [
                                         {
@@ -643,7 +632,10 @@
                                     "type": "basic",
                                     "name": "Button",
                                     "props": {
-                                        "className": "p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                                        "type": "button",
+                                        "title": "$t:common.close",
+                                        "aria-label": "$t:common.close",
+                                        "className": "p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
                                     },
                                     "actions": [
                                         {
@@ -720,129 +712,6 @@
                                             ]
                                         }
                                     ]
-                                }
-                            ]
-                        },
-                        {
-                            "comment": "언어/통화 선택 — 회원·비회원 공통. 헤더 우측 그룹에서 이동(모바일 오버플로 해소). 통화는 이커머스 모듈이 header_currency 슬롯에 주입하므로 SlotContainer 만 배치(모듈 비활성 시 자동 미렌더).",
-                            "id": "mobile_drawer_prefs",
-                            "type": "basic",
-                            "name": "Div",
-                            "props": {
-                                "className": "px-4 pb-4 border-b border-gray-200 dark:border-gray-700 space-y-3"
-                            },
-                            "children": [
-                                {
-                                    "comment": "언어 선택 (여러 언어 지원 시). 접기/펼치기 — 접힘이 기본이고 트리거에 현재 언어를 요약 표기한다. 통화/배송국가(이커머스 주입 슬롯)와는 독립된 토글(_global.mobileLanguageOpen)이라 서로 영향 없음.",
-                                    "id": "mobile_drawer_language",
-                                    "type": "basic",
-                                    "name": "Div",
-                                    "if": "{{$locales.length > 1}}",
-                                    "children": [
-                                        {
-                                            "comment": "트리거 — 좌측 '언어' 라벨, 우측 현재 언어명 + chevron. 접힘 상태에서 현재 값을 알 수 있어야 하므로 요약을 항상 노출한다.",
-                                            "id": "mobile_drawer_language_toggle",
-                                            "type": "basic",
-                                            "name": "Button",
-                                            "props": {
-                                                "type": "button",
-                                                "className": "w-full flex items-center justify-between py-1 cursor-pointer",
-                                                "aria-expanded": "{{_global.mobileLanguageOpen ?? false}}"
-                                            },
-                                            "actions": [
-                                                {
-                                                    "type": "click",
-                                                    "handler": "setState",
-                                                    "params": {
-                                                        "target": "global",
-                                                        "mobileLanguageOpen": "{{!_global.mobileLanguageOpen}}"
-                                                    }
-                                                }
-                                            ],
-                                            "children": [
-                                                {
-                                                    "type": "basic",
-                                                    "name": "Span",
-                                                    "props": {
-                                                        "className": "text-xs font-medium text-gray-500 dark:text-gray-400 uppercase"
-                                                    },
-                                                    "text": "$t:common.language"
-                                                },
-                                                {
-                                                    "type": "basic",
-                                                    "name": "Span",
-                                                    "props": {
-                                                        "className": "flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300"
-                                                    },
-                                                    "children": [
-                                                        {
-                                                            "comment": "접힘 상태 요약 = 현재 언어명",
-                                                            "type": "basic",
-                                                            "name": "Span",
-                                                            "props": { "className": "font-medium" },
-                                                            "text": "{{_global.appConfig?.localeNames?.[$locale] ?? $locale}}"
-                                                        },
-                                                        {
-                                                            "type": "basic",
-                                                            "name": "Icon",
-                                                            "props": {
-                                                                "name": "chevron-down",
-                                                                "className": "{{_global.mobileLanguageOpen ? 'rotate-180' : ''}} text-xs text-gray-400 dark:text-gray-500 transition-transform duration-200"
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "comment": "펼침 영역 — 사용자 정보 아코디언과 동일한 max-h/opacity 트랜지션. overflow-hidden 이라 접힘 시 칩이 잘려 사라진다.",
-                                            "type": "basic",
-                                            "name": "Div",
-                                            "props": {
-                                                "className": "overflow-hidden transition-all duration-300 ease-in-out {{_global.mobileLanguageOpen ? 'max-h-screen opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0'}}"
-                                            },
-                                            "children": [
-                                        {
-                                            "comment": "가로 나열 칩. iteration 은 반드시 Button 자신에 건다 — 엔진은 iteration 을 가진 노드를 항목 수만큼 복제하므로, flex 컨테이너에 걸면 컨테이너가 복제되어 칩이 세로로 쌓인다.",
-                                            "type": "basic",
-                                            "name": "Div",
-                                            "props": {
-                                                "className": "flex flex-wrap gap-2"
-                                            },
-                                            "children": [
-                                                {
-                                                    "type": "basic",
-                                                    "name": "Button",
-                                                    "iteration": { "source": "{{$locales}}", "item_var": "loc" },
-                                                    "props": {
-                                                        "type": "button",
-                                                        "className": "{{loc === $locale ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 border-primary-200 dark:border-primary-800' : 'text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700'}} inline-flex items-center gap-1.5 px-3 py-1.5 text-sm border rounded-full cursor-pointer whitespace-nowrap",
-                                                        "role": "option",
-                                                        "aria-selected": "{{loc === $locale}}"
-                                                    },
-                                                    "actions": [
-                                                        { "type": "click", "handler": "setLocale", "target": "{{loc}}" }
-                                                    ],
-                                                    "children": [
-                                                        { "type": "basic", "name": "Icon", "props": { "name": "globe", "size": "sm" } },
-                                                        { "type": "basic", "name": "Span", "text": "{{_global.appConfig?.localeNames?.[loc] ?? loc}}" }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "comment": "통화 선택 — 이커머스 모듈 주입 슬롯(헤더에서 이동). 모듈 미설치 시 빈 슬롯 → 렌더 영향 0. 헤더는 가로 flex 였으나 드로어는 세로 블록이므로 block 으로 둔다(flex items-center 면 주입 루트가 콘텐츠 폭으로 줄어 펼친 목록이 좁아짐). 주입 루트가 portable 에서 스스로 w-full 을 갖는다.",
-                                    "id": "mobile_drawer_currency_wrap",
-                                    "type": "composite",
-                                    "name": "SlotContainer",
-                                    "props": {
-                                        "slotId": "header_currency",
-                                        "className": "block"
-                                    }
                                 }
                             ]
                         },
@@ -1069,8 +938,14 @@
                                             "type": "basic",
                                             "name": "Button",
                                             "props": {
-                                                "className": "flex-1 py-2.5 text-center bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium text-sm cursor-pointer"
+                                                "type": "button",
+                                                "title": "$t:auth.login",
+                                                "aria-label": "$t:auth.login",
+                                                "className": "flex-1 py-2.5 inline-flex items-center justify-center bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg cursor-pointer"
                                             },
+                                            "children": [
+                                                { "type": "basic", "name": "Icon", "props": { "name": "user", "aria-hidden": "true" } }
+                                            ],
                                             "actions": [
                                                 {
                                                     "type": "click",
@@ -1091,15 +966,20 @@
                                                         }
                                                     ]
                                                 }
-                                            ],
-                                            "text": "$t:auth.login"
+                                            ]
                                         },
                                         {
                                             "type": "basic",
                                             "name": "Button",
                                             "props": {
-                                                "className": "flex-1 py-2.5 text-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium text-sm cursor-pointer"
+                                                "type": "button",
+                                                "title": "$t:auth.register_link",
+                                                "aria-label": "$t:auth.register_link",
+                                                "className": "flex-1 py-2.5 inline-flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg cursor-pointer"
                                             },
+                                            "children": [
+                                                { "type": "basic", "name": "Icon", "props": { "name": "pen-to-square", "aria-hidden": "true" } }
+                                            ],
                                             "actions": [
                                                 {
                                                     "type": "click",
@@ -1120,8 +1000,7 @@
                                                         }
                                                     ]
                                                 }
-                                            ],
-                                            "text": "$t:auth.register_link"
+                                            ]
                                         }
                                     ]
                                 }
@@ -1408,6 +1287,7 @@
                                                     "props": {
                                                         "className": "flex-shrink-0 p-2.5 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer",
                                                         "aria-label": "{{menu.name}}",
+                                                        "title": "{{menu.name}}",
                                                         "data-testid": "{{'mobile-topmenu-toggle-' + menu.id}}"
                                                     },
                                                     "actions": [
@@ -1785,7 +1665,7 @@
                     ]
                 },
                 {
-                    "comment": "=== 데스크톱 헤더 (Header 컴포넌트) - 모바일에서 숨김 ===",
+                    "comment": "=== 데스크톱 헤더 (Header 컴포넌트) - 모바일에서 숨김 === 언어 선택(KO)은 이 템플릿 화면에서 숨긴다(2026-09-26): availableLocales 를 넘기지 않으면 Header.tsx 가 언어 버튼을 그리지 않는다(availableLocales.length > 1 조건). 사이트 언어 설정·코어 설정은 그대로다.",
                     "id": "desktop_header",
                     "type": "composite",
                     "name": "Header",
@@ -1795,7 +1675,6 @@
                         "user": "{{_global.currentUser}}",
                         "notificationCount": "{{_global.notificationCount ?? 0}}",
                         "menuItems": "{{_global.topMenuItems ?? []}}",
-                        "availableLocales": "{{$locales}}",
                         "currentLocale": "{{$locale}}",
                         "className": "hidden",
                         "notifications": "{{(notifications?.data?.data ?? []).map(n => ({ id: n.id, title: n.subject ?? '', message: n.body ?? '', time: n.created_at ?? '', read: !!n.read_at, url: n.url ?? '', data: n.data ?? {} }))}}",
@@ -2113,6 +1992,107 @@
                     "type": "extension_point",
                     "name": "user_global_footer",
                     "default": []
+                },
+                {
+                    "comment": "=== 플로팅 버튼 (2026-09-26) === 홈(route.path '/')을 뺀 모든 페이지, PC·모바일 공통으로 화면 우하단에 세로로 둔다. 위에서부터 맨 위로 → 홈 → 댓글 → 목록. 해당 없는 버튼은 if 로 숨긴다. 반투명(bg-white/70 + backdrop-blur). 코어·다른 확장에 맨 위로 버튼이 없음을 확인하고 넣었다(2026-09-26 검색).",
+                    "id": "floating_buttons",
+                    "type": "basic",
+                    "name": "Div",
+                    "if": "{{!!route?.path && route.path !== '/'}}",
+                    "props": {
+                        "className": "fixed bottom-4 right-4 z-40 flex flex-col items-center gap-2 print:hidden",
+                        "role": "group",
+                        "aria-label": "$t:common.floating_nav",
+                        "data-testid": "floating-buttons"
+                    },
+                    "children": [
+                        {
+                            "comment": "맨 위로 — 문서 맨 위로 스크롤(코어 scrollIntoView 핸들러, body 기준).",
+                            "type": "basic",
+                            "name": "Button",
+                            "props": {
+                                "type": "button",
+                                "title": "$t:common.scroll_to_top",
+                                "aria-label": "$t:common.scroll_to_top",
+                                "data-testid": "floating-top",
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                            },
+                            "actions": [
+                                {
+                                    "type": "click",
+                                    "handler": "scrollIntoView",
+                                    "params": { "selector": "body", "block": "start", "behavior": "smooth" }
+                                }
+                            ],
+                            "children": [
+                                { "type": "basic", "name": "Icon", "props": { "name": "chevron-up", "aria-hidden": "true" } }
+                            ]
+                        },
+                        {
+                            "comment": "홈",
+                            "type": "basic",
+                            "name": "Button",
+                            "props": {
+                                "type": "button",
+                                "title": "$t:nav.home",
+                                "aria-label": "$t:nav.home",
+                                "data-testid": "floating-home",
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                            },
+                            "actions": [
+                                { "type": "click", "handler": "navigate", "params": { "path": "/" } }
+                            ],
+                            "children": [
+                                { "type": "basic", "name": "Icon", "props": { "name": "house", "aria-hidden": "true" } }
+                            ]
+                        },
+                        {
+                            "comment": "댓글 — 글 보기에서 댓글 영역(board/show.json 의 id post_comments)으로 스크롤. 댓글 영역이 그려지는 조건(types/basic/show.json 댓글 섹션: 댓글 사용 + 조회 권한 + 비밀글 검증)에 '댓글이 1개 이상' 을 더한다. 목록·댓글을 끈 게시판(위키)·댓글 0개에서는 숨는다.",
+                            "type": "basic",
+                            "name": "Button",
+                            "if": "{{!!route?.id && !!post?.data?.board?.use_comment && !!post?.data?.abilities?.can_read_comments && (post?.data?.comment_count ?? 0) > 0 && (!post?.data?.is_secret || post?.data?.content !== null)}}",
+                            "props": {
+                                "type": "button",
+                                "title": "$t:board.comments",
+                                "aria-label": "$t:board.comments",
+                                "data-testid": "floating-comments",
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                            },
+                            "actions": [
+                                {
+                                    "type": "click",
+                                    "handler": "scrollIntoView",
+                                    "params": { "selector": "#post_comments", "block": "start", "behavior": "smooth" }
+                                }
+                            ],
+                            "children": [
+                                { "type": "basic", "name": "Icon", "props": { "name": "comments", "aria-hidden": "true" } }
+                            ]
+                        },
+                        {
+                            "comment": "목록 — 게시판 하위 화면(글 보기·글쓰기·수정)에서만. 게시판 목록 화면 자신(/board/{slug})과 게시판이 아닌 화면에서는 숨긴다. 주소는 글 보기 상단 목록 버튼(partials/board/show/_navigation.json)과 같다: /board/{slug} + mergeQuery(page·search·category 등 목록 상태 유지).",
+                            "type": "basic",
+                            "name": "Button",
+                            "if": "{{!!route?.slug && (route?.path ?? '').startsWith('/board/') && route?.path !== '/board/' + route?.slug}}",
+                            "props": {
+                                "type": "button",
+                                "title": "$t:board.back_to_list",
+                                "aria-label": "$t:board.back_to_list",
+                                "data-testid": "floating-list",
+                                "className": "w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm border border-gray-200/80 dark:border-gray-600/80 text-gray-700 dark:text-gray-200 shadow-md hover:bg-white dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                            },
+                            "actions": [
+                                {
+                                    "type": "click",
+                                    "handler": "navigate",
+                                    "params": { "path": "/board/{{route.slug}}", "mergeQuery": true, "query": {} }
+                                }
+                            ],
+                            "children": [
+                                { "type": "basic", "name": "Icon", "props": { "name": "list", "aria-hidden": "true" } }
+                            ]
+                        }
+                    ]
                 }
             ]
         }

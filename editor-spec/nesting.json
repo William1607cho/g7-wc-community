@@ -21,7 +21,6 @@
     "Grid",
     "SectionLayout",
     "ThreeColumnLayout",
-    "ProductCard",
     "ImageGallery",
     "Pagination",
     "SearchBar",
@@ -32,8 +31,6 @@
     "RichTextEditor",
     "ExpandableContent",
     "TabNavigation",
-    "QuantitySelector",
-    "ProductImageViewer",
     "FileUploader",
     "AvatarUploader",
     "SocialLoginButtons",
@@ -71,7 +68,6 @@
         "ThreeColumnLayout",
         "Form",
         "Table",
-        "ProductCard",
         "ImageGallery",
         "Pagination",
         "SearchBar",
@@ -82,8 +78,6 @@
         "RichTextEditor",
         "ExpandableContent",
         "TabNavigation",
-        "QuantitySelector",
-        "ProductImageViewer",
         "FileUploader",
         "AvatarUploader",
         "SocialLoginButtons",
@@ -166,7 +160,6 @@
         "ThreeColumnLayout",
         "Form",
         "Table",
-        "ProductCard",
         "ImageGallery",
         "Pagination",
         "SearchBar"
@@ -185,8 +178,7 @@
         "Button",
         "Img",
         "Icon",
-        "Hr",
-        "ProductCard"
+        "Hr"
       ]
     },
     "Grid": {
@@ -201,8 +193,7 @@
         "A",
         "Button",
         "Img",
-        "Icon",
-        "ProductCard"
+        "Icon"
       ]
     },
     "SectionLayout": {

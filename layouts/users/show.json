@@ -400,7 +400,10 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                              "className": "text-sm text-primary-600 dark:text-primary-400 hover:underline cursor-pointer"
+                              "type": "button",
+                              "title": "$t:user.profile.view_all",
+                              "aria-label": "$t:user.profile.view_all",
+                              "className": "inline-flex items-center justify-center w-8 h-8 rounded-md text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 cursor-pointer"
                             },
                             "actions": [
                               {
@@ -414,8 +417,8 @@
                             "children": [
                               {
                                 "type": "basic",
-                                "name": "Span",
-                                "text": "$t:user.profile.view_all"
+                                "name": "Icon",
+                                "props": { "name": "chevron-right", "aria-hidden": "true" }
                               }
                             ]
                           }
@@ -580,7 +583,10 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                              "className": "text-sm text-primary-600 dark:text-primary-400 hover:underline cursor-pointer"
+                              "type": "button",
+                              "title": "$t:user.profile.view_all",
+                              "aria-label": "$t:user.profile.view_all",
+                              "className": "inline-flex items-center justify-center w-8 h-8 rounded-md text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 cursor-pointer"
                             },
                             "actions": [
                               {
@@ -594,8 +600,8 @@
                             "children": [
                               {
                                 "type": "basic",
-                                "name": "Span",
-                                "text": "$t:user.profile.view_all"
+                                "name": "Icon",
+                                "props": { "name": "chevron-right", "aria-hidden": "true" }
                               }
                             ]
                           }

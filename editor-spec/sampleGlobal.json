@@ -24,20 +24,5 @@
   },
   "site": {
     "name": "샘플 사이트"
-  },
-  "_local": {
-    "comment": "편집 모드 캔버스의 _local baseline (applyInitialPatch localBaseline). 모든 페이지 상태에 공통 적용되므로 상태별 중복 시드가 필요 없다. isEditMode 게이트 안에서만 흐르며 운영 사이트 렌더에는 영향 없다. shop/checkout 의 받는분/주소/배송메모 입력칸(_local.shipping.*·shippingMemo)이 편집 캔버스에서 기본 배송지 값으로 채워져 보이도록 시드한다.",
-    "selectedAddressId": 1,
-    "shipping": {
-      "recipient_name": "샘플 수령인",
-      "recipient_phone": "010-1234-5678",
-      "zipcode": "06236",
-      "address": "서울특별시 강남구 테헤란로 123",
-      "address_detail": "4층 401호",
-      "region": "서울특별시",
-      "city": "강남구",
-      "country_code": "KR"
-    },
-    "shippingMemo": "door"
   }
 }

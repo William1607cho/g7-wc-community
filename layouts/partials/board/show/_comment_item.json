@@ -78,10 +78,15 @@
               },
               "children": [
                 {
-                  "comment": "더보기 버튼 (⋮)",
+                  "comment": "더보기 버튼 (⋮) — 아이콘만. 툴팁·이름 추가(2026-09-26)",
                   "type": "basic",
                   "name": "Button",
                   "props": {
+                    "type": "button",
+                    "title": "$t:common.more",
+                    "aria-label": "$t:common.more",
+                    "aria-haspopup": "menu",
+                    "aria-expanded": "{{_local.commentDropdownId === comment?.id ? 'true' : 'false'}}",
                     "className": "text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 p-1 cursor-pointer"
                   },
                   "actions": [
@@ -433,9 +438,15 @@
                   "name": "Button",
                   "if": "{{post?.data?.abilities?.can_manage === true}}",
                   "props": {
-                    "className": "text-xs px-2 py-0.5 rounded bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors cursor-pointer"
+                    "type": "button",
+                    "title": "{{_local.showDeletedContent === comment?.id ? '$t:board.comment.hide_original' : '$t:board.comment.view_original'}}",
+                    "aria-label": "{{_local.showDeletedContent === comment?.id ? '$t:board.comment.hide_original' : '$t:board.comment.view_original'}}",
+                    "aria-pressed": "{{_local.showDeletedContent === comment?.id ? 'true' : 'false'}}",
+                    "className": "{{_local.showDeletedContent === comment?.id ? 'inline-flex items-center justify-center w-7 h-7 rounded border-2 border-primary-600 dark:border-primary-400 bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 transition-colors cursor-pointer' : 'inline-flex items-center justify-center w-7 h-7 rounded bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors cursor-pointer'}}"
                   },
-                  "text": "{{_local.showDeletedContent === comment?.id ? '$t:board.comment.hide_original' : '$t:board.comment.view_original'}}",
+                  "children": [
+                    { "type": "basic", "name": "Icon", "props": { "name": "{{_local.showDeletedContent === comment?.id ? 'eye' : 'eye-slash'}}", "size": "sm", "aria-hidden": "true" } }
+                  ],
                   "actions": [
                     {
                       "type": "click",
@@ -508,7 +519,11 @@
                   "name": "Button",
                   "if": "{{comment?.content}}",
                   "props": {
-                    "className": "text-xs px-2 py-0.5 rounded bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors cursor-pointer"
+                    "type": "button",
+                    "title": "{{_local.showBlindedCommentContent?.[comment?.id] ? '$t:board.hide_original' : '$t:board.view_original'}}",
+                    "aria-label": "{{_local.showBlindedCommentContent?.[comment?.id] ? '$t:board.hide_original' : '$t:board.view_original'}}",
+                    "aria-pressed": "{{_local.showBlindedCommentContent?.[comment?.id] ? 'true' : 'false'}}",
+                    "className": "{{_local.showBlindedCommentContent?.[comment?.id] ? 'inline-flex items-center justify-center w-7 h-7 rounded border-2 border-primary-600 dark:border-primary-400 bg-primary-100 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300 transition-colors cursor-pointer' : 'inline-flex items-center justify-center w-7 h-7 rounded bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/30 transition-colors cursor-pointer'}}"
                   },
                   "actions": [
                     {
@@ -520,7 +535,9 @@
                       }
                     }
                   ],
-                  "text": "{{_local.showBlindedCommentContent?.[comment?.id] ? '$t:board.hide_original' : '$t:board.view_original'}}"
+                  "children": [
+                    { "type": "basic", "name": "Icon", "props": { "name": "{{_local.showBlindedCommentContent?.[comment?.id] ? 'eye' : 'eye-slash'}}", "size": "sm", "aria-hidden": "true" } }
+                  ]
                 }
               ]
             },
@@ -598,7 +615,11 @@
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    "type": "button",
+                    "title": "$t:common.cancel",
+                    "aria-label": "$t:common.cancel",
+                    "data-testid": "comment-edit-cancel",
+                    "className": "inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                   },
                   "actions": [
                     {
@@ -614,13 +635,19 @@
                       }
                     }
                   ],
-                  "text": "$t:common.cancel"
+                  "children": [
+                    { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+                  ]
                 },
                 {
                   "type": "basic",
                   "name": "Button",
                   "props": {
-                    "className": "px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+                    "type": "button",
+                    "title": "$t:common.save",
+                    "aria-label": "$t:common.save",
+                    "data-testid": "comment-edit-save",
+                    "className": "inline-flex items-center justify-center w-10 h-10 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
                     "disabled": "{{_local.editingCommentSubmitting === true}}"
                   },
                   "actions": [
@@ -702,28 +729,23 @@
                   ],
                   "children": [
                     {
-                      "type": "basic",
-                      "name": "Div",
+                      "type": "composite",
+                      "name": "Icon",
+                      "if": "{{!_local.editingCommentSubmitting}}",
                       "props": {
-                        "className": "flex items-center gap-2"
-                      },
-                      "children": [
-                        {
-                          "type": "composite",
-                          "name": "Icon",
-                          "if": "{{_local.editingCommentSubmitting}}",
-                          "props": {
-                            "name": "spinner",
-                            "size": "sm",
-                            "className": "animate-spin"
-                          }
-                        },
-                        {
-                          "type": "basic",
-                          "name": "Span",
-                          "text": "$t:common.save"
-                        }
-                      ]
+                        "name": "save",
+                        "aria-hidden": "true"
+                      }
+                    },
+                    {
+                      "type": "composite",
+                      "name": "Icon",
+                      "if": "{{_local.editingCommentSubmitting}}",
+                      "props": {
+                        "name": "spinner",
+                        "className": "animate-spin",
+                        "aria-hidden": "true"
+                      }
                     }
                   ]
                 }
@@ -764,12 +786,39 @@
               ]
             },
             {
+              "comment": "1줄: 프로필 아이콘 + 사용자 이름 (2026-09-26 — 새 댓글 입력창과 같은 2줄 배치. 비회원은 이름·비밀번호 칸이 이름 자리)",
+              "type": "basic",
+              "name": "Div",
+              "props": {
+                "className": "flex items-center gap-3 mb-3",
+                "data-testid": "reply-input-author"
+              },
+              "children": [
+                {
+                  "type": "composite",
+                  "name": "Avatar",
+                  "props": {
+                    "name": "{{_global.currentUser?.name ?? _local.guest_reply_author_name ?? ''}}",
+                    "avatar": "{{_global.currentUser?.avatar}}",
+                    "size": "sm"
+                  }
+                },
+                {
+                  "type": "basic",
+                  "name": "Span",
+                  "if": "{{_global.currentUser?.uuid}}",
+                  "props": {
+                    "className": "text-sm font-medium text-gray-900 dark:text-white truncate"
+                  },
+                  "text": "{{_global.currentUser?.name ?? ''}}"
+                },
+            {
               "comment": "비회원 작성자 정보 입력 (이름/비밀번호)",
               "type": "basic",
               "name": "Div",
               "if": "{{!_global.currentUser?.uuid}}",
               "props": {
-                "className": "flex gap-3 mb-3"
+                "className": "flex-1 min-w-0 flex flex-col sm:flex-row gap-3"
               },
               "children": [
                 {
@@ -815,34 +864,11 @@
                   ]
                 }
               ]
+            }
+              ]
             },
-            {
-              "comment": "답글 입력 영역",
-              "type": "basic",
-              "name": "Div",
-              "props": {
-                "className": "flex gap-3"
-              },
-              "children": [
-                {
-                  "comment": "현재 사용자 아바타 (로그인 시만 표시)",
-                  "type": "composite",
-                  "name": "Avatar",
-                  "if": "{{_global.currentUser?.uuid}}",
-                  "props": {
-                    "name": "{{_global.currentUser?.name}}",
-                    "avatar": "{{_global.currentUser?.avatar}}",
-                    "size": "sm"
-                  }
-                },
-                {
-                  "type": "basic",
-                  "name": "Div",
-                  "props": {
-                    "className": "flex-1"
-                  },
-                  "children": [
                     {
+                      "comment": "2줄: 답글 내용 입력 (전체 폭)",
                       "type": "basic",
                       "name": "Textarea",
                       "props": {
@@ -864,6 +890,7 @@
                       ]
                     },
                     {
+                      "comment": "답글 입력창 아래 우측: 취소·등록 (아이콘만)",
                       "type": "basic",
                       "name": "Div",
                       "props": {
@@ -874,9 +901,15 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                            "type": "button",
+                            "title": "$t:common.cancel",
+                            "aria-label": "$t:common.cancel",
+                            "data-testid": "reply-cancel",
+                            "className": "inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                           },
-                          "text": "$t:common.cancel",
+                          "children": [
+                            { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+                          ],
                           "actions": [
                             {
                               "type": "click",
@@ -893,7 +926,11 @@
                           "type": "basic",
                           "name": "Button",
                           "props": {
-                            "className": "px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+                            "type": "button",
+                            "title": "{{_local.commentSubmitting ? '$t:board.comment_submitting' : '$t:board.comment_reply'}}",
+                            "aria-label": "{{_local.commentSubmitting ? '$t:board.comment_submitting' : '$t:board.comment_reply'}}",
+                            "data-testid": "reply-submit",
+                            "className": "inline-flex items-center justify-center w-10 h-10 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
                             "disabled": "{{_local.commentSubmitting === true}}"
                           },
                           "actions": [
@@ -970,46 +1007,28 @@
                           ],
                           "children": [
                             {
-                              "type": "basic",
-                              "name": "Div",
+                              "type": "composite",
+                              "name": "Icon",
+                              "if": "{{!_local.commentSubmitting}}",
                               "props": {
-                                "className": "flex items-center gap-2"
-                              },
-                              "children": [
-                                {
-                                  "type": "composite",
-                                  "name": "Icon",
-                                  "if": "{{!_local.commentSubmitting}}",
-                                  "props": {
-                                    "name": "paper-plane",
-                                    "size": "sm"
-                                  }
-                                },
-                                {
-                                  "type": "composite",
-                                  "name": "Icon",
-                                  "if": "{{_local.commentSubmitting}}",
-                                  "props": {
-                                    "name": "spinner",
-                                    "size": "sm",
-                                    "className": "animate-spin"
-                                  }
-                                },
-                                {
-                                  "type": "basic",
-                                  "name": "Span",
-                                  "text": "{{_local.commentSubmitting ? '$t:board.comment_submitting' : '$t:board.comment_reply'}}"
-                                }
-                              ]
+                                "name": "paper-plane",
+                                "aria-hidden": "true"
+                              }
+                            },
+                            {
+                              "type": "composite",
+                              "name": "Icon",
+                              "if": "{{_local.commentSubmitting}}",
+                              "props": {
+                                "name": "spinner",
+                                "className": "animate-spin",
+                                "aria-hidden": "true"
+                              }
                             }
                           ]
                         }
                       ]
                     }
-                  ]
-                }
-              ]
-            }
           ]
         }
       ]

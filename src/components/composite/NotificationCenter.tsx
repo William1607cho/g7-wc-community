@@ -288,6 +288,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
       <Button
         onClick={handleToggle}
         className="relative p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer"
+        title={titleText}
         aria-label={titleText}
       >
         <Icon name={IconName.Bell} className="w-5 h-5" />
@@ -326,13 +327,16 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
             <Div className="flex items-center gap-3 flex-shrink-0">
               {onMarkAllRead && displayCount > 0 && (
                 <Button
+                  type="button"
                   onClick={() => {
                     onMarkAllRead();
                     visibleUnreadIdsRef.current.clear();
                   }}
-                  className="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 hover:underline cursor-pointer"
+                  title={markAllReadText}
+                  aria-label={markAllReadText}
+                  className="w-8 h-8 rounded-md text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 cursor-pointer"
                 >
-                  {markAllReadText}
+                  <Icon name="check" size="sm" aria-hidden="true" />
                 </Button>
               )}
               {onDeleteAll && notifications.length > 0 && (
@@ -342,9 +346,12 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                     // 사용자가 모달 취소 시에도 컨텍스트 유지 (요구사항)
                     onDeleteAll();
                   }}
-                  className="text-xs text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:underline cursor-pointer"
+                  type="button"
+                  title={deleteAllText}
+                  aria-label={deleteAllText}
+                  className="w-8 h-8 rounded-md text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer"
                 >
-                  {deleteAllText}
+                  <Icon name="trash-can" size="sm" aria-hidden="true" />
                 </Button>
               )}
             </Div>
@@ -414,7 +421,8 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
                               onDelete(notification);
                             }}
                             className="p-1 text-gray-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 rounded hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
-                            aria-label="Delete notification"
+                            title={(window as any).G7Core?.t?.('common.delete') ?? 'Delete'}
+                            aria-label={(window as any).G7Core?.t?.('common.delete') ?? 'Delete notification'}
                           >
                             <Icon name={IconName.Trash} className="w-4 h-4" />
                           </Button>

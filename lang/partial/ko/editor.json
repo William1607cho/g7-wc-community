@@ -374,24 +374,6 @@
     "ec_collapse_text": {
       "label": "접기 텍스트"
     },
-    "qs_value": {
-      "label": "초기 수량"
-    },
-    "qs_min": {
-      "label": "최소 수량"
-    },
-    "qs_max": {
-      "label": "최대 수량"
-    },
-    "qs_size": {
-      "label": "크기",
-      "sm": "작게",
-      "md": "보통",
-      "lg": "크게"
-    },
-    "qs_disabled": {
-      "label": "비활성화"
-    },
     "au_src": {
       "label": "아바타 URL"
     },
@@ -489,9 +471,6 @@
     },
     "pi_confirm_target": {
       "label": "확인 대상"
-    },
-    "pc_shop_base": {
-      "label": "상점 기본 경로"
     },
     "grid_cols": {
       "label": "열 수"
@@ -613,9 +592,6 @@
     "hdr_logo": {
       "label": "로고 이미지"
     },
-    "hdr_shop_base": {
-      "label": "쇼핑몰 기본 경로"
-    },
     "hdr_max_boards": {
       "label": "탭 표시 게시판 수"
     },
@@ -701,7 +677,6 @@
     "li": "목록 항목",
     "nav": "내비게이션",
     "three_column_layout": "3단 레이아웃",
-    "product_card": "상품 카드",
     "image_gallery": "이미지 갤러리",
     "pagination": "페이지네이션",
     "search_bar": "검색 바",
@@ -712,8 +687,6 @@
     "rich_text_editor": "리치 텍스트 편집기",
     "expandable_content": "펼침 콘텐츠",
     "tab_navigation": "탭 내비게이션",
-    "quantity_selector": "수량 선택기",
-    "product_image_viewer": "상품 이미지 뷰어",
     "file_uploader": "파일 업로더",
     "avatar_uploader": "아바타 업로더",
     "social_login_buttons": "소셜 로그인 버튼",
@@ -768,49 +741,12 @@
       "target_light": "밝게",
       "target_dark": "어둡게"
     },
-    "save_preferred_currency": {
-      "label": "선호 통화 저장",
-      "param_currency": "통화"
-    },
-    "set_cart_option": {
-      "label": "장바구니 옵션 변경",
-      "param_item_id": "상품 ID",
-      "param_option_key": "옵션 이름",
-      "param_option_value": "옵션 값"
-    },
-    "open_cart_delete_modal": {
-      "label": "장바구니 삭제 확인 열기",
-      "param_item_id": "상품 ID"
-    },
-    "open_cart_option_modal": {
-      "label": "장바구니 옵션 선택 열기",
-      "param_item_id": "상품 ID"
-    },
-    "recalculate_cart": {
-      "label": "장바구니 금액 다시 계산"
-    },
-    "get_display_price": {
-      "label": "표시 가격 가져오기",
-      "param_currency": "통화"
-    },
     "init_theme": {
       "label": "테마 초기화",
       "param_target": "테마",
       "target_auto": "자동",
       "target_light": "밝게",
       "target_dark": "어둡게"
-    },
-    "init_cart_key": {
-      "label": "장바구니 키 초기화"
-    },
-    "load_preferred_currency": {
-      "label": "선호 통화 불러오기"
-    },
-    "get_cart_key": {
-      "label": "장바구니 키 가져오기"
-    },
-    "clear_cart_key": {
-      "label": "장바구니 키 비우기"
     },
     "save_to_storage": {
       "label": "브라우저에 저장",
@@ -821,12 +757,6 @@
       "label": "브라우저에서 불러오기",
       "param_key": "저장 이름",
       "param_default": "기본값"
-    },
-    "save_guest_order_token": {
-      "label": "비회원 주문 토큰 저장",
-      "param_token": "주문 토큰",
-      "param_order_number": "주문 번호",
-      "param_expires_at": "만료 시각"
     }
   },
   "computed": {
@@ -950,10 +880,6 @@
     "notifications_empty": "알림 없음",
     "with_data": "데이터 있음",
     "empty_data": "데이터 없음",
-    "in_stock": "재고 있음",
-    "out_of_stock": "재고 소진 (판매중)",
-    "cart_with_items": "상품 담김",
-    "cart_empty": "장바구니 비었음",
     "read_normal": "일반 게시글",
     "read_secret_locked": "비밀글 잠김",
     "published": "게시됨",
@@ -975,10 +901,6 @@
     "challenge_error": "인증 실패",
     "change_password_form": "입력 화면",
     "change_password_success": "변경 완료",
-    "wishlist_with_items": "찜 상품 있음",
-    "wishlist_empty": "찜 상품 없음",
-    "addresses_with": "배송지 있음",
-    "addresses_empty": "배송지 없음",
     "user_active": "정상 회원",
     "user_withdrawn": "탈퇴 회원",
     "user_posts_with": "작성글 있음",
@@ -988,35 +910,10 @@
     "board_create": "새 글 작성",
     "board_edit": "글 수정",
     "board_reply_with_quote": "답글 작성 (부모글 인용)",
-    "shop_access_denied": "접근 제한",
-    "sold_out": "품절 처리",
-    "suspended": "판매 중지",
-    "coming_soon": "판매 예정",
-    "product_reviews_tab": "리뷰 탭",
-    "product_qna_tab": "상품 문의 탭",
     "board_activity_my_posts": "내가 쓴 글",
     "board_activity_my_comments": "내가 쓴 댓글",
     "search_tab_posts": "게시글 탭",
-    "search_tab_products": "상품 탭",
     "search_tab_pages": "페이지 탭",
-    "cart_ordering": "주문 처리 중",
-    "checkout_summary_details": "금액 상세 펼침",
-    "cart_summary_details": "세금 상세 펼침",
-    "checkout_normal": "정상 결제",
-    "checkout_payment_error": "결제 오류",
-    "checkout_validation_failed": "입력 검증 실패",
-    "payment_card": "카드 결제",
-    "payment_vbank": "가상계좌",
-    "payment_dbank": "무통장 입금",
-    "reorder_pending": "재주문 진행 중",
-    "reorder_success_partial": "일부 재주문",
-    "reorder_error": "재주문 실패",
-    "guest_order_form_guest": "비회원 (조회 폼)",
-    "guest_order_form_member": "회원 (마이페이지 안내)",
-    "address_modal_list": "배송지 목록",
-    "address_modal_form": "배송지 직접 입력",
-    "order_show_default": "기본",
-    "order_change_address_manual": "배송지 변경 (직접 입력)",
     "user_base_default": "기본",
     "mobile_menu_open": "모바일 메뉴 펼침",
     "gdpr_cookie_banner_visible": "쿠키 배너 표시",
@@ -1086,7 +983,6 @@
     "current_page": "현재 페이지",
     "total_pages": "전체 페이지 수",
     "reactions": "반응",
-    "product": "상품",
     "author": "작성자",
     "value": "값",
     "options": "선택지",
@@ -1096,7 +992,6 @@
     "header_boards": "게시판 목록",
     "header_notifications": "알림 목록",
     "header_available_locales": "사용 가능 언어",
-    "header_cart_count": "장바구니 수량",
     "header_notification_count": "알림 수",
     "footer_social_links": "소셜 링크",
     "footer_link_groups": "링크 그룹",
@@ -1113,64 +1008,37 @@
     "query_q": "검색어 (URL)"
   },
   "data_source": {
-    "addresses": "배송지 목록",
     "boardList": "게시판 목록",
     "boards": "게시판",
-    "cart": "장바구니",
-    "cartItems": "장바구니 상품",
-    "categories": "카테고리 목록",
-    "category": "카테고리",
     "challenge": "본인인증 요청",
-    "checkoutData": "주문서 데이터",
     "current_user": "현재 사용자",
     "form_data": "폼 데이터",
     "form_meta": "폼 메타",
     "home_boards": "홈 게시판",
-    "mileage_balance": "마일리지 잔액",
-    "mileage_history": "마일리지 내역",
     "myActivityStats": "내 활동 통계",
     "myComments": "내 댓글",
-    "myInquiries": "내 문의",
     "myPosts": "내 게시글",
     "navigation": "이전/다음 글",
-    "newProducts": "신상품",
     "notification_unread_count": "읽지 않은 알림 수",
     "notifications": "알림 목록",
-    "order": "주문",
-    "orderData": "주문 데이터",
-    "orders": "주문 목록",
     "page": "페이지",
-    "paymentSettings": "결제 설정",
     "popularPosts": "인기 게시글",
-    "popularProducts": "인기 상품",
     "popular_boards": "인기 게시판",
     "post": "게시글",
     "postStats": "게시글 통계",
     "posts": "게시글 목록",
     "privacyContent": "개인정보처리방침 내용",
-    "product": "상품",
-    "productDownloadableCoupons": "다운로드 가능 쿠폰",
-    "products": "상품 목록",
     "profile": "프로필",
-    "qna": "상품 문의",
     "recentPosts": "최근 게시글",
-    "recentProducts": "최근 본 상품",
     "recent_posts": "최근 게시글",
-    "refundReasons": "환불 사유",
-    "reviewSettings": "리뷰 정책 설정",
-    "reviews": "상품 후기",
-    "saveShippingAddress": "배송지 저장",
     "searchResults": "검색 결과",
-    "shippingSettings": "배송 설정",
     "stats": "통계",
     "termsContent": "이용약관 내용",
     "tokenValidation": "토큰 검증",
     "user": "사용자",
-    "userAddresses": "사용자 배송지",
     "userNotifications": "사용자 알림",
     "userPosts": "사용자 게시글",
     "userProfile": "사용자 프로필",
-    "user_notification_ws": "알림 (실시간)",
-    "wishlist": "위시리스트"
+    "user_notification_ws": "알림 (실시간)"
   }
 }

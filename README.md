@@ -19,16 +19,18 @@
 >   dropped — nothing in the template draws a brand icon through it (the footer social links are
 >   rendered with the Solid style class, so they were already blank). See
 >   「동봉 자산과 아이콘 서브셋」 below before adding an icon.
-> - **Home notice ticker requires [g7-home-widgets](https://github.com/William1607cho/g7-home-widgets) `0.2.0` or later.**
->   The `NoticeTicker` component (`partials/home/_notice_ticker.json`) reads
->   `/api/plugins/g7-home-widgets/notice-posts?board=notice&limit=5`; change the `board` parameter in
->   `layouts/home.json` if your notice board uses a different slug. With no posts (or an API error) the
->   ticker is not rendered.
+> - **The home page carries no template blocks.** `layouts/home.json` keeps only the `main_content`
+>   injection point; its content comes from [g7-home-widgets](https://github.com/William1607cho/g7-home-widgets).
+>   Without that plugin the home page is empty apart from the header and footer.
+> - **E-commerce is removed.** The shop, cart, order, mileage, wishlist and currency screens, routes,
+>   translations and editor samples inherited from the Basic template are gone; `template.json` does
+>   not depend on `sirsoft-ecommerce`. Text below that came from the original package has been
+>   trimmed accordingly.
 >
 > 이 저장소는 sirsoft 가 배포한 `wc-community` 템플릿을 한 사이트에서 설치·수정해 온 **비공식 커스터마이징 사본**입니다.
 > 원 저작권·MIT 라이선스 고지는 그대로 유지하며, 아래 문서는 원본 패키지(sirsoft-basic 기반)에 포함된 내용입니다.
 > 버전 표기는 원본 `1.0.0-beta.1` 을 유지하고 커스터마이징 이력은 커밋 기록으로 관리합니다.
-> **홈 공지 티커는 g7-home-widgets 0.2.0 이상이 필요합니다** (`notice-posts` API, 기본 게시판 슬러그 `notice`).
+> **홈은 g7-home-widgets 가 주입하는 섹션만 표시합니다**(템플릿 블록 없음). 이커머스 화면·라우트·번역은 모두 뺐습니다.
 
 ---
 
@@ -44,7 +46,6 @@
   <img src="https://img.shields.io/badge/%EA%B7%B8%EB%88%84%EB%B3%B4%EB%93%9C7-%3E%3D7.0.11-1F883D?style=flat-square" alt="그누보드7 &gt;=7.0.11">
   <img src="https://img.shields.io/badge/license-MIT-8250DF?style=flat-square" alt="license MIT">
   <img src="https://img.shields.io/badge/requires-sirsoft--board-BF8700?style=flat-square" alt="requires sirsoft-board">
-  <img src="https://img.shields.io/badge/requires-sirsoft--ecommerce-BF8700?style=flat-square" alt="requires sirsoft-ecommerce">
   <img src="https://img.shields.io/badge/requires-sirsoft--page-BF8700?style=flat-square" alt="requires sirsoft-page">
   <img src="https://img.shields.io/badge/requires-sirsoft--daum__postcode-BF8700?style=flat-square" alt="requires sirsoft-daum_postcode">
 </p>
@@ -59,17 +60,16 @@
 ## 소개
 
 <!-- @intent START -->
-방문자가 보는 **사이트 전체 화면**을 담당하는 기본 사용자 템플릿입니다. 홈·게시판·상점·
+방문자가 보는 **사이트 전체 화면**을 담당하는 커뮤니티용 사용자 템플릿입니다. 홈·게시판·
 마이페이지·로그인·오류 화면이 모두 여기 들어 있습니다.
 
-그누보드7 에서 게시판이나 쇼핑몰 모듈은 데이터와 관리자 화면을 담당하고, **방문자에게 보이는
-모습은 템플릿이 정합니다.** 그래서 상점이나 게시판의 디자인을 바꾸고 싶다면 그 모듈이 아니라
+그누보드7 에서 게시판 모듈은 데이터와 관리자 화면을 담당하고, **방문자에게 보이는
+모습은 템플릿이 정합니다.** 그래서 게시판의 디자인을 바꾸고 싶다면 그 모듈이 아니라
 이 템플릿(또는 다른 사용자 템플릿)을 손봅니다.
 
-다크 모드·반응형·다국어·다중 통화를 기본으로 지원하며, 상점 경로처럼 운영자가 환경설정에서
-바꾸는 값은 화면과 주소에 자동으로 반영됩니다.
+다크 모드·반응형·다국어를 기본으로 지원합니다.
 
-이 템플릿만으로는 동작하지 않습니다 — 게시판·이커머스·페이지 모듈과 주소 검색 플러그인이
+이 템플릿만으로는 동작하지 않습니다 — 게시판·페이지 모듈과 주소 검색 플러그인이
 함께 설치·활성화되어 있어야 합니다.
 <!-- @intent END -->
 
@@ -81,11 +81,10 @@
 | 홈·공통 | 헤더·푸터·모바일 네비게이션, 통합 검색, 알림 센터, 다크/라이트 전환 |
 | 인증 | 로그인·회원가입·비밀번호 찾기/재설정·본인인증 화면, 소셜 로그인 버튼 |
 | 게시판 | 게시판 목록·글 목록·글 보기·글쓰기, 인기글, 게시판 유형별 표시 |
-| 상점 | 상품 목록·카테고리·상품 상세·장바구니·주문서·주문 완료, 비회원 주문 조회와 재주문 |
-| 마이페이지 | 프로필·비밀번호 변경·주문 내역·마일리지·찜·배송지·알림·내 게시글·문의 |
+| 마이페이지 | 프로필·비밀번호 변경·알림·내 게시글 |
 | 단일 문서 | 회사소개·약관 같은 페이지 표시 |
 | 오류 화면 | 401·403·404·500·503·점검 중 |
-| 다국어·다통화 | 언어 전환, 표시 통화 선택과 통화별 가격 표시 |
+| 다국어 | 한국어·영어 번역 (헤더·모바일 메뉴의 언어 선택은 숨김) |
 | 반응형·다크 모드 | 모바일/데스크톱 레이아웃 분기, 시스템 설정 연동 테마 |
 <!-- @intent END -->
 
@@ -96,8 +95,7 @@
 flowchart TD
   B[_user_base<br/>헤더 · 푸터 · 모바일 네비 · 토스트/모달] --> A[auth<br/>로그인·가입·본인인증]
   B --> BD[board<br/>게시판 목록·글·작성]
-  B --> S[shop<br/>상품·장바구니·주문]
-  B --> M[mypage<br/>프로필·주문·마일리지]
+  B --> M[mypage<br/>프로필·알림·내 게시글]
   B --> P[page<br/>단일 문서]
   B --> E[errors<br/>401·403·404·500·503]
 ```
@@ -108,12 +106,12 @@ flowchart TD
 ```mermaid
 flowchart LR
   V[방문자] --> T[템플릿 화면]
-  T -->|공개 API 호출| MOD[게시판·이커머스·페이지 모듈]
+  T -->|공개 API 호출| MOD[게시판·페이지 모듈]
   MOD --> DB[(데이터)]
 ```
 
 화면은 이 템플릿이 그리고 데이터는 모듈이 제공합니다. 그래서 템플릿을 바꿔도 게시글이나
-주문 데이터는 그대로 남습니다.
+회원 데이터는 그대로 남습니다.
 <!-- @intent END -->
 
 ## 요구 사항
@@ -124,7 +122,6 @@ flowchart LR
 | 그누보드7 코어 | `>=7.0.11` |
 | PHP | `^8.2` |
 | 의존 모듈 | `sirsoft-board` `>=1.0.0` |
-| 의존 모듈 | `sirsoft-ecommerce` `>=1.1.0` |
 | 의존 모듈 | `sirsoft-page` `>=1.1.0` |
 | 의존 플러그인 | `sirsoft-daum_postcode` `>=1.0.0` |
 <!-- @generated:requirements END -->
@@ -164,7 +161,7 @@ php artisan template:update sirsoft-basic --force
 부품을 쓴 화면 조각은 이 템플릿에서 렌더되지 않습니다.
 
 관리자 템플릿(`sirsoft-admin_basic`)과는 구성이 다릅니다. 표·필터·다국어 입력 같은 관리 도구가
-없고, 대신 상품 카드·이미지 뷰어·수량 선택기·게시글 반응·모바일 메뉴·소셜 로그인처럼 **방문자
+없고, 대신 이미지 갤러리·게시글 반응·모바일 메뉴·소셜 로그인처럼 **방문자
 화면에 필요한 것들**이 있습니다.
 
 전체 목록과 각 부품의 사용법은 [docs/components.md](docs/components.md) 에 있습니다.
@@ -174,19 +171,15 @@ php artisan template:update sirsoft-basic --force
 
 <!-- @intent START -->
 **도입**: 템플릿을 설치·활성화하면 사이트의 방문자 화면이 이 템플릿으로 바뀝니다. 게시판·
-이커머스·페이지 모듈과 주소 검색 플러그인이 함께 활성화되어 있어야 모든 화면이 정상 동작합니다 —
-예를 들어 이커머스가 없으면 상점 메뉴로 들어갔을 때 데이터를 받지 못합니다.
-
-**상점 주소 바꾸기**: 이커머스 환경설정에서 상점 경로를 바꾸면(`shop` → `store`) 이 템플릿의
-상점 화면 주소도 함께 바뀝니다. 상점을 사이트 첫 화면으로 쓰려면 같은 설정에서 "경로 없음"
-으로 두면 `/products` 처럼 최상위 주소가 됩니다. 템플릿을 고칠 필요가 없습니다.
+페이지 모듈과 주소 검색 플러그인이 함께 활성화되어 있어야 모든 화면이 정상 동작합니다.
+홈 화면 내용은 g7-home-widgets 플러그인이 채웁니다.
 
 **색상·문구 손보기**: 화면 구성은 레이아웃 파일(JSON)이 정하고 부품 모양은 컴포넌트가
 정합니다. 레이아웃만 고치는 변경(문구·배치·표시 항목)은 다시 빌드할 필요 없이
 `php artisan template:update sirsoft-basic --force` 로 반영됩니다.
 
 **다른 템플릿으로 교체**: 이 템플릿은 화면만 담당하므로, 다른 사용자 템플릿으로 바꿔도
-게시글·주문·회원 데이터는 그대로입니다.
+게시글·회원 데이터는 그대로입니다.
 <!-- @intent END -->
 
 ## 다른 확장과의 연동
@@ -197,7 +190,6 @@ php artisan template:update sirsoft-basic --force
 | 확장 | 유형 | 버전 제약 | 번들 |
 |---|---|---|---|
 | `sirsoft-board` | 모듈 | `>=1.0.0` | ✅ |
-| `sirsoft-ecommerce` | 모듈 | `>=1.1.0` | ✅ |
 | `sirsoft-page` | 모듈 | `>=1.1.0` | ✅ |
 | `sirsoft-daum_postcode` | 플러그인 | `>=1.0.0` | ✅ |
 
@@ -225,11 +217,9 @@ php artisan template:update sirsoft-basic --force
 <!-- @intent START -->
 | 증상 | 원인 | 조치 |
 |---|---|---|
-| 상점 메뉴로 들어가면 화면이 비어 있음 | 이커머스 모듈이 비활성이거나 상품이 없음 | 모듈 활성화 여부와 상품 진열 상태를 확인합니다 |
-| 상점 주소가 예전 경로 그대로 | 브라우저에 저장된 예전 링크 | 이 템플릿의 상점 주소는 이커머스 설정을 따릅니다. 메뉴를 통해 다시 들어가면 새 주소가 적용됩니다 |
+| 홈 화면이 비어 있음 | g7-home-widgets 플러그인이 비활성 | 플러그인 활성화를 확인합니다 — 홈 내용은 그 플러그인이 채웁니다 |
 | 게시판 메뉴는 보이는데 글 목록이 안 나옴 | 게시판 모듈이 비활성이거나 그 게시판의 접근 권한이 제한됨 | 모듈 활성화와 게시판별 권한 설정을 확인합니다 |
 | 주소 검색 버튼이 없거나 눌러도 반응이 없음 | 주소 검색 플러그인이 비활성이거나 외부 접속이 차단됨 | 플러그인 활성화를 확인합니다. 검색을 불러오지 못하면 주소를 직접 입력할 수 있습니다 |
-| 비회원으로 주문 조회를 했는데 이전 주문이 열림 | 브라우저에 남아 있던 조회 정보 | 이 템플릿은 조회 화면에 들어갈 때마다 남은 정보를 정리합니다. 계속 발생하면 브라우저 데이터를 지우고 다시 시도합니다 |
 | 알림 메시지나 팝업이 뜨지 않음 | 그 화면이 공통 베이스를 쓰지 않음 | 직접 추가한 화면이라면 공통 베이스를 상속하도록 고칩니다 |
 | 검색엔진 노출 화면에 일부 글자가 빠짐 | 새 부품이 쓰는 항목이 검색엔진용 렌더 설정에 없음 | `seo-config.json` 의 텍스트 항목 목록을 확인합니다 |
 | 화면 일부의 여백·색이 어긋남 | 새로 쓴 스타일 클래스가 빌드된 CSS 에 없음 | 기존 화면에서 쓰이던 클래스인지 확인하고, 필요하면 템플릿을 다시 빌드합니다 |

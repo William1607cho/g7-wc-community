@@ -374,20 +374,22 @@ export function AvatarUploader({
         disabled={isUploading}
       />
 
+      {/* 버튼은 아이콘만(2026-09-26) — 툴팁(title)과 이름(label 은 sr-only 글자, button 은 aria-label)은 원래 글자 */}
       {/* 이미지 없을 때: 이미지 등록 버튼 */}
       {!hasAvatar && (
         <Label
           htmlFor={inputId}
-          className={`inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
+          title={uploadButtonText || t('mypage.profile.register_avatar')}
+          className={`inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
             isUploading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
           {isUploading ? (
-            <Icon name="spinner" size="sm" className="animate-spin" />
+            <Icon name="spinner" size="sm" className="animate-spin" aria-hidden="true" />
           ) : (
-            <Icon name="image" size="sm" />
+            <Icon name="image" size="sm" aria-hidden="true" />
           )}
-          <Span>{uploadButtonText || t('mypage.profile.register_avatar')}</Span>
+          <Span className="sr-only">{uploadButtonText || t('mypage.profile.register_avatar')}</Span>
         </Label>
       )}
 
@@ -396,31 +398,33 @@ export function AvatarUploader({
         <>
           <Label
             htmlFor={inputId}
-            className={`inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
+            title={uploadButtonText || t('common.change')}
+            className={`inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
               isUploading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >
             {isUploading ? (
-              <Icon name="spinner" size="sm" className="animate-spin" />
+              <Icon name="spinner" size="sm" className="animate-spin" aria-hidden="true" />
             ) : (
-              <Icon name="upload" size="sm" />
+              <Icon name="upload" size="sm" aria-hidden="true" />
             )}
-            <Span>{uploadButtonText || t('common.change')}</Span>
+            <Span className="sr-only">{uploadButtonText || t('common.change')}</Span>
           </Label>
 
           {showDeleteButton && (
             <Button
               type="button"
-              className="inline-flex items-center gap-2 px-4 py-2 border border-red-300 dark:border-red-600 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              title={deleteButtonText || t('common.delete')}
+              aria-label={deleteButtonText || t('common.delete')}
+              className="w-10 h-10 border border-red-300 dark:border-red-600 text-red-600 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               onClick={handleDeleteClick}
               disabled={isDeleting}
             >
               {isDeleting ? (
-                <Icon name="spinner" size="sm" className="animate-spin" />
+                <Icon name="spinner" size="sm" className="animate-spin" aria-hidden="true" />
               ) : (
-                <Icon name="trash-2" size="sm" />
+                <Icon name="trash-2" size="sm" aria-hidden="true" />
               )}
-              <Span>{deleteButtonText || t('common.delete')}</Span>
             </Button>
           )}
         </>
@@ -472,23 +476,26 @@ export function AvatarUploader({
               <Div className="grid grid-cols-2 gap-2">
                 <Button
                   type="button"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md text-sm font-medium transition-colors disabled:opacity-50"
+                  title={t('common.confirm')}
+                  aria-label={t('common.confirm')}
+                  className="px-3 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition-colors disabled:opacity-50 cursor-pointer"
                   onClick={handleUploadConfirm}
                   disabled={isUploading}
                 >
                   {isUploading ? (
-                    <Icon name="spinner" size="sm" className="animate-spin" />
+                    <Icon name="spinner" size="sm" className="animate-spin" aria-hidden="true" />
                   ) : (
-                    <Icon name="check" size="sm" />
+                    <Icon name="check" size="sm" aria-hidden="true" />
                   )}
-                  <Span>{t('common.confirm')}</Span>
                 </Button>
                 <Button
                   type="button"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  title={t('common.cancel')}
+                  aria-label={t('common.cancel')}
+                  className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                   onClick={handleUploadCancel}
                 >
-                  <Span>{t('common.cancel')}</Span>
+                  <Icon name="xmark" size="sm" aria-hidden="true" />
                 </Button>
               </Div>
             </Div>
@@ -506,23 +513,26 @@ export function AvatarUploader({
               <Div className="grid grid-cols-2 gap-2">
                 <Button
                   type="button"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition-colors disabled:opacity-50"
+                  title={t('common.delete')}
+                  aria-label={t('common.delete')}
+                  className="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors disabled:opacity-50 cursor-pointer"
                   onClick={executeDelete}
                   disabled={isDeleting}
                 >
                   {isDeleting ? (
-                    <Icon name="spinner" size="sm" className="animate-spin" />
+                    <Icon name="spinner" size="sm" className="animate-spin" aria-hidden="true" />
                   ) : (
-                    <Icon name="trash-2" size="sm" />
+                    <Icon name="trash-2" size="sm" aria-hidden="true" />
                   )}
-                  <Span>{t('common.delete')}</Span>
                 </Button>
                 <Button
                   type="button"
-                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  title={t('common.cancel')}
+                  aria-label={t('common.cancel')}
+                  className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                   onClick={handleDeleteCancel}
                 >
-                  <Span>{t('common.cancel')}</Span>
+                  <Icon name="xmark" size="sm" aria-hidden="true" />
                 </Button>
               </Div>
             </Div>

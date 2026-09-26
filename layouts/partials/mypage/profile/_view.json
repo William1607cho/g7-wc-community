@@ -159,7 +159,9 @@
               "name": "Button",
               "props": {
                 "type": "button",
-                "className": "inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                "title": "$t:mypage.profile.change_password_button",
+                "aria-label": "$t:mypage.profile.change_password_button",
+                "className": "inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
               },
               "children": [
                 {
@@ -167,13 +169,8 @@
                   "name": "Icon",
                   "props": {
                     "name": "lock",
-                    "size": "sm"
+                    "aria-hidden": "true"
                   }
-                },
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "$t:mypage.profile.change_password_button"
                 }
               ],
               "actions": [
@@ -192,7 +189,9 @@
               "name": "Button",
               "props": {
                 "type": "button",
-                "className": "inline-flex items-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+                "title": "$t:mypage.profile.edit_button",
+                "aria-label": "$t:mypage.profile.edit_button",
+                "className": "inline-flex items-center justify-center w-10 h-10 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors cursor-pointer"
               },
               "children": [
                 {
@@ -200,13 +199,8 @@
                   "name": "Icon",
                   "props": {
                     "name": "pen-to-square",
-                    "size": "sm"
+                    "aria-hidden": "true"
                   }
-                },
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "$t:mypage.profile.edit_button"
                 }
               ],
               "actions": [
@@ -732,126 +726,6 @@
       ]
     },
     {
-      "comment": "결제 통화 표시 (A3 — 이커머스 모듈 설치 시에만. 읽기 전용. 변경은 회원정보 수정에서 통화도 함께 저장 — D9)",
-      "if": "{{user.data?.ecommerce_preferred_currency !== undefined}}",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
-      },
-      "responsive": {
-        "portable": {
-          "props": {
-            "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4"
-          }
-        }
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "Div",
-          "props": {
-            "className": "flex items-center gap-2 mb-4 pb-3 border-b border-gray-200 dark:border-gray-700"
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Icon",
-              "props": {
-                "name": "coins",
-                "size": "md",
-                "className": "text-gray-600 dark:text-gray-400"
-              }
-            },
-            {
-              "type": "basic",
-              "name": "H3",
-              "props": {
-                "className": "text-base font-semibold text-gray-900 dark:text-white"
-              },
-              "text": "$t:mypage.currency_settings.title"
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "text-base text-gray-900 dark:text-white font-medium"
-          },
-          "text": "{{user.data?.ecommerce_preferred_currency ?? _global.modules?.['sirsoft-ecommerce']?.language_currency?.default_currency}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "text-xs text-gray-500 dark:text-gray-400 mt-2"
-          },
-          "text": "$t:mypage.currency_settings.edit_hint"
-        }
-      ]
-    },
-    {
-      "comment": "배송국가 표시 (MP08 후속 — 이커머스 설치 + 해외배송 활성 시에만. 읽기 전용. 변경은 회원정보 수정에서 함께 저장).",
-      "if": "{{user.data?.ecommerce_preferred_shipping_country !== undefined && _global.modules?.['sirsoft-ecommerce']?.shipping?.international_shipping_enabled === true}}",
-      "type": "basic",
-      "name": "Div",
-      "props": {
-        "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
-      },
-      "responsive": {
-        "portable": {
-          "props": {
-            "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4"
-          }
-        }
-      },
-      "children": [
-        {
-          "type": "basic",
-          "name": "Div",
-          "props": {
-            "className": "flex items-center gap-2 mb-4 pb-3 border-b border-gray-200 dark:border-gray-700"
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Icon",
-              "props": {
-                "name": "earth-asia",
-                "size": "md",
-                "className": "text-gray-600 dark:text-gray-400"
-              }
-            },
-            {
-              "type": "basic",
-              "name": "H3",
-              "props": {
-                "className": "text-base font-semibold text-gray-900 dark:text-white"
-              },
-              "text": "$t:mypage.shipping_country_settings.title"
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "text-base text-gray-900 dark:text-white font-medium"
-          },
-          "text": "{{(_global.modules?.['sirsoft-ecommerce']?.shipping?.available_countries ?? []).find(c => c.code === (user.data?.ecommerce_preferred_shipping_country ?? _global.modules?.['sirsoft-ecommerce']?.shipping?.default_country ?? 'KR'))?.name?.[_global.locale] ?? user.data?.ecommerce_preferred_shipping_country ?? _global.modules?.['sirsoft-ecommerce']?.shipping?.default_country ?? 'KR'}}"
-        },
-        {
-          "type": "basic",
-          "name": "P",
-          "props": {
-            "className": "text-xs text-gray-500 dark:text-gray-400 mt-2"
-          },
-          "text": "$t:mypage.shipping_country_settings.edit_hint"
-        }
-      ]
-    },
-    {
       "id": "profile_view_bio_card",
       "comment": "서명 및 자기소개 카드",
       "type": "basic",
@@ -1289,7 +1163,9 @@
           "name": "Button",
           "props": {
             "type": "button",
-            "className": "inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-red-500 text-red-500 rounded-lg text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            "title": "$t:mypage.profile.withdraw_button",
+            "aria-label": "$t:mypage.profile.withdraw_button",
+            "className": "inline-flex items-center justify-center w-10 h-10 bg-white dark:bg-gray-800 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors cursor-pointer"
           },
           "children": [
             {
@@ -1297,13 +1173,8 @@
               "name": "Icon",
               "props": {
                 "name": "trash-can",
-                "size": "sm"
+                "aria-hidden": "true"
               }
-            },
-            {
-              "type": "basic",
-              "name": "Span",
-              "text": "$t:mypage.profile.withdraw_button"
             }
           ],
           "actions": [

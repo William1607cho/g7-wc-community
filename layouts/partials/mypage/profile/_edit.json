@@ -67,11 +67,13 @@
           },
           "children": [
             {
-              "comment": "취소 버튼",
+              "comment": "취소 버튼 (아이콘만)",
               "type": "basic",
               "name": "Button",
               "props": {
                 "type": "button",
+                "title": "$t:common.cancel",
+                "aria-label": "$t:common.cancel",
                 "className": "inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               },
               "responsive": {
@@ -87,13 +89,9 @@
                   "name": "Icon",
                   "props": {
                     "name": "x",
-                    "size": "sm"
+                    "size": "sm",
+                    "aria-hidden": "true"
                   }
-                },
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "$t:common.cancel"
                 }
               ],
               "actions": [
@@ -107,11 +105,13 @@
               ]
             },
             {
-              "comment": "저장 버튼",
+              "comment": "저장 버튼 (아이콘만)",
               "type": "basic",
               "name": "Button",
               "props": {
                 "type": "submit",
+                "title": "$t:common.save",
+                "aria-label": "$t:common.save",
                 "form": "profileEditForm",
                 "disabled": "{{_local.isSavingProfile}}",
                 "className": "inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -140,13 +140,9 @@
                   "name": "Icon",
                   "props": {
                     "name": "save",
-                    "size": "sm"
+                    "size": "sm",
+                    "aria-hidden": "true"
                   }
-                },
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "$t:common.save"
                 }
               ]
             }
@@ -259,58 +255,6 @@
                 "body": "{{_local?.profileEditForm}}"
               },
               "onSuccess": [
-                {
-                  "comment": "결제 통화 통합 저장 (D9 — 이커머스 설치 시에만. 회원정보 저장 성공 후 같은 흐름에서 통화도 영속 저장). 게이트=폼에 통화 필드가 있을 때만.",
-                  "if": "{{_local?.profileEditForm?.ecommerce_preferred_currency}}",
-                  "handler": "apiCall",
-                  "auth_required": true,
-                  "target": "/api/modules/sirsoft-ecommerce/user/currency",
-                  "params": {
-                    "method": "PUT",
-                    "body": "{{ { currency: _local.profileEditForm.ecommerce_preferred_currency } }}"
-                  },
-                  "onSuccess": [
-                    {
-                      "handler": "setState",
-                      "params": { "target": "global", "preferredCurrency": "{{_local.profileEditForm.ecommerce_preferred_currency}}" }
-                    }
-                  ],
-                    "onError": [
-                        {
-                            "handler": "toast",
-                            "params": {
-                                "type": "error",
-                                "message": "{{error.message}}"
-                            }
-                        }
-                    ]
-                },
-                {
-                  "comment": "배송국가 통합 저장 (MP08 후속 — 이커머스 설치 + 폼에 배송국가 필드가 있을 때만). 회원정보 저장 성공 후 같은 흐름에서 배송국가도 영속 저장.",
-                  "if": "{{_local?.profileEditForm?.ecommerce_preferred_shipping_country}}",
-                  "handler": "apiCall",
-                  "auth_required": true,
-                  "target": "/api/modules/sirsoft-ecommerce/user/shipping-country",
-                  "params": {
-                    "method": "PUT",
-                    "body": "{{ { shipping_country: _local.profileEditForm.ecommerce_preferred_shipping_country } }}"
-                  },
-                  "onSuccess": [
-                    {
-                      "handler": "setState",
-                      "params": { "target": "global", "preferredShippingCountry": "{{_local.profileEditForm.ecommerce_preferred_shipping_country}}" }
-                    }
-                  ],
-                    "onError": [
-                        {
-                            "handler": "toast",
-                            "params": {
-                                "type": "error",
-                                "message": "{{error.message}}"
-                            }
-                        }
-                    ]
-                },
                 {
                   "handler": "setState",
                   "params": {
@@ -1385,114 +1329,6 @@
           ]
         },
         {
-          "comment": "결제 통화 카드 (A3·A5·D9 — 이커머스 설치 시에만. 폼 필드로 통합 저장. 게이트=이커머스 모듈 설치(_global.modules) — 코어 노출값이라 user 리소스 병합 타이밍과 무관하게 안정적)",
-          "if": "{{_global.modules?.['sirsoft-ecommerce'] !== undefined}}",
-          "type": "basic",
-          "name": "Div",
-          "props": {
-            "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
-          },
-          "responsive": {
-            "portable": {
-              "props": {
-                "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4"
-              }
-            }
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Div",
-              "props": {
-                "className": "flex items-center gap-2 mb-4 pb-3 border-b border-gray-200 dark:border-gray-700"
-              },
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Icon",
-                  "props": { "name": "coins", "size": "md", "className": "text-gray-600 dark:text-gray-400" }
-                },
-                {
-                  "type": "basic",
-                  "name": "H3",
-                  "props": { "className": "text-base font-semibold text-gray-900 dark:text-white" },
-                  "text": "$t:mypage.currency_settings.title"
-                }
-              ]
-            },
-            {
-              "type": "basic",
-              "name": "P",
-              "props": { "className": "text-sm text-gray-500 dark:text-gray-400 mb-3" },
-              "text": "$t:mypage.currency_settings.description"
-            },
-            {
-              "type": "composite",
-              "name": "Select",
-              "props": {
-                "name": "ecommerce_preferred_currency",
-                "value": "{{user.data?.ecommerce_preferred_currency ?? _global.modules?.['sirsoft-ecommerce']?.language_currency?.default_currency}}",
-                "options": "{{(_global.modules?.['sirsoft-ecommerce']?.language_currency?.currencies ?? []).filter(c => c.is_default || (c.exchange_rate ?? 0) > 0).map(c => ({ value: c.code, label: c.code + ' (' + (c.symbol ?? c.code) + ')' }))}}",
-                "className": "w-full sm:w-64"
-              }
-            }
-          ]
-        },
-        {
-          "comment": "배송국가 설정 카드 (MP08 후속 — 이커머스 설치 + 해외배송 활성 시에만). name 바인딩으로 profileEditForm 에 자동 포함, 회원정보 [저장] 시 onSuccess 체인이 PUT.",
-          "type": "basic",
-          "name": "Div",
-          "if": "{{_global.modules?.['sirsoft-ecommerce']?.shipping?.international_shipping_enabled === true}}",
-          "props": {
-            "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6"
-          },
-          "responsive": {
-            "portable": {
-              "props": {
-                "className": "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4"
-              }
-            }
-          },
-          "children": [
-            {
-              "type": "basic",
-              "name": "Div",
-              "props": {
-                "className": "flex items-center gap-2 mb-4 pb-3 border-b border-gray-200 dark:border-gray-700"
-              },
-              "children": [
-                {
-                  "type": "basic",
-                  "name": "Icon",
-                  "props": { "name": "earth-asia", "size": "md", "className": "text-gray-600 dark:text-gray-400" }
-                },
-                {
-                  "type": "basic",
-                  "name": "H3",
-                  "props": { "className": "text-base font-semibold text-gray-900 dark:text-white" },
-                  "text": "$t:mypage.shipping_country_settings.title"
-                }
-              ]
-            },
-            {
-              "type": "basic",
-              "name": "P",
-              "props": { "className": "text-sm text-gray-500 dark:text-gray-400 mb-3" },
-              "text": "$t:mypage.shipping_country_settings.description"
-            },
-            {
-              "type": "composite",
-              "name": "Select",
-              "props": {
-                "name": "ecommerce_preferred_shipping_country",
-                "value": "{{user.data?.ecommerce_preferred_shipping_country ?? _global.modules?.['sirsoft-ecommerce']?.shipping?.default_country ?? 'KR'}}",
-                "options": "{{(_global.modules?.['sirsoft-ecommerce']?.shipping?.available_countries ?? []).filter(c => c.is_active).map(c => ({ value: c.code, label: (c.name?.[_global.locale] ?? c.name?.ko ?? c.code) }))}}",
-                "className": "w-full sm:w-64"
-              }
-            }
-          ]
-        },
-        {
           "comment": "하단 버튼 그룹",
           "type": "basic",
           "name": "Div",
@@ -1508,11 +1344,13 @@
           },
           "children": [
             {
-              "comment": "취소 버튼",
+              "comment": "취소 버튼 (아이콘만)",
               "type": "basic",
               "name": "Button",
               "props": {
                 "type": "button",
+                "title": "$t:common.cancel",
+                "aria-label": "$t:common.cancel",
                 "className": "inline-flex items-center justify-center gap-2 px-6 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               },
               "responsive": {
@@ -1529,13 +1367,9 @@
                   "name": "Icon",
                   "props": {
                     "name": "x",
-                    "size": "md"
+                    "size": "md",
+                    "aria-hidden": "true"
                   }
-                },
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "$t:common.cancel"
                 }
               ],
               "actions": [
@@ -1549,11 +1383,13 @@
               ]
             },
             {
-              "comment": "저장 버튼",
+              "comment": "저장 버튼 (아이콘만)",
               "type": "basic",
               "name": "Button",
               "props": {
                 "type": "submit",
+                "title": "$t:common.save",
+                "aria-label": "$t:common.save",
                 "disabled": "{{_local.isSavingProfile}}",
                 "className": "inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               },
@@ -1583,13 +1419,9 @@
                   "name": "Icon",
                   "props": {
                     "name": "save",
-                    "size": "md"
+                    "size": "md",
+                    "aria-hidden": "true"
                   }
-                },
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "text": "$t:common.save"
                 }
               ]
             }

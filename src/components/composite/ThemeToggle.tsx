@@ -167,9 +167,13 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     <Div ref={menuRef} className={`relative ${className}`} id={id} {...editorAttrs}>
       {/* 테마 토글 버튼 */}
       <Button
+        type="button"
         onClick={() => setShowMenu(!showMenu)}
         className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors text-gray-600 dark:text-gray-400"
-        aria-label="Toggle theme"
+        title={(window as any).G7Core?.t?.('common.theme_toggle') ?? 'Toggle theme'}
+        aria-label={(window as any).G7Core?.t?.('common.theme_toggle') ?? 'Toggle theme'}
+        aria-haspopup="menu"
+        aria-expanded={showMenu}
       >
         <Icon
           name={getCurrentIcon()}

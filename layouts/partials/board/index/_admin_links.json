@@ -19,7 +19,9 @@
                 "target": "_blank",
                 "rel": "noopener noreferrer",
                 "title": "$t:board.admin_links.posts",
-                "className": "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors no-underline"
+                "aria-label": "$t:board.admin_links.posts",
+                "data-testid": "list-admin-posts",
+                "className": "inline-flex items-center justify-center w-10 h-10 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors no-underline"
             },
             "children": [
                 {
@@ -27,16 +29,8 @@
                     "name": "Icon",
                     "props": {
                         "name": "external-link",
-                        "size": "sm"
+                        "aria-hidden": "true"
                     }
-                },
-                {
-                    "type": "basic",
-                    "name": "Span",
-                    "props": {
-                        "className": "hidden sm:inline"
-                    },
-                    "text": "$t:board.admin_links.posts"
                 }
             ]
         },
@@ -48,7 +42,9 @@
                 "target": "_blank",
                 "rel": "noopener noreferrer",
                 "title": "$t:board.admin_links.manage",
-                "className": "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors no-underline"
+                "aria-label": "$t:board.admin_links.manage",
+                "data-testid": "list-admin-manage",
+                "className": "inline-flex items-center justify-center w-10 h-10 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors no-underline"
             },
             "children": [
                 {
@@ -56,16 +52,8 @@
                     "name": "Icon",
                     "props": {
                         "name": "settings",
-                        "size": "sm"
+                        "aria-hidden": "true"
                     }
-                },
-                {
-                    "type": "basic",
-                    "name": "Span",
-                    "props": {
-                        "className": "hidden sm:inline"
-                    },
-                    "text": "$t:board.admin_links.manage"
                 }
             ]
         }

@@ -576,7 +576,9 @@
       "name": "Button",
       "props": {
         "type": "submit",
-        "className": "w-full py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2",
+        "title": "{{_local?.isRegistering ? '$t:auth.register.processing' : '$t:auth.register.submit'}}",
+        "aria-label": "{{_local?.isRegistering ? '$t:auth.register.processing' : '$t:auth.register.submit'}}",
+        "className": "w-full py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer",
         "disabled": "{{_local?.isRegistering}}"
       },
       "children": [
@@ -591,15 +593,9 @@
         },
         {
           "type": "basic",
-          "name": "Span",
+          "name": "Icon",
           "if": "{{!_local?.isRegistering}}",
-          "text": "$t:auth.register.submit"
-        },
-        {
-          "type": "basic",
-          "name": "Span",
-          "if": "{{_local?.isRegistering}}",
-          "text": "$t:auth.register.processing"
+          "props": { "name": "check", "aria-hidden": "true" }
         }
       ]
     }

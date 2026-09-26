@@ -250,9 +250,14 @@
               "type": "basic",
               "name": "Button",
               "props": {
-                "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
+                "type": "button",
+                "title": "$t:common.cancel",
+                "aria-label": "$t:common.cancel",
+                "className": "inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
               },
-              "text": "$t:common.cancel",
+              "children": [
+                { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+              ],
               "actions": [
                 {
                   "type": "click",
@@ -279,33 +284,28 @@
               "type": "basic",
               "name": "Button",
               "props": {
-                "className": "px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+                "type": "button",
+                "title": "$t:board.post.submit_report",
+                "aria-label": "$t:board.post.submit_report",
+                "className": "inline-flex items-center justify-center w-10 h-10 bg-primary-600 text-white rounded-lg hover:bg-primary-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
                 "disabled": "{{_global.reportSubmitting === true}}"
               },
               "children": [
                 {
-                  "type": "basic",
-                  "name": "Div",
+                  "type": "composite",
+                  "name": "Icon",
+                  "if": "{{!_global.reportSubmitting}}",
+                  "props": { "name": "flag", "aria-hidden": "true" }
+                },
+                {
+                  "type": "composite",
+                  "name": "Icon",
+                  "if": "{{_global.reportSubmitting}}",
                   "props": {
-                    "className": "flex items-center gap-2"
-                  },
-                  "children": [
-                    {
-                      "type": "composite",
-                      "name": "Icon",
-                      "if": "{{_global.reportSubmitting}}",
-                      "props": {
-                        "name": "spinner",
-                        "size": "sm",
-                        "className": "animate-spin"
-                      }
-                    },
-                    {
-                      "type": "basic",
-                      "name": "Span",
-                      "text": "$t:board.post.submit_report"
-                    }
-                  ]
+                    "name": "spinner",
+                    "className": "animate-spin",
+                    "aria-hidden": "true"
+                  }
                 }
               ],
               "actions": [

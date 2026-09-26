@@ -35,9 +35,14 @@
                     "type": "basic",
                     "name": "Button",
                     "props": {
-                        "className": "inline-flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-colors cursor-pointer mt-4"
+                        "type": "button",
+                        "title": "$t:board.go_to_first_page",
+                        "aria-label": "$t:board.go_to_first_page",
+                        "className": "inline-flex items-center justify-center w-10 h-10 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer mt-4"
                     },
-                    "text": "$t:board.go_to_first_page",
+                    "children": [
+                        { "type": "basic", "name": "Icon", "props": { "name": "arrow-left", "aria-hidden": "true" } }
+                    ],
                     "actions": [
                         {
                             "comment": "페이지만 되돌린다 — 검색어/분류/필터는 그대로 유지 (#75). page: \"\" 는 파라미터 제거 = 1페이지.",
@@ -112,9 +117,14 @@
                     "type": "basic",
                     "name": "Button",
                     "props": {
-                        "className": "inline-flex items-center gap-2 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-colors cursor-pointer"
+                        "type": "button",
+                        "title": "$t:board.clear_search",
+                        "aria-label": "$t:board.clear_search",
+                        "className": "inline-flex items-center justify-center w-10 h-10 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
                     },
-                    "text": "$t:board.clear_search",
+                    "children": [
+                        { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+                    ],
                     "actions": [
                         {
                             "comment": "audit:allow layout-list-context-navigate-merge-query 검색 초기화 — 목록 상태를 전부 비우는 것이 이 버튼의 목적이므로 병합하지 않는다.",

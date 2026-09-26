@@ -44,8 +44,10 @@
     {
       "type": "basic",
       "name": "Button",
-      "props": { "className": "px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-100 active:scale-95 active:bg-gray-700 dark:active:bg-gray-200 transition-all cursor-pointer" },
-      "text": "$t:search.button",
+      "props": { "type": "button", "title": "$t:search.button", "aria-label": "$t:search.button", "className": "inline-flex items-center justify-center shrink-0 w-12 h-12 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 active:scale-95 active:bg-gray-700 dark:active:bg-gray-200 transition-all cursor-pointer" },
+      "children": [
+        { "type": "basic", "name": "Icon", "props": { "name": "search", "aria-hidden": "true" } }
+      ],
       "actions": [
         {
           "comment": "audit:allow layout-list-context-navigate-merge-query 새 검색 실행 — 검색어를 바꾸면 결과 집합 자체가 달라지므로 이전 탭·정렬·페이지·커서를 물려받지 않는다. mergeQuery 가 없으므로 q 만 남고 나머지 키는 주소에서 사라진다.",

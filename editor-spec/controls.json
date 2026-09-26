@@ -3419,60 +3419,6 @@
     },
     "label": "$t:editor.control.ec_collapse_text.label"
   },
-  "qsValue": {
-    "widget": "text",
-    "apply": {
-      "type": "propValue",
-      "propKey": "value"
-    },
-    "label": "$t:editor.control.qs_value.label"
-  },
-  "qsMin": {
-    "widget": "text",
-    "apply": {
-      "type": "propValue",
-      "propKey": "min"
-    },
-    "label": "$t:editor.control.qs_min.label"
-  },
-  "qsMax": {
-    "widget": "text",
-    "apply": {
-      "type": "propValue",
-      "propKey": "max"
-    },
-    "label": "$t:editor.control.qs_max.label"
-  },
-  "qsSize": {
-    "widget": "select",
-    "apply": {
-      "type": "propValue",
-      "propKey": "size"
-    },
-    "options": [
-      {
-        "value": "sm",
-        "label": "$t:editor.control.qs_size.sm"
-      },
-      {
-        "value": "md",
-        "label": "$t:editor.control.qs_size.md"
-      },
-      {
-        "value": "lg",
-        "label": "$t:editor.control.qs_size.lg"
-      }
-    ],
-    "label": "$t:editor.control.qs_size.label"
-  },
-  "qsDisabled": {
-    "widget": "toggle",
-    "apply": {
-      "type": "propValue",
-      "propKey": "disabled"
-    },
-    "label": "$t:editor.control.qs_disabled.label"
-  },
   "auSrc": {
     "widget": "text",
     "apply": {
@@ -3766,14 +3712,6 @@
       "propKey": "confirmTarget"
     },
     "label": "$t:editor.control.pi_confirm_target.label"
-  },
-  "pcShopBase": {
-    "widget": "text",
-    "apply": {
-      "type": "propValue",
-      "propKey": "shopBase"
-    },
-    "label": "$t:editor.control.pc_shop_base.label"
   },
   "gridCols": {
     "widget": "text",
@@ -4100,14 +4038,6 @@
       "propKey": "logo"
     },
     "label": "$t:editor.control.hdr_logo.label"
-  },
-  "hdrShopBase": {
-    "widget": "text",
-    "apply": {
-      "type": "propValue",
-      "propKey": "shopBase"
-    },
-    "label": "$t:editor.control.hdr_shop_base.label"
   },
   "hdrMaxBoards": {
     "widget": "number",

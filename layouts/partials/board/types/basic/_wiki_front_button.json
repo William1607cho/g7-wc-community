@@ -8,7 +8,10 @@
   "name": "Button",
   "if": "{{posts?.data?.board?.wiki?.front_post_id}}",
   "props": {
-    "className": "shrink-0 flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
+    "type": "button",
+    "title": "$t:board.wiki.back_to_front",
+    "aria-label": "$t:board.wiki.back_to_front",
+    "className": "shrink-0 inline-flex items-center justify-center w-10 h-10 text-gray-700 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-all shadow-sm cursor-pointer"
   },
   "actions": [
     {
@@ -24,14 +27,9 @@
       "type": "basic",
       "name": "Icon",
       "props": {
-        "name": "list",
-        "size": "sm"
+        "name": "book-open",
+        "aria-hidden": "true"
       }
-    },
-    {
-      "type": "basic",
-      "name": "Span",
-      "text": "$t:board.wiki.back_to_front"
     }
   ]
 }

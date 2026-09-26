@@ -23,10 +23,9 @@
 
 **이 템플릿은 방문자 화면 전용**이라 관리자 템플릿(`sirsoft-admin_basic`)과 컴포넌트 구성이
 크게 다릅니다. `DataGrid` · `AdminSidebar` · `MultilingualInput` 같은 관리 도구가 없고, 대신
-`ProductCard` · `ProductImageViewer` · `QuantitySelector` · `PostReactions` · `MobileNav` ·
-`SocialLoginButtons` 처럼 상점·게시판·인증 화면에 필요한 것들이 있습니다. **모듈이 방문자
-화면을 그리지 않고 API 만 제공하는 구조**(게시판·이커머스 모두 레이아웃이 전부 `admin` 그룹)
-이므로, 방문자가 보는 커머스·게시판 UI 는 사실상 이 템플릿의 컴포넌트가 전부입니다.
+`PostReactions` · `MobileNav` · `SocialLoginButtons` 처럼 게시판·인증 화면에 필요한 것들이
+있습니다. **모듈이 방문자 화면을 그리지 않고 API 만 제공하는 구조**(게시판 모듈은 레이아웃이
+전부 `admin` 그룹)이므로, 방문자가 보는 게시판 UI 는 사실상 이 템플릿의 컴포넌트가 전부입니다.
 
 위 개수는 코드에서 실측되므로 시간이 지나면 달라집니다 — 이 문서에 구체적 개수를 하드코딩하지
 않습니다. 정확한 전체 목록·Props 는 코어의 컴포넌트 Props 레퍼런스를 따르며, 이 문서는 "이
@@ -53,11 +52,11 @@
 
 ```text
 1. Basic 26개: HTML 래핑 (Div, Button, Input, Select, Form, A, H1~H4, PasswordInput 등)
-2. Composite 27개: UI 패턴 캡슐화 (Header, Footer, Modal, ProductCard, Pagination 등)
+2. Composite 27개: UI 패턴 캡슐화 (Header, Footer, Modal, Pagination 등)
 3. Layout 5개: 페이지 구조 (Container, Grid, Flex, SectionLayout, ThreeColumnLayout)
    (정정(#601): 개수는 이관 시점 값 — 실측은 위 「제공 컴포넌트」 블록이 SSoT)
 4. 사용자(User) 템플릿 전용 — 모듈 레이아웃(user/ 하위)에서 사용
-5. features: dark_mode, responsive, multi_language, multi_currency 지원
+5. features: dark_mode, responsive, multi_language 지원 (multi_currency 는 false)
 ```
 
 ---
@@ -165,14 +164,6 @@ HTML 태그를 래핑하는 최소 단위 컴포넌트입니다.
 | `Footer` | 사이트 푸터 (저작권, 링크, 소셜) | siteName |
 | `MobileNav` | 모바일 네비게이션 드로어 | - |
 
-#### 쇼핑몰
-
-| 컴포넌트 | 설명 | 주요 Props |
-|----------|------|-----------|
-| `ProductCard` | 상품 카드 (이미지, 제목, 가격) | product, showDiscount |
-| `ProductImageViewer` | 상품 이미지 뷰어 (메인 + 썸네일 + 라이트박스) | images |
-| `QuantitySelector` | 수량 선택기 (+/- 버튼) | value, min, max |
-
 #### 게시판
 
 | 컴포넌트 | 설명 | 주요 Props |
@@ -222,7 +213,7 @@ HTML 태그를 래핑하는 최소 단위 컴포넌트입니다.
 >   "name": "TabNavigation",
 >   "props": {
 >     "tabs": [...],
->     "hiddenTabIds": "{{_global.modules?.['sirsoft-ecommerce']?.inquiry?.board_slug ? [] : ['qna']}}"
+>     "hiddenTabIds": "{{_global.settings?.some_flag ? [] : ['some_tab']}}"
 >   }
 > }
 > ```
@@ -276,8 +267,6 @@ HTML 태그를 래핑하는 최소 단위 컴포넌트입니다.
 | Basic | `Header`, `Footer`, `Hr` | HTML5 시맨틱 태그 |
 | Composite | `Header`, `Footer` | 사이트 헤더/푸터 (composite) |
 | Composite | `MobileNav` | 모바일 드로어 네비게이션 |
-| Composite | `ProductImageViewer` | 상품 이미지 뷰어 |
-| Composite | `QuantitySelector` | 수량 선택기 |
 | Composite | `PostReactions` | 게시글 리액션 |
 | Composite | `SocialLoginButtons` | 소셜 로그인 |
 | Composite | `Avatar`, `AvatarUploader` | 아바타 관련 |

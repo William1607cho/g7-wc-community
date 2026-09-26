@@ -135,95 +135,6 @@
       "target": "{{target}}"
     }
   },
-  "savePreferredCurrency": {
-    "label": "$t:editor.action.save_preferred_currency.label",
-    "params": [
-      {
-        "key": "currency",
-        "label": "$t:editor.action.save_preferred_currency.param_currency",
-        "widget": "text"
-      }
-    ],
-    "build": {
-      "handler": "savePreferredCurrency",
-      "params": { "currency": "{{currency}}" }
-    }
-  },
-  "setCartOption": {
-    "label": "$t:editor.action.set_cart_option.label",
-    "params": [
-      {
-        "key": "itemId",
-        "label": "$t:editor.action.set_cart_option.param_item_id",
-        "widget": "text"
-      },
-      {
-        "key": "optionKey",
-        "label": "$t:editor.action.set_cart_option.param_option_key",
-        "widget": "text"
-      },
-      {
-        "key": "optionValue",
-        "label": "$t:editor.action.set_cart_option.param_option_value",
-        "widget": "text"
-      }
-    ],
-    "build": {
-      "handler": "setCartOption",
-      "params": {
-        "itemId": "{{itemId}}",
-        "optionKey": "{{optionKey}}",
-        "optionValue": "{{optionValue}}"
-      }
-    }
-  },
-  "openCartDeleteModal": {
-    "label": "$t:editor.action.open_cart_delete_modal.label",
-    "params": [
-      {
-        "key": "itemId",
-        "label": "$t:editor.action.open_cart_delete_modal.param_item_id",
-        "widget": "text"
-      }
-    ],
-    "build": {
-      "handler": "openCartDeleteModal",
-      "params": { "itemId": "{{itemId}}" }
-    }
-  },
-  "openCartOptionModal": {
-    "label": "$t:editor.action.open_cart_option_modal.label",
-    "params": [
-      {
-        "key": "itemId",
-        "label": "$t:editor.action.open_cart_option_modal.param_item_id",
-        "widget": "text"
-      }
-    ],
-    "build": {
-      "handler": "openCartOptionModal",
-      "params": { "itemId": "{{itemId}}" }
-    }
-  },
-  "recalculateCart": {
-    "label": "$t:editor.action.recalculate_cart.label",
-    "params": [],
-    "build": { "handler": "recalculateCart" }
-  },
-  "getDisplayPrice": {
-    "label": "$t:editor.action.get_display_price.label",
-    "params": [
-      {
-        "key": "currency",
-        "label": "$t:editor.action.get_display_price.param_currency",
-        "widget": "text"
-      }
-    ],
-    "build": {
-      "handler": "getDisplayPrice",
-      "params": { "currency": "{{currency}}" }
-    }
-  },
   "initTheme": {
     "label": "$t:editor.action.init_theme.label",
     "params": [
@@ -242,26 +153,6 @@
       "handler": "initTheme",
       "target": "{{target}}"
     }
-  },
-  "initCartKey": {
-    "label": "$t:editor.action.init_cart_key.label",
-    "params": [],
-    "build": { "handler": "initCartKey" }
-  },
-  "loadPreferredCurrency": {
-    "label": "$t:editor.action.load_preferred_currency.label",
-    "params": [],
-    "build": { "handler": "loadPreferredCurrency" }
-  },
-  "getCartKey": {
-    "label": "$t:editor.action.get_cart_key.label",
-    "params": [],
-    "build": { "handler": "getCartKey" }
-  },
-  "clearCartKey": {
-    "label": "$t:editor.action.clear_cart_key.label",
-    "params": [],
-    "build": { "handler": "clearCartKey" }
   },
   "saveToStorage": {
     "label": "$t:editor.action.save_to_storage.label",
@@ -299,38 +190,6 @@
     "build": {
       "handler": "loadFromStorage",
       "params": { "key": "{{key}}", "default": "{{default}}" }
-    }
-  },
-  "saveGuestOrderToken": {
-    "comment": "비회원 주문 토큰 저장 — sirsoft-basic 템플릿 소유 핸들러(storageHandlers). verify 응답의 토큰/주문번호/만료시각을 sessionStorage + _global.guestOrderToken 에 저장. 세 입력 모두 응답값(데이터 칩).",
-    "label": "$t:editor.action.save_guest_order_token.label",
-    "params": [
-      {
-        "key": "token",
-        "label": "$t:editor.action.save_guest_order_token.param_token",
-        "widget": "data-chip",
-        "required": true
-      },
-      {
-        "key": "orderNumber",
-        "label": "$t:editor.action.save_guest_order_token.param_order_number",
-        "widget": "data-chip",
-        "required": true
-      },
-      {
-        "key": "expiresAt",
-        "label": "$t:editor.action.save_guest_order_token.param_expires_at",
-        "widget": "data-chip",
-        "required": true
-      }
-    ],
-    "build": {
-      "handler": "saveGuestOrderToken",
-      "params": {
-        "token": "{{token}}",
-        "orderNumber": "{{orderNumber}}",
-        "expiresAt": "{{expiresAt}}"
-      }
     }
   }
 }

@@ -156,8 +156,13 @@
           "name": "Button",
           "props": {
             "type": "button",
-            "className": "px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            "title": "$t:common.cancel",
+            "aria-label": "$t:common.cancel",
+            "className": "inline-flex items-center justify-center w-10 h-10 rounded-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
           },
+          "children": [
+            { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+          ],
           "actions": [
             {
               "type": "click",
@@ -183,8 +188,7 @@
                 ]
               }
             }
-          ],
-          "text": "$t:common.cancel"
+          ]
         },
         {
           "type": "basic",
@@ -198,8 +202,10 @@
               "if": "{{!_global.identityChallenge?.provider_id || _global.identityChallenge?.provider_id === 'g7:core.mail'}}",
               "props": {
                 "type": "button",
+                "title": "{{_global.identityChallenge?.render_hint === 'link' ? $t:user.identity.challenge.resend_link : $t:user.identity.challenge.resend}}",
+                "aria-label": "{{_global.identityChallenge?.render_hint === 'link' ? $t:user.identity.challenge.resend_link : $t:user.identity.challenge.resend}}",
                 "disabled": "{{(_global.identityChallenge?.resendCooldown ?? 0) > 0 || (_global.identityChallenge?.resending ?? false) || (_global.identityChallenge?.verifying ?? false)}}",
-                "className": "inline-flex items-center gap-1.5 px-3 py-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline disabled:text-gray-400 dark:disabled:text-gray-600 disabled:no-underline disabled:cursor-not-allowed"
+                "className": "inline-flex items-center justify-center gap-1 min-w-10 h-10 px-2 rounded-lg text-sm text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed cursor-pointer"
               },
               "actions": [
                 {
@@ -274,21 +280,17 @@
                 },
                 {
                   "type": "basic",
-                  "name": "Span",
-                  "if": "{{_global.identityChallenge?.resending ?? false}}",
-                  "text": "$t:common.processing"
+                  "name": "Icon",
+                  "if": "{{!(_global.identityChallenge?.resending ?? false)}}",
+                  "props": { "name": "rotate-right", "aria-hidden": "true" }
                 },
                 {
+                  "comment": "재전송 대기 초(숫자) — 버튼 이름이 아니라 남은 시간 데이터라 아이콘 옆에 남긴다",
                   "type": "basic",
                   "name": "Span",
                   "if": "{{!(_global.identityChallenge?.resending ?? false) && (_global.identityChallenge?.resendCooldown ?? 0) > 0}}",
-                  "text": "$t:user.identity.challenge.resend_cooldown|seconds={{_global.identityChallenge?.resendCooldown ?? 0}}"
-                },
-                {
-                  "type": "basic",
-                  "name": "Span",
-                  "if": "{{!(_global.identityChallenge?.resending ?? false) && (_global.identityChallenge?.resendCooldown ?? 0) <= 0}}",
-                  "text": "{{_global.identityChallenge?.render_hint === 'link' ? $t:user.identity.challenge.resend_link : $t:user.identity.challenge.resend}}"
+                  "props": { "className": "tabular-nums", "aria-hidden": "true" },
+                  "text": "{{_global.identityChallenge?.resendCooldown ?? 0}}"
                 }
               ]
             },
@@ -299,7 +301,9 @@
               "if": "{{(_global.identityChallenge?.render_hint ?? 'text_code') === 'text_code' && (!_global.identityChallenge?.provider_id || _global.identityChallenge?.provider_id === 'g7:core.mail')}}",
               "props": {
                 "type": "button",
-                "className": "inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors",
+                "title": "{{(_global.identityChallenge?.verifying ?? false) ? $t:common.processing : $t:user.identity.challenge.verify}}",
+                "aria-label": "{{(_global.identityChallenge?.verifying ?? false) ? $t:common.processing : $t:user.identity.challenge.verify}}",
+                "className": "inline-flex items-center justify-center w-10 h-10 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-colors cursor-pointer",
                 "disabled": "{{!_global.identityChallenge?.code || (_global.identityChallenge?.code ?? '').length < 4 || (_global.identityChallenge?.remainingSeconds ?? 0) <= 0 || ((_global.identityChallenge?.maxAttempts ?? 0) > 0 && (_global.identityChallenge?.attempts ?? 0) >= (_global.identityChallenge?.maxAttempts ?? 0)) || (_global.identityChallenge?.verifying ?? false) || (_global.identityChallenge?.resending ?? false)}}"
               },
               "actions": [
@@ -366,12 +370,13 @@
                   "type": "basic",
                   "name": "Icon",
                   "if": "{{_global.identityChallenge?.verifying ?? false}}",
-                  "props": { "name": "fas fa-spinner fa-spin", "className": "text-sm" }
+                  "props": { "name": "fas fa-spinner fa-spin", "className": "text-sm", "aria-hidden": "true" }
                 },
                 {
                   "type": "basic",
-                  "name": "Span",
-                  "text": "{{(_global.identityChallenge?.verifying ?? false) ? $t:common.processing : $t:user.identity.challenge.verify}}"
+                  "name": "Icon",
+                  "if": "{{!(_global.identityChallenge?.verifying ?? false)}}",
+                  "props": { "name": "check", "aria-hidden": "true" }
                 }
               ]
             }

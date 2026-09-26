@@ -31,9 +31,11 @@
           "type": "basic",
           "name": "Button",
           "props": {
-            "className": "px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed",
+            "className": "inline-flex items-center justify-center w-10 h-10 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
             "disabled": "{{_global.isDeletingAllNotifications}}",
-            "type": "button"
+            "type": "button",
+            "title": "$t:common.cancel",
+            "aria-label": "$t:common.cancel"
           },
           "actions": [
             {
@@ -42,15 +44,19 @@
               "target": "notification_delete_all_confirm_modal"
             }
           ],
-          "text": "$t:common.cancel"
+          "children": [
+            { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+          ]
         },
         {
           "type": "basic",
           "name": "Button",
           "props": {
-            "className": "flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed",
+            "className": "inline-flex items-center justify-center w-10 h-10 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
             "disabled": "{{_global.isDeletingAllNotifications}}",
-            "type": "button"
+            "type": "button",
+            "title": "{{_global.isDeletingAllNotifications ? $t:common.deleting : $t:common.delete}}",
+            "aria-label": "{{_global.isDeletingAllNotifications ? $t:common.deleting : $t:common.delete}}"
           },
           "actions": [
             {
@@ -131,13 +137,15 @@
               "if": "{{_global.isDeletingAllNotifications}}",
               "props": {
                 "name": "spinner",
-                "className": "w-4 h-4 animate-spin"
+                "className": "w-4 h-4 animate-spin",
+                "aria-hidden": "true"
               }
             },
             {
               "type": "basic",
-              "name": "Span",
-              "text": "{{_global.isDeletingAllNotifications ? $t:common.deleting : $t:common.delete}}"
+              "name": "Icon",
+              "if": "{{!_global.isDeletingAllNotifications}}",
+              "props": { "name": "trash-can", "aria-hidden": "true" }
             }
           ]
         }

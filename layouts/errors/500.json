@@ -50,7 +50,10 @@
                 "type": "basic",
                 "name": "Button",
                 "props": {
-                  "className": "inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors cursor-pointer"
+                  "type": "button",
+                  "title": "$t:error.500.back_to_home",
+                  "aria-label": "$t:error.500.back_to_home",
+                  "className": "inline-flex items-center justify-center w-12 h-12 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors cursor-pointer"
                 },
                 "actions": [{ "type": "click", "handler": "navigate", "params": { "path": "/" } }],
                 "children": [
@@ -58,14 +61,10 @@
                     "type": "basic",
                     "name": "Icon",
                     "props": {
-                      "name": "home",
-                      "className": "w-5 h-5"
+                      "name": "house",
+                      "className": "w-5 h-5",
+                      "aria-hidden": "true"
                     }
-                  },
-                  {
-                    "type": "basic",
-                    "name": "Span",
-                    "text": "$t:error.500.back_to_home"
                   }
                 ]
               }

@@ -148,7 +148,10 @@
           "if": "{{(form_meta?.data?.parent_post?.content?.length ?? 0) > 150}}",
           "props": {
             "type": "button",
-            "className": "text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors flex items-center gap-1"
+            "title": "{{_local.parentPostExpanded ? '$t:board.form.hide_content' : '$t:board.form.show_full_content'}}",
+            "aria-label": "{{_local.parentPostExpanded ? '$t:board.form.hide_content' : '$t:board.form.show_full_content'}}",
+            "aria-expanded": "{{_local.parentPostExpanded ? 'true' : 'false'}}",
+            "className": "inline-flex items-center justify-center w-8 h-8 rounded-md text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors cursor-pointer"
           },
           "actions": [
             {
@@ -163,15 +166,10 @@
           "children": [
             {
               "type": "basic",
-              "name": "Span",
-              "text": "{{_local.parentPostExpanded ? '$t:board.form.hide_content' : '$t:board.form.show_full_content'}}"
-            },
-            {
-              "type": "basic",
               "name": "Icon",
               "props": {
                 "name": "{{_local.parentPostExpanded ? 'chevron-up' : 'chevron-down'}}",
-                "className": "w-3 h-3"
+                "aria-hidden": "true"
               }
             }
           ]

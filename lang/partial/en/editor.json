@@ -374,24 +374,6 @@
     "ec_collapse_text": {
       "label": "Collapse Text"
     },
-    "qs_value": {
-      "label": "Initial Quantity"
-    },
-    "qs_min": {
-      "label": "Min"
-    },
-    "qs_max": {
-      "label": "Max"
-    },
-    "qs_size": {
-      "label": "Size",
-      "sm": "SM",
-      "md": "MD",
-      "lg": "LG"
-    },
-    "qs_disabled": {
-      "label": "Disabled"
-    },
     "au_src": {
       "label": "Avatar URL"
     },
@@ -489,9 +471,6 @@
     },
     "pi_confirm_target": {
       "label": "Confirm Target"
-    },
-    "pc_shop_base": {
-      "label": "Shop Base Path"
     },
     "grid_cols": {
       "label": "Columns"
@@ -613,9 +592,6 @@
     "hdr_logo": {
       "label": "Logo Image"
     },
-    "hdr_shop_base": {
-      "label": "Shop Base Path"
-    },
     "hdr_max_boards": {
       "label": "Boards Shown in Tabs"
     },
@@ -701,7 +677,6 @@
     "li": "List Item",
     "nav": "Navigation",
     "three_column_layout": "Three Column Layout",
-    "product_card": "Product Card",
     "image_gallery": "Image Gallery",
     "pagination": "Pagination",
     "search_bar": "Search Bar",
@@ -712,8 +687,6 @@
     "rich_text_editor": "Rich Text Editor",
     "expandable_content": "Expandable Content",
     "tab_navigation": "Tab Navigation",
-    "quantity_selector": "Quantity Selector",
-    "product_image_viewer": "Product Image Viewer",
     "file_uploader": "File Uploader",
     "avatar_uploader": "Avatar Uploader",
     "social_login_buttons": "Social Login Buttons",
@@ -768,49 +741,12 @@
       "target_light": "Light",
       "target_dark": "Dark"
     },
-    "save_preferred_currency": {
-      "label": "Save preferred currency",
-      "param_currency": "Currency"
-    },
-    "set_cart_option": {
-      "label": "Change cart option",
-      "param_item_id": "Item ID",
-      "param_option_key": "Option name",
-      "param_option_value": "Option value"
-    },
-    "open_cart_delete_modal": {
-      "label": "Open cart delete confirmation",
-      "param_item_id": "Item ID"
-    },
-    "open_cart_option_modal": {
-      "label": "Open cart option selection",
-      "param_item_id": "Item ID"
-    },
-    "recalculate_cart": {
-      "label": "Recalculate cart total"
-    },
-    "get_display_price": {
-      "label": "Get display price",
-      "param_currency": "Currency"
-    },
     "init_theme": {
       "label": "Initialize theme",
       "param_target": "Theme",
       "target_auto": "Auto",
       "target_light": "Light",
       "target_dark": "Dark"
-    },
-    "init_cart_key": {
-      "label": "Initialize cart key"
-    },
-    "load_preferred_currency": {
-      "label": "Load preferred currency"
-    },
-    "get_cart_key": {
-      "label": "Get cart key"
-    },
-    "clear_cart_key": {
-      "label": "Clear cart key"
     },
     "save_to_storage": {
       "label": "Save to browser",
@@ -821,12 +757,6 @@
       "label": "Load from browser",
       "param_key": "Storage name",
       "param_default": "Default value"
-    },
-    "save_guest_order_token": {
-      "label": "Save guest order token",
-      "param_token": "Order token",
-      "param_order_number": "Order number",
-      "param_expires_at": "Expires at"
     }
   },
   "computed": {
@@ -950,10 +880,6 @@
     "notifications_empty": "No notifications",
     "with_data": "Has data",
     "empty_data": "No data",
-    "in_stock": "In stock",
-    "out_of_stock": "Out of stock (on sale)",
-    "cart_with_items": "Has items",
-    "cart_empty": "Empty cart",
     "read_normal": "Normal post",
     "read_secret_locked": "Secret locked",
     "published": "Published",
@@ -975,10 +901,6 @@
     "challenge_error": "Auth failed",
     "change_password_form": "Input form",
     "change_password_success": "Changed",
-    "wishlist_with_items": "Has wishlist",
-    "wishlist_empty": "Empty wishlist",
-    "addresses_with": "Has addresses",
-    "addresses_empty": "No addresses",
     "user_active": "Active user",
     "user_withdrawn": "Withdrawn user",
     "user_posts_with": "Has posts",
@@ -988,35 +910,10 @@
     "board_create": "Create post",
     "board_edit": "Edit post",
     "board_reply_with_quote": "Write reply (quote parent)",
-    "shop_access_denied": "Access denied",
-    "sold_out": "Marked sold out",
-    "suspended": "Suspended",
-    "coming_soon": "Coming soon",
-    "product_reviews_tab": "Reviews tab",
-    "product_qna_tab": "Product Q&A tab",
     "board_activity_my_posts": "My posts",
     "board_activity_my_comments": "My comments",
     "search_tab_posts": "Posts tab",
-    "search_tab_products": "Products tab",
     "search_tab_pages": "Pages tab",
-    "cart_ordering": "Ordering",
-    "checkout_summary_details": "Summary details expanded",
-    "cart_summary_details": "Tax details expanded",
-    "checkout_normal": "Normal checkout",
-    "checkout_payment_error": "Payment error",
-    "checkout_validation_failed": "Validation failed",
-    "payment_card": "Card payment",
-    "payment_vbank": "Virtual account",
-    "payment_dbank": "Bank transfer",
-    "reorder_pending": "Reorder pending",
-    "reorder_success_partial": "Partial reorder",
-    "reorder_error": "Reorder failed",
-    "guest_order_form_guest": "Guest (lookup form)",
-    "guest_order_form_member": "Member (mypage notice)",
-    "address_modal_list": "Address list",
-    "address_modal_form": "Manual address entry",
-    "order_show_default": "Default",
-    "order_change_address_manual": "Change address (manual entry)",
     "user_base_default": "Default",
     "mobile_menu_open": "Mobile menu open",
     "gdpr_cookie_banner_visible": "Cookie banner visible",
@@ -1086,7 +983,6 @@
     "current_page": "Current page",
     "total_pages": "Total pages",
     "reactions": "Reactions",
-    "product": "Product",
     "author": "Author",
     "value": "Value",
     "options": "Options",
@@ -1096,7 +992,6 @@
     "header_boards": "Board List",
     "header_notifications": "Notification List",
     "header_available_locales": "Available Locales",
-    "header_cart_count": "Cart Count",
     "header_notification_count": "Notification Count",
     "footer_social_links": "Social Links",
     "footer_link_groups": "Link Groups",
@@ -1113,64 +1008,37 @@
     "query_q": "Search query (URL)"
   },
   "data_source": {
-    "addresses": "Addresses",
     "boardList": "Board List",
     "boards": "Boards",
-    "cart": "Cart",
-    "cartItems": "Cart Items",
-    "categories": "Categories",
-    "category": "Category",
     "challenge": "Identity Challenge",
-    "checkoutData": "Checkout Data",
     "current_user": "Current User",
     "form_data": "Form Data",
     "form_meta": "Form Meta",
     "home_boards": "Home Boards",
-    "mileage_balance": "Mileage Balance",
-    "mileage_history": "Mileage History",
     "myActivityStats": "My Activity Stats",
     "myComments": "My Comments",
-    "myInquiries": "My Inquiries",
     "myPosts": "My Posts",
     "navigation": "Navigation",
-    "newProducts": "New Products",
     "notification_unread_count": "Unread Notification Count",
     "notifications": "Notifications",
-    "order": "Order",
-    "orderData": "Order Data",
-    "orders": "Orders",
     "page": "Page",
-    "paymentSettings": "Payment Settings",
     "popularPosts": "Popular Posts",
-    "popularProducts": "Popular Products",
     "popular_boards": "Popular Boards",
     "post": "Post",
     "postStats": "Post Stats",
     "posts": "Posts",
     "privacyContent": "Privacy Policy Content",
-    "product": "Product",
-    "productDownloadableCoupons": "Downloadable Coupons",
-    "products": "Products",
     "profile": "Profile",
-    "qna": "Product Q&A",
     "recentPosts": "Recent Posts",
-    "recentProducts": "Recently Viewed Products",
     "recent_posts": "Recent Posts",
-    "refundReasons": "Refund Reasons",
-    "reviewSettings": "Review Policy Settings",
-    "reviews": "Reviews",
-    "saveShippingAddress": "Save Shipping Address",
     "searchResults": "Search Results",
-    "shippingSettings": "Shipping Settings",
     "stats": "Stats",
     "termsContent": "Terms Content",
     "tokenValidation": "Token Validation",
     "user": "User",
-    "userAddresses": "User Addresses",
     "userNotifications": "User Notifications",
     "userPosts": "User Posts",
     "userProfile": "User Profile",
-    "user_notification_ws": "Notifications (Live)",
-    "wishlist": "Wishlist"
+    "user_notification_ws": "Notifications (Live)"
   }
 }

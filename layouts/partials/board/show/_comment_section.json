@@ -42,13 +42,17 @@
           ]
         },
         {
-          "comment": "삭제된 댓글 포함 토글 버튼 (manager 권한 보유 시에만 표시)",
+          "comment": "삭제된 댓글 포함 토글 버튼 (manager 권한 보유 시에만 표시). 아이콘만(2026-09-26): 꺼짐 = 회색 테두리 + eye-slash(삭제된 댓글 숨김), 켜짐 = 강조색 두꺼운 테두리·배경 + eye(삭제된 댓글 보임). aria-pressed 로 상태를 알린다.",
           "type": "basic",
           "name": "Button",
           "if": "{{post?.data?.abilities?.can_manage}}",
           "props": {
             "type": "button",
-            "className": "{{query.del_cmt === '1' ? 'inline-flex items-center gap-1.5 px-3 py-2 border-2 border-primary-600 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-lg text-sm font-medium' : 'inline-flex items-center gap-1.5 px-3 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700'}}"
+            "title": "$t:board.filter.include_deleted_comments",
+            "aria-label": "$t:board.filter.include_deleted_comments",
+            "aria-pressed": "{{query.del_cmt === '1' ? 'true' : 'false'}}",
+            "data-testid": "toggle-deleted-comments",
+            "className": "{{query.del_cmt === '1' ? 'inline-flex items-center justify-center w-10 h-10 border-2 border-primary-600 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-lg cursor-pointer' : 'inline-flex items-center justify-center w-10 h-10 border border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer'}}"
           },
           "actions": [
             {
@@ -64,8 +68,7 @@
             }
           ],
           "children": [
-            { "type": "basic", "name": "Icon", "props": { "name": "eye", "size": "sm" } },
-            { "type": "basic", "name": "Span", "text": "$t:board.filter.include_deleted_comments" }
+            { "type": "basic", "name": "Icon", "props": { "name": "{{query.del_cmt === '1' ? 'eye' : 'eye-slash'}}", "aria-hidden": "true" } }
           ]
         }
       ]
@@ -130,12 +133,14 @@
               "partial": "partials/board/show/_comment_item.json"
             },
             {
-              "comment": "답글이 있는 경우 토글 버튼",
+              "comment": "답글이 있는 경우 토글 버튼 — 아이콘(펼침/접힘 화살표) + 답글 수(숫자는 버튼 이름이 아니라 데이터라 남긴다). 원래 문구는 children[1] 에 화면낭독 전용(sr-only)으로 둔다: g7-forum-addon 이 children[0].props.name·children[1].text 를 위치로 덮어써 포럼 게시판의 '기본 펼침' 문구로 바꾸기 때문이다(BoardShowWidgetListener::applyForumRepliesDefaultExpanded). 툴팁(title)은 원래 문구 식을 쓴다 — 플러그인이 title 은 바꾸지 않아 포럼 게시판 첫 화면에서는 툴팁 문구가 반대로 보일 수 있다(설계안 보고).",
               "type": "basic",
               "name": "Button",
               "if": "{{(comment?.replies_count ?? 0) > 0 && (comment?.depth ?? 0) === 0}}",
               "props": {
-                "className": "ml-16 mb-2 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 flex items-center gap-1"
+                "type": "button",
+                "title": "{{_local.collapsedReplies?.[comment?.id] === false ? '$t:board.hide_replies' : '$t:board.show_replies'}} ({{comment?.replies_count}})",
+                "className": "ml-16 mb-2 h-8 px-2 rounded-md text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 inline-flex items-center gap-1 cursor-pointer"
               },
               "actions": [
                 {
@@ -153,13 +158,21 @@
                   "name": "Icon",
                   "props": {
                     "name": "{{_local.collapsedReplies?.[comment?.id] === false ? 'chevron-up' : 'chevron-down'}}",
-                    "size": "sm"
+                    "size": "sm",
+                    "aria-hidden": "true"
                   }
                 },
                 {
                   "type": "basic",
                   "name": "Span",
+                  "props": { "className": "sr-only" },
                   "text": "{{_local.collapsedReplies?.[comment?.id] === false ? '$t:board.hide_replies' : '$t:board.show_replies'}} ({{comment?.replies_count}})"
+                },
+                {
+                  "type": "basic",
+                  "name": "Span",
+                  "props": { "aria-hidden": "true" },
+                  "text": "{{comment?.replies_count}}"
                 }
               ]
             }

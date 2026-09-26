@@ -156,9 +156,14 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                                "className": "px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+                                "type": "button",
+                                "title": "$t:common.search",
+                                "aria-label": "$t:common.search",
+                                "className": "inline-flex items-center justify-center w-10 h-10 shrink-0 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors cursor-pointer"
                             },
-                            "text": "$t:common.search",
+                            "children": [
+                                { "type": "basic", "name": "Icon", "props": { "name": "search", "aria-hidden": "true" } }
+                            ],
                             "actions": [
                                 {
                                     "type": "click",
@@ -185,9 +190,14 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                                "className": "px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                "type": "button",
+                                "title": "$t:common.reset",
+                                "aria-label": "$t:common.reset",
+                                "className": "inline-flex items-center justify-center w-10 h-10 shrink-0 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer"
                             },
-                            "text": "$t:common.reset",
+                            "children": [
+                                { "type": "basic", "name": "Icon", "props": { "name": "rotate-right", "aria-hidden": "true" } }
+                            ],
                             "actions": [
                                 {
                                     "type": "click",
@@ -266,9 +276,14 @@
                     "type": "basic",
                     "name": "Button",
                     "props": {
-                        "className": "text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-200 text-sm"
+                        "type": "button",
+                        "title": "$t:common.reset",
+                        "aria-label": "$t:common.reset",
+                        "className": "inline-flex items-center justify-center w-8 h-8 rounded-md text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-200 hover:bg-primary-100 dark:hover:bg-primary-900/30 cursor-pointer"
                     },
-                    "text": "$t:common.reset",
+                    "children": [
+                        { "type": "basic", "name": "Icon", "props": { "name": "xmark", "aria-hidden": "true" } }
+                    ],
                     "actions": [
                         {
                             "type": "click",
@@ -480,7 +495,10 @@
                             "type": "basic",
                             "name": "Button",
                             "props": {
-                                "className": "inline-block mt-4 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg text-sm font-medium cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+                                "type": "button",
+                                "title": "$t:mypage.board_activities.go_boards",
+                                "aria-label": "$t:mypage.board_activities.go_boards",
+                                "className": "inline-flex items-center justify-center w-10 h-10 mt-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
                             },
                             "actions": [
                                 {
@@ -491,7 +509,9 @@
                                     }
                                 }
                             ],
-                            "text": "$t:mypage.board_activities.go_boards"
+                            "children": [
+                                { "type": "basic", "name": "Icon", "props": { "name": "th-large", "aria-hidden": "true" } }
+                            ]
                         }
                     ]
                 }

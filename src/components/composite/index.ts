@@ -1,4 +1,4 @@
-// e2e:allow 편집기 ComponentRegistry 등록맵에 SlotContainer 추가(편집기 IIFE 번들 포함 — 헤더 통화 슬롯 렌더). 편집기 캔버스 렌더는 Chrome MCP 라이브 실측 + Vitest 로 검증. 사용자 사이트 런타임 무변경.
+// e2e:allow 편집기 ComponentRegistry 등록맵에 SlotContainer 추가(편집기 IIFE 번들 포함 — 헤더 슬롯 렌더). 편집기 캔버스 렌더는 Chrome MCP 라이브 실측 + Vitest 로 검증. 사용자 사이트 런타임 무변경.
 /**
  * sirsoft-basic 템플릿 Composite 컴포넌트 등록
  *
@@ -24,10 +24,6 @@ export { HtmlEditor } from './HtmlEditor';
 
 // 콘텐츠 유틸리티
 export { ExpandableContent } from './ExpandableContent';
-
-// 홈 위젯
-export { NoticeTicker } from './NoticeTicker';
-export type { NoticeTickerProps, NoticeTickerItem } from './NoticeTicker';
 
 // 공통 컴포넌트
 export { default as FileUploader } from './FileUploader';
@@ -68,7 +64,7 @@ export const compositeComponents = {
   Header: () => import('./Header'),
   Footer: () => import('./Footer'),
   MobileNav: () => import('./MobileNav'),
-  // 슬롯 컨테이너 — 모듈 주입 UI(헤더 통화 셀렉터 등)를 떙겨 렌더. 등록맵 누락 시
+  // 슬롯 컨테이너 — 모듈 주입 UI를 떙겨 렌더. 등록맵 누락 시
   // 편집기 캔버스 IIFE 번들에 포함되지 않아 "Component not found in bundle" 로 렌더 실패한다
   // (운영 사이트는 별도 등록 경로라 정상이나 편집기 미리보기에서만 슬롯이 통째로 비는 회귀).
   SlotContainer: () => import('./SlotContainer'),
@@ -84,9 +80,6 @@ export const compositeComponents = {
 
   // 콘텐츠 유틸리티
   ExpandableContent: () => import('./ExpandableContent'),
-
-  // 홈 위젯
-  NoticeTicker: () => import('./NoticeTicker'),
 
   // 공통
   FileUploader: () => import('./FileUploader'),
