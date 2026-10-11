@@ -84,27 +84,7 @@ export const HtmlContent: React.FC<HtmlContentProps> = ({
 }) => {
   // text prop이 우선순위가 높음 (레이아웃 JSON에서 사용)
   const actualContent = text ?? content ?? '';
-
-  // 빈 값 처리
-  if (!actualContent || actualContent.trim() === '') {
-    return null;
-  }
-
-  // isHtml=false: 일반 텍스트 렌더링
-  if (!isHtml) {
-    const textClasses = `
-      whitespace-pre-wrap
-      text-gray-900 dark:text-gray-100
-      font-sans
-      ${className}
-    `.trim().replace(/\s+/g, ' ');
-
-    return (
-      <Div className={textClasses} id={id} {...editorAttrs}>
-        {actualContent}
-      </Div>
-    );
-  }
+  const isEmpty = !actualContent || actualContent.trim() === '';
 
   // 기본 DOMPurify 설정 (FORBID 방식: 위험 태그/속성만 차단, 나머지 허용)
   const defaultConfig: any = {
@@ -139,8 +119,9 @@ export const HtmlContent: React.FC<HtmlContentProps> = ({
     ADD_ATTR: ['target', 'fetchpriority'],
   };
 
-  // sanitize된 HTML을 메모이제이션
+  // sanitize된 HTML을 메모이제이션 (훅은 아래 조기 반환보다 앞에 둔다 — 빈 값·텍스트 모드로 바뀌어도 훅 순서 유지)
   const sanitizedHtml = useMemo(() => {
+    if (isEmpty || !isHtml) return '';
     const config = purifyConfig
       ? {
           ...defaultConfig,
@@ -164,7 +145,34 @@ export const HtmlContent: React.FC<HtmlContentProps> = ({
         return match;
       }
     );
-  }, [actualContent, purifyConfig]);
+  }, [actualContent, isEmpty, isHtml, purifyConfig]);
+
+  // React 19 는 dangerouslySetInnerHTML 객체가 바뀌면(문자열이 같아도) innerHTML 을 다시 넣는다.
+  // 렌더마다 새 객체를 넘기면 화면이 다시 렌더될 때마다(예: 같은 화면의 댓글 입력) 본문이 원문 HTML 로
+  // 되돌아가, 다른 확장이 본문 위에 그린 화면 처리(링크 카드·임베드 등)가 풀렸다가 다시 그려진다.
+  // 같은 HTML 이면 같은 객체를 넘겨 본문 DOM 을 그대로 둔다.
+  const innerHtml = useMemo(() => ({ __html: sanitizedHtml }), [sanitizedHtml]);
+
+  // 빈 값 처리
+  if (isEmpty) {
+    return null;
+  }
+
+  // isHtml=false: 일반 텍스트 렌더링
+  if (!isHtml) {
+    const textClasses = `
+      whitespace-pre-wrap
+      text-gray-900 dark:text-gray-100
+      font-sans
+      ${className}
+    `.trim().replace(/\s+/g, ' ');
+
+    return (
+      <Div className={textClasses} id={id} {...editorAttrs}>
+        {actualContent}
+      </Div>
+    );
+  }
 
   // 컨테이너 클래스 조합
   const containerClasses = `
@@ -195,7 +203,7 @@ export const HtmlContent: React.FC<HtmlContentProps> = ({
     <Div
       id={id}
       className={containerClasses}
-      dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+      dangerouslySetInnerHTML={innerHtml}
       {...editorAttrs}
     />
   );

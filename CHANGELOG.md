@@ -7,6 +7,25 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## Unreleased
+
+### Fixed
+
+- `HtmlContent` no longer rewrites the post body when the page re-renders with the same HTML.
+  It used to pass a new `dangerouslySetInnerHTML` object on every render, and React 19 then
+  sets `innerHTML` again even if the string is the same. Typing in the comment box on a post
+  page re-renders the page on every keystroke, so the body went back to its stored HTML each
+  time and anything another extension had drawn on it (link cards, embeds) came undone and was
+  drawn again — the cards flickered. The object is now memoized on the sanitized HTML.
+  The hooks also run before the early returns now, so switching between empty, HTML and
+  plain-text content keeps the same hook order.
+
+### Tests
+
+- `src/components/composite/__tests__/HtmlContentStableDom.test.tsx` — the body node is kept
+  across re-renders with the same HTML, a changed HTML is drawn again, and empty / HTML /
+  plain-text switches render without errors.
+
 ## fork-20260927 — 2026-09-27
 
 ### Added
