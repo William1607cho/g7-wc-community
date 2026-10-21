@@ -89,11 +89,11 @@
     ],
     "init_actions": [
         {
-            "comment": "tempKey 생성",
+            "comment": "tempKey 생성 — UUID 형식(코어 표현식 헬퍼 $uuid). 7.1.0 게시판 모듈 1.2.0 이 첨부 임시 키를 uuid 로 검증한다(2026-10-21). 7.0.11 의 검증(string, max:64)도 통과한다.",
             "handler": "setState",
             "params": {
                 "target": "local",
-                "tempKey": "{{('temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9))}}"
+                "tempKey": "{{$uuid()}}"
             }
         }
     ],
