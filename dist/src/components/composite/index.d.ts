@@ -21,6 +21,7 @@ export { default as SocialLoginButtons } from './SocialLoginButtons';
 export { default as Toast } from './Toast';
 export { default as PageTransitionIndicator } from './PageTransitionIndicator';
 export { default as PageTransitionBlur } from './PageTransitionBlur';
+export { default as CommentScrollbar } from './CommentScrollbar';
 export { default as PageSkeleton } from './PageSkeleton';
 export { default as PageLoading } from './PageLoading';
 export { default as ThemeToggle } from './ThemeToggle';
@@ -64,6 +65,7 @@ export declare const compositeComponents: {
     Toast: () => Promise<typeof import("./Toast")>;
     PageTransitionIndicator: () => Promise<typeof import("./PageTransitionIndicator")>;
     PageTransitionBlur: () => Promise<typeof import("./PageTransitionBlur")>;
+    CommentScrollbar: () => Promise<typeof import("./CommentScrollbar")>;
     PageSkeleton: () => Promise<typeof import("./PageSkeleton")>;
     PageLoading: () => Promise<typeof import("./PageLoading")>;
     ThemeToggle: () => Promise<typeof import("./ThemeToggle")>;

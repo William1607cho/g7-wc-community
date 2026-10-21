@@ -7,6 +7,33 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## fork-20261021 — unreleased
+
+### Changed
+
+- The post form's attachment temp key is now a UUID (`{{$uuid()}}`, the core expression helper)
+  instead of `temp_<time>_<random>`. Core 7.1.0 (board module 1.2.0) validates the temp key as a
+  UUID; the 7.0.11 rule (`string`, max 64) accepts it too.
+- Floating buttons: the home page now shows the bar with the scroll-to-top button only (the home
+  button hides itself on `/`; the comments and list buttons were already hidden there).
+
+### Added
+
+- `CommentScrollbar` composite — a vertical track and handle right under the comments button on a
+  post page. It treats the comments drawn on the page (first row top to last row bottom, rows
+  `#post_comments [data-g7-anchor="comment-row"]`) as 0–100%: dragging the handle or pressing the
+  track scrolls there, and page scrolling moves the handle. Pointer events, so touch drag works.
+  Scroll, resize and DOM changes are batched into one animation frame; the handle moves by style,
+  not by re-rendering. Nothing is drawn when no comment rows are on the page, and the bot SSR page
+  skips it (`seo-config.json`).
+
+### Tests
+
+- `src/components/composite/__tests__/CommentScrollbar.test.tsx` — range math, nothing drawn
+  without comment rows, only track and handle drawn with rows, rows outside `#post_comments` not
+  counted, and the floating bar layout (home shows the bar, home button hidden on `/`, the
+  scrollbar sits right after the comments button with the same `if`).
+
 ## fork-20261011 — 2026-10-11
 
 ### Fixed

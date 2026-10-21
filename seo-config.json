@@ -300,6 +300,10 @@
             "tag": "div",
             "skip": true
         },
+        "CommentScrollbar": {
+            "tag": "div",
+            "skip": true
+        },
         "MobileNav": {
             "tag": "nav",
             "skip": true

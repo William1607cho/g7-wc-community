@@ -747,6 +747,42 @@
         }
       },
       {
+        "name": "CommentScrollbar",
+        "type": "composite",
+        "description": "글 보기 플로팅 버튼 줄의 댓글 스크롤바 (트랙 + 손잡이, 그려진 댓글 영역을 0~100% 로 이동)",
+        "path": "src/components/composite/CommentScrollbar.tsx",
+        "props": {
+          "containerSelector": {
+            "type": "string",
+            "required": false,
+            "default": "#post_comments",
+            "description": "댓글 영역 선택자"
+          },
+          "itemSelector": {
+            "type": "string",
+            "required": false,
+            "default": "[data-g7-anchor=\"comment-row\"]",
+            "description": "댓글 행 선택자"
+          },
+          "topOffset": {
+            "type": "number",
+            "required": false,
+            "default": 80,
+            "description": "0% 위치에서 첫 댓글 위에 남길 여백(px)"
+          },
+          "aria-label": {
+            "type": "string",
+            "required": false,
+            "description": "스크린리더용 이름"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "사용자 정의 클래스"
+          }
+        }
+      },
+      {
         "name": "PageSkeleton",
         "type": "composite",
         "description": "레이아웃 컴포넌트 트리 기반 동적 스켈레톤 UI 렌더러",

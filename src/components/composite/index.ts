@@ -32,6 +32,7 @@ export { default as SocialLoginButtons } from './SocialLoginButtons';
 export { default as Toast } from './Toast';
 export { default as PageTransitionIndicator } from './PageTransitionIndicator';
 export { default as PageTransitionBlur } from './PageTransitionBlur';
+export { default as CommentScrollbar } from './CommentScrollbar';
 export { default as PageSkeleton } from './PageSkeleton';
 export { default as PageLoading } from './PageLoading';
 export { default as ThemeToggle } from './ThemeToggle';
@@ -88,6 +89,7 @@ export const compositeComponents = {
   Toast: () => import('./Toast'),
   PageTransitionIndicator: () => import('./PageTransitionIndicator'),
   PageTransitionBlur: () => import('./PageTransitionBlur'),
+  CommentScrollbar: () => import('./CommentScrollbar'),
   PageSkeleton: () => import('./PageSkeleton'),
   PageLoading: () => import('./PageLoading'),
   ThemeToggle: () => import('./ThemeToggle'),

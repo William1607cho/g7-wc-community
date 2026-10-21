@@ -1995,11 +1995,11 @@
                     "default": []
                 },
                 {
-                    "comment": "=== 플로팅 버튼 (2026-09-26) === 홈(route.path '/')을 뺀 모든 페이지, PC·모바일 공통으로 화면 우하단에 세로로 둔다. 위에서부터 맨 위로 → 홈 → 댓글 → 목록. 해당 없는 버튼은 if 로 숨긴다. 반투명(bg-white/70 + backdrop-blur). 2차(2026-09-26): 버튼 자체를 평소 opacity-50, 마우스 올림·키보드 초점·누름(hover/focus-visible/active)에 opacity-80, 150ms 전환. 코어·다른 확장에 맨 위로 버튼이 없음을 확인하고 넣었다(2026-09-26 검색).",
+                    "comment": "=== 플로팅 버튼 (2026-09-26) === 홈(route.path '/')을 뺀 모든 페이지, PC·모바일 공통으로 화면 우하단에 세로로 둔다. 위에서부터 맨 위로 → 홈 → 댓글 → 목록. 해당 없는 버튼은 if 로 숨긴다. 반투명(bg-white/70 + backdrop-blur). 2차(2026-09-26): 버튼 자체를 평소 opacity-50, 마우스 올림·키보드 초점·누름(hover/focus-visible/active)에 opacity-80, 150ms 전환. 코어·다른 확장에 맨 위로 버튼이 없음을 확인하고 넣었다(2026-09-26 검색). 3차(2026-10-21): 홈에도 줄을 두되 맨 위로 버튼만 보인다(홈 버튼은 홈에서 숨김, 댓글·목록 버튼은 원래 조건상 홈에서 안 보인다). 댓글 버튼 바로 아래에 댓글 스크롤바(CommentScrollbar)를 둔다.",
                     "id": "floating_buttons",
                     "type": "basic",
                     "name": "Div",
-                    "if": "{{!!route?.path && route.path !== '/'}}",
+                    "if": "{{!!route?.path}}",
                     "props": {
                         "className": "fixed bottom-4 right-4 z-40 flex flex-col items-center gap-2 print:hidden",
                         "role": "group",
@@ -2030,9 +2030,10 @@
                             ]
                         },
                         {
-                            "comment": "홈",
+                            "comment": "홈 — 홈 화면 자신에서는 숨긴다(2026-10-21).",
                             "type": "basic",
                             "name": "Button",
+                            "if": "{{route.path !== '/'}}",
                             "props": {
                                 "type": "button",
                                 "title": "$t:nav.home",
@@ -2069,6 +2070,15 @@
                             "children": [
                                 { "type": "basic", "name": "Icon", "props": { "name": "comments", "aria-hidden": "true" } }
                             ]
+                        },
+                        {
+                            "comment": "댓글 스크롤바 (2026-10-21) — 댓글 버튼과 같은 조건. 컴포넌트가 #post_comments 안의 댓글 행([data-g7-anchor=comment-row])을 직접 세어, 그려진 댓글이 없으면 아무것도 그리지 않는다. 게시판 유형 구분 없음(포럼도 같은 types/basic/show.json 을 쓴다). 봇 화면에서는 skip(seo-config).",
+                            "type": "composite",
+                            "name": "CommentScrollbar",
+                            "if": "{{!!route?.id && !!post?.data?.board?.use_comment && !!post?.data?.abilities?.can_read_comments && (post?.data?.comment_count ?? 0) > 0 && (!post?.data?.is_secret || post?.data?.content !== null)}}",
+                            "props": {
+                                "aria-label": "$t:board.comments"
+                            }
                         },
                         {
                             "comment": "목록 — 게시판 하위 화면(글 보기·글쓰기·수정)에서만. 게시판 목록 화면 자신(/board/{slug})과 게시판이 아닌 화면에서는 숨긴다. 주소는 글 보기 상단 목록 버튼(partials/board/show/_navigation.json)과 같다: /board/{slug} + mergeQuery(page·search·category 등 목록 상태 유지).",
