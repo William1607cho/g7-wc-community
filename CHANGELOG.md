@@ -7,6 +7,12 @@
 > 아래 「fork-20260918」 항목은 이 커스터마이징 사본에서만 있었던 변경입니다.
 > 원본 배포본의 이력은 그 아래 `## [1.1.4]` 부터입니다.
 
+## Unreleased
+
+### Added
+
+- `template.json` declares `features.color_scheme` (`{"strategy": "ancestor-class", "selector": ".dark"}`, the same value as the bundled sirsoft-basic template) so core 7.2.0+ bundled extension CSS follows the template's dark mode; core 7.1.x ignores the key (no visual change).
+
 ## fork-20261021 — 2026-10-21
 
 ### Changed
